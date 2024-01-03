@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d841893a6728a54bb96456607dc4960, type: 3}
+  m_Name: unhanded_combat
+  m_EditorClassIdentifier: 
+  _weaponType: 0
+  _firemode: 0
+  Name: 
+  damage: 10
+  AttackTimer: 23.09837
+  AttackRate: 0.3
+  MaxAmmo: 0
+  CurrentAmmo: 0
+  ConeSegment: 0
+  BurstAmount: 0
+  BurstCurrent: 0
+  BurstInterval: 0
+  ConeRayAmount: 0
+  floorImage: {fileID: 0}
+  audio_gunshot: {fileID: 0}
+  audio_click: {fileID: 0}
+  Impact: {fileID: 0}
