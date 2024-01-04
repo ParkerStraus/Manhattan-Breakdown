@@ -43,7 +43,7 @@ public class Player : NetworkBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        if (IsClient)
+        if (!IsOwner)
         {
             return;
         }
