@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.Netcode;
 using System.ComponentModel;
 using Unity.VisualScripting;
+using UnityEngine.UIElements;
 
 public class Player : NetworkBehaviour, IDamageable
 {
@@ -14,6 +15,8 @@ public class Player : NetworkBehaviour, IDamageable
     [SerializeField] private PlayerAudio pAud;
 
     [Header("Movement")]
+    [SerializeField] private NetworkVariable<Vector2> Position;
+    [SerializeField] private NetworkVariable<Quaternion> Rotation;
     [SerializeField] private float MoveSpeed;
     [SerializeField] private Vector2 MoveRealized;
     [SerializeField] private float MoveInterp;
@@ -40,10 +43,12 @@ public class Player : NetworkBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        if (!IsClient)
+        if (IsClient)
         {
             return;
         }
+
+
         if (!gh.IsPaused())
         {
             HandleMovement();
@@ -54,6 +59,7 @@ public class Player : NetworkBehaviour, IDamageable
             //Set Character to zero
             MoveRealized = Vector2.Lerp(MoveRealized, Vector2.zero, MoveInterp * Time.deltaTime);
         }
+
 
     }
 
@@ -74,6 +80,7 @@ public class Player : NetworkBehaviour, IDamageable
         float DirectionAngle = Vector2.Angle((Vector2)transform.position, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition));
         //Debug.Log((Vector2)transform.position +"   " + (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) );
         transform.rotation = Quaternion.Euler(0, 0, AimAngle);
+
     }
 
     private void HandleCombat()

@@ -17,6 +17,14 @@ public class GameHandler : MonoBehaviour
     public List<GameObject> players;
     public int playerAmt = 1;
 
+    public enum GameState
+    {
+        WaitingForPlayers,
+        Countdown,
+        InGame,
+        GameEnded
+    }
+
     public string CurrentArena = null;
     public List<string> LastArenas;
     public ArenaList arenaList;
@@ -29,14 +37,6 @@ public class GameHandler : MonoBehaviour
     void Start()
     {
         arenaList = Resources.Load<ArenaList>("ArenaList");
-        StartCoroutine(GoToNextArena());
-
-        LastArenas.Add(SceneManager.GetActiveScene().name);
-        var playerLoad = GameObject.FindGameObjectsWithTag("Player");
-        foreach(var player in playerLoad)
-        {
-            players.Add(player);
-        }
     }
 
     // Update is called once per frame
@@ -63,6 +63,12 @@ public class GameHandler : MonoBehaviour
     public bool IsPaused()
     {
         return CurrentlyPaused;
+    }
+
+    public void OnStartOfGame()
+    {
+        StartCoroutine(GoToNextArena());
+
     }
 
     public IEnumerator GoToNextArena()
