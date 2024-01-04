@@ -4,11 +4,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-public class GameHandler : MonoBehaviour
+public class GameHandler : NetworkBehaviour
 {
     bool CurrentlyPaused = false;
     public UnityEvent OnPause;
@@ -37,6 +38,7 @@ public class GameHandler : MonoBehaviour
     void Start()
     {
         arenaList = Resources.Load<ArenaList>("ArenaList");
+        StartGame();
     }
 
     // Update is called once per frame
@@ -65,16 +67,31 @@ public class GameHandler : MonoBehaviour
         return CurrentlyPaused;
     }
 
-    public void OnStartOfGame()
+    public void StartGame()
     {
-        StartCoroutine(GoToNextArena());
+        GetMapReadyServerRPC();
+    }
+
+    [ServerRpc]
+    void GetMapReadyServerRPC()
+    {
+
+        string ArenaName = arenaList.GetScene(-1);
+        GetMapReadyClientRPC(ArenaName);
 
     }
 
-    public IEnumerator GoToNextArena()
+    [ClientRpc]
+    void GetMapReadyClientRPC(string map)
     {
-        string ArenaName  = arenaList.GetScene(-1);
-        AsyncOperation scene = SceneManager.LoadSceneAsync(ArenaName, LoadSceneMode.Additive);
+
+        StartCoroutine(GoToNextArena(map));
+
+    }
+
+    public IEnumerator GoToNextArena(string map)
+    {
+        AsyncOperation scene = SceneManager.LoadSceneAsync(map, LoadSceneMode.Additive);
 
         while (!scene.isDone)
         {
@@ -86,7 +103,7 @@ public class GameHandler : MonoBehaviour
         {
 
         }
-        CurrentArena = ArenaName;
+        CurrentArena = map;
 
     }
 

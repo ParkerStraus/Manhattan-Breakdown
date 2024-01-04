@@ -155,7 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NetworkConfig:
     ProtocolVersion: 0
-    NetworkTransport: {fileID: 0}
+    NetworkTransport: {fileID: 10946638}
     PlayerPrefab: {fileID: 1960366418344800116, guid: 12b34abea06fbb14e96b889f2c1cb46f, type: 3}
     Prefabs:
       NetworkPrefabsLists:
@@ -233,6 +233,7 @@ GameObject:
   - component: {fileID: 519420030}
   - component: {fileID: 519420033}
   - component: {fileID: 519420034}
+  - component: {fileID: 519420036}
   - component: {fileID: 519420035}
   m_Layer: 0
   m_Name: Main Camera
@@ -447,6 +448,26 @@ MonoBehaviour:
   virtualCamera: {fileID: 874662460}
   playerPrefab: {fileID: 0}
   playerObject: {fileID: 0}
+--- !u!114 &519420036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 410454075
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 0
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &874662459
 GameObject:
   m_ObjectHideFlags: 0
