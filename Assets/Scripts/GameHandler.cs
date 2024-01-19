@@ -12,6 +12,7 @@ using UnityEngine.UIElements;
 
 public class GameHandler : MonoBehaviour
 {
+
     [Header("Pause Stuff")]
     bool CurrentlyPaused = false;
     public UnityEvent OnPause;
@@ -191,7 +192,7 @@ public class GameHandler : MonoBehaviour
         for(int i = 1; i <= DummyPlayers; i++)
         {
             playerAlive[i] = true;
-            var dummyPlayer = GameObject.Instantiate(dummyPrefab, spawn[int.Parse(shuffledLoadOrder[i].ToString())].transform);
+            var dummyPlayer = Instantiate(dummyPrefab, spawn[int.Parse(shuffledLoadOrder[i].ToString())].transform);
             dummyPlayer.GetComponent<DummyPlayer>().PID = i;   
             dummyPlayer.transform.parent = null;
         }
