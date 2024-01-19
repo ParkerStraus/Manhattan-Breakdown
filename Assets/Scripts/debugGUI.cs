@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -21,5 +22,14 @@ public class debugGUI : MonoBehaviour
     public void NextScene()
     {
         NextSceneEvent.Invoke();
+    }
+
+    public void ConnectHost()
+    {
+        NetworkManager.Singleton.StartHost();
+    }
+    public void ConnectClient()
+    {
+        NetworkManager.Singleton.StartClient();
     }
 }

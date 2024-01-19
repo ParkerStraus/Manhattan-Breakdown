@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Ak47
   m_EditorClassIdentifier: 
   _weaponType: 1
+  _poseType: 2
   _firemode: 2
   Name: AK-47
   damage: 10
@@ -28,4 +29,5 @@ MonoBehaviour:
   floorImage: {fileID: 21300000, guid: 2c5d16d0e0b48f84dac00d706d8b1b99, type: 3}
   audio_gunshot: {fileID: 8300000, guid: 2015118cd76789e4593025466c82bb43, type: 3}
   audio_click: {fileID: 8300000, guid: 83bca8e348b3b484db1a873edd936bba, type: 3}
+  audio_impact: {fileID: 0}
   Impact: {fileID: 2085389234366473006, guid: 101ba8c7e6214d14e91e39f3fb5aac5c, type: 3}

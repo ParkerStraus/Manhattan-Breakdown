@@ -5,8 +5,16 @@ using Unity.Netcode;
 using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine.UIElements;
+using Unity.Multiplayer.Tools.NetStatsMonitor;
 
-public class Player : NetworkBehaviour, IDamageable
+public struct PlayerData
+{
+    public bool Moving;
+    public PoseType poseType;
+
+}
+
+public class Player : MonoBehaviour, IDamageable
 {
 
     [Header("Game Components")]
@@ -23,13 +31,16 @@ public class Player : NetworkBehaviour, IDamageable
     [SerializeField] private float RotationSpeed;
 
     [Header("Health and Guns")]
-    [SerializeField] private NetworkVariable<float> Health = new NetworkVariable<float>(100);
-    [SerializeField] private NetworkVariable<Weapon> weapon;
+    [SerializeField] private float Health = 100;
+    [SerializeField] private Weapon weapon = null;
     [SerializeField] private Weapon unhandedWeapon;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private LayerMask itemMask;
     [SerializeField] private float pickupRadius;
     [SerializeField] private GameObject pickupPrefab;
+
+
+    private PlayerData _playerData;
 
 
     // Start is called before the first frame update
@@ -43,10 +54,6 @@ public class Player : NetworkBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        if (!IsOwner)
-        {
-            return;
-        }
 
 
         if (!gh.IsPaused())
@@ -80,14 +87,26 @@ public class Player : NetworkBehaviour, IDamageable
         float DirectionAngle = Vector2.Angle((Vector2)transform.position, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition));
         //Debug.Log((Vector2)transform.position +"   " + (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) );
         transform.rotation = Quaternion.Euler(0, 0, AimAngle);
+        if(MoveVector.sqrMagnitude > 0)
+        {
+            _playerData.Moving = true;
+        }
+        else { _playerData.Moving = false;}
 
     }
 
     private void HandleCombat()
     {
         int result = 0;
-        if (weapon != null) result = weapon.Value.UseWeapon(attackPoint, pAud);
-        else unhandedWeapon.UseWeapon(attackPoint, pAud);
+        if (weapon != null) {
+            result = weapon.UseWeapon(attackPoint, pAud, this.gameObject);
+            _playerData.poseType = weapon._poseType;
+        }
+        else
+        {
+            unhandedWeapon.UseWeapon(attackPoint, pAud, this.gameObject);
+            _playerData.poseType = PoseType.None;
+        }
 
         //Remove Consumeables
         if (result == -1)
@@ -115,34 +134,57 @@ public class Player : NetworkBehaviour, IDamageable
             if(weapon != null)
             {
                 GameObject wpn = GameObject.Instantiate(pickupPrefab, transform);
-                wpn.GetComponent<WeaponPickup>().SetupPickup(weapon.Value);
+                wpn.GetComponent<WeaponPickup>().SetupPickup(weapon);
                 wpn.transform.parent = null;
             }
 
             if (newWep != null)
             {
-                weapon.Value = newWep.GetComponent<WeaponPickup>().PickupWeapon();
+                weapon = newWep.GetComponent<WeaponPickup>().PickupWeapon();
             }
             else
             {
-                weapon.Value = null;
+                weapon = null;
 
             }
         }
+
+        //Change Pose based on gun
     }
 
-    public void Damage(float damage)
+    public PlayerData GetPlayerData()
     {
-        Health.Value -= damage;
+        return _playerData;
+    }
+    public bool Damage(float damage)
+    {
+        Health -= damage;
 
-        if(Health.Value <= 0)
+        if(Health <= 0)
         {
             Destroy(this.gameObject);
+            return true;
         }
+        return false;
     }
 
     private void FixedUpdate()
     {
+        MovePlayerServerRpc();
+    }
+
+    [ServerRpc]
+    private void MovePlayerServerRpc()
+    {
+        rb.velocity = (Vector3)(MoveRealized * MoveSpeed);
+        ApplyMovePlayerClientRpc();
+
+    }
+
+    [ClientRpc]
+    private void ApplyMovePlayerClientRpc()
+    {
+
         rb.velocity = (Vector3)(MoveRealized * MoveSpeed);
     }
 }

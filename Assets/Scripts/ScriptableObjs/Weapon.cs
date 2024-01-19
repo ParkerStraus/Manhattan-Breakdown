@@ -5,6 +5,15 @@ using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
+public enum PoseType
+{
+    None,
+    Pistol,
+    Rifle,
+    Melee,
+    TwoMelee
+}
+
 [CreateAssetMenu(fileName = "Weapon", menuName = "Weapon/Weapon Object")]
 public class Weapon : ScriptableObject
 {
@@ -16,6 +25,8 @@ public class Weapon : ScriptableObject
         Etc
     }
     public WeaponType _weaponType;
+
+    public PoseType _poseType;
 
     public enum FireMode
     {
@@ -46,6 +57,7 @@ public class Weapon : ScriptableObject
     [SerializeField] private Sprite floorImage;
     [SerializeField] private AudioClip audio_gunshot;
     [SerializeField] private AudioClip audio_click;
+    [SerializeField] private AudioClip audio_impact;
     [SerializeField] private GameObject Impact;
 
     public void Initialize()
@@ -53,7 +65,7 @@ public class Weapon : ScriptableObject
         CurrentAmmo = MaxAmmo;
     }
 
-    public int UseWeapon(UnityEngine.Transform attackPoint, PlayerAudio ac)
+    public int UseWeapon(UnityEngine.Transform attackPoint, PlayerAudio ac, GameObject player)
     {
         //Debug.Log(_firemode);
         //Swing Melee at enemies
@@ -68,6 +80,7 @@ public class Weapon : ScriptableObject
                         AttackTimer = 0;
                         Debug.Log("Swoop");
                         ac.PlaySound(audio_gunshot);
+                        Melee(attackPoint, ac, player);
                     }
                 }
                 break;
@@ -84,7 +97,7 @@ public class Weapon : ScriptableObject
                                 if (AttackTimer >= AttackRate)
                                 {
                                     AttackTimer = 0;
-                                    Debug.Log("Bang");
+                                    //Debug.Log("Bang");
                                     GunShot(attackPoint, ac);
                                 }
                             }
@@ -96,7 +109,7 @@ public class Weapon : ScriptableObject
                                 if (AttackTimer >= AttackRate)
                                 {
                                     AttackTimer = 0;
-                                    Debug.Log("Tacka");
+                                    //Debug.Log("Tacka");
                                     GunShot(attackPoint, ac);
                                 }
 
@@ -112,7 +125,7 @@ public class Weapon : ScriptableObject
                                     {
                                         BurstCurrent++;
                                         AttackTimer = 0;
-                                        Debug.Log("RadaTada");
+                                        //Debug.Log("RadaTada");
                                         GunShot(attackPoint, ac);
                                     }
                                 }
@@ -129,7 +142,7 @@ public class Weapon : ScriptableObject
                                 if (AttackTimer >= AttackRate)
                                 {
                                     AttackTimer = 0;
-                                    Debug.Log("Bagoom");
+                                    //Debug.Log("Bagoom");
                                     GunShot(attackPoint, ac);
                                 }
                             }
@@ -157,23 +170,54 @@ public class Weapon : ScriptableObject
         {
             CurrentAmmo--;
             ac.PlaySound(audio_gunshot);
-            Debug.Log(attackPoint.rotation.eulerAngles.z);
+            //Debug.Log(attackPoint.rotation.eulerAngles.z);
             Debug.DrawRay(attackPoint.position,
                 Quaternion.Euler(0, 0, attackPoint.rotation.eulerAngles.z) * Vector2.right, Color.white, 0.1f);
             //Shoot Ray
             RaycastHit2D[] hits = Physics2D.RaycastAll(attackPoint.position,
-                Quaternion.Euler(0, 0, attackPoint.rotation.eulerAngles.z) * Vector2.right, 9999, ~(LayerMask.GetMask("Items") | LayerMask.GetMask("Yourself")));
+                Quaternion.Euler(0, 0, attackPoint.rotation.eulerAngles.z) * Vector2.right, 9999, ~(LayerMask.GetMask("Items")));
             foreach (RaycastHit2D hit in hits)
             {
                 
                 Instantiate(Impact, hit.point, Quaternion.LookRotation(hit.normal, Vector3.left));
-                if (hit.collider.gameObject.GetComponent<IDamageable>() != null) 
-                    hit.collider.gameObject.GetComponent<IDamageable>().Damage(damage);
+                if (hit.collider.gameObject.GetComponent<IDamageable>() != null)
+                {
+                    if (hit.collider.gameObject.GetComponent<IDamageable>().Damage(damage))
+                    {
+                        KillConfirm();
+                    }
+                }
                 break;
             }
         }
     }
 
+    public void Melee(UnityEngine.Transform attackPoint, PlayerAudio ac, GameObject player)
+    {
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, 0.5f, ~(LayerMask.GetMask("Items")));
+
+        foreach (Collider2D hit in hitEnemies)
+        {
+            if(hit.gameObject != player)
+            {
+                Debug.Log("Hit");
+                ac.PlaySound(audio_impact);
+                if (hit.gameObject.GetComponent<IDamageable>() != null)
+                {
+                    if (hit.gameObject.GetComponent<IDamageable>().Damage(damage))
+                    {
+                        KillConfirm();
+                    }
+                }
+
+            }
+        }
+    }
+
+    public void KillConfirm()
+    {
+
+    }
 
     public Sprite GetWeaponSprite()
     {

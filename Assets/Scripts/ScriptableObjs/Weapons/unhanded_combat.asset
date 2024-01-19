@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: unhanded_combat
   m_EditorClassIdentifier: 
   _weaponType: 0
+  _poseType: 3
   _firemode: 0
   Name: 
   damage: 10
-  AttackTimer: 23.09837
+  AttackTimer: 1.3645109
   AttackRate: 0.3
   MaxAmmo: 0
   CurrentAmmo: 0
@@ -26,6 +27,7 @@ MonoBehaviour:
   BurstInterval: 0
   ConeRayAmount: 0
   floorImage: {fileID: 0}
-  audio_gunshot: {fileID: 0}
+  audio_gunshot: {fileID: 8300000, guid: 3e2c0108b7f01644fabf612d6a89ce93, type: 3}
   audio_click: {fileID: 0}
+  audio_impact: {fileID: 8300000, guid: 9216fd108095fc043903259c2f8e8bbc, type: 3}
   Impact: {fileID: 0}

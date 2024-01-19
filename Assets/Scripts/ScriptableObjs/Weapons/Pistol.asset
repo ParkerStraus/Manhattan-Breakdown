@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   _weaponType: 1
+  _poseType: 1
   _firemode: 0
   Name: 
-  damage: 0
+  damage: 20
   AttackTimer: 7.9330244
   AttackRate: 0.08
   MaxAmmo: 10
@@ -28,4 +29,5 @@ MonoBehaviour:
   floorImage: {fileID: 21300000, guid: 9921b419ae6182449947dfba20fd6797, type: 3}
   audio_gunshot: {fileID: 8300000, guid: b95be4da13114b941bc857c0d8381b42, type: 3}
   audio_click: {fileID: 8300000, guid: 83bca8e348b3b484db1a873edd936bba, type: 3}
+  audio_impact: {fileID: 0}
   Impact: {fileID: 2085389234366473006, guid: 101ba8c7e6214d14e91e39f3fb5aac5c, type: 3}
