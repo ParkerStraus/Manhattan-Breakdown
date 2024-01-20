@@ -20,4 +20,5 @@ public class GeneralScript : MonoBehaviour
     {
         Application.Quit();
     }
+
 }

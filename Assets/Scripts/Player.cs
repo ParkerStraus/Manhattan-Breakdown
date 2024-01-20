@@ -6,6 +6,7 @@ using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine.UIElements;
 using Unity.Multiplayer.Tools.NetStatsMonitor;
+using UnityEditor;
 
 public struct PlayerData
 {
@@ -163,6 +164,7 @@ public class Player : MonoBehaviour, IDamageable
         if(Health <= 0)
         {
             Destroy(this.gameObject);
+            gh.OnKill(0);
             return true;
         }
         return false;
@@ -186,5 +188,19 @@ public class Player : MonoBehaviour, IDamageable
     {
 
         rb.velocity = (Vector3)(MoveRealized * MoveSpeed);
+    }
+}
+
+[CustomEditor(typeof(Player))]
+public class PlayerEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        var myScript = target as Player;
+
+        if (GUILayout.Button("Kill"))
+        {
+            myScript.Damage(999999f);
+        }
     }
 }

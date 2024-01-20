@@ -16,7 +16,7 @@ MonoBehaviour:
   _poseType: 2
   _firemode: 2
   Name: AK-47
-  damage: 10
+  damage: 20
   AttackTimer: 6.1193757
   AttackRate: 0.125
   MaxAmmo: 30

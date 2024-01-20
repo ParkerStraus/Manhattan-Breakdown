@@ -24,9 +24,8 @@ public class GameHandler : MonoBehaviour
     public bool[] playerAlive = { false, false, false, false};
 
     [Header("Debug Stuff")]
-    public int DummyPlayers = 1;
+    public int DummyPlayers;
     public GameObject dummyPrefab;
-
 
     public enum GameState
     {
@@ -40,7 +39,7 @@ public class GameHandler : MonoBehaviour
     public string CurrentArena = null;
     public List<string> LastArenas;
     public ArenaList arenaList;
-    public int[] points = { 0, 0, 0, 0 };
+    public int[] points = new int[4];
 
 
     [Header("Prefabs and Cameras")]
@@ -48,11 +47,16 @@ public class GameHandler : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject playerObject;
 
+    [Header("UI")]
+    public UnityEvent DisplayScoreBoard;
+
     // Start is called before the first frame update
     void Start()
     {
         arenaList = Resources.Load<ArenaList>("ArenaList");
         //StartGame();
+        playerAmt = playerAmt + DummyPlayers;
+
     }
 
     // Update is called once per frame
@@ -92,18 +96,27 @@ public class GameHandler : MonoBehaviour
         playerAlive[id] = false;
 
         //Check if only one is alive
-        int pAmt = 0;
-        for(int i = 0; i < 4; i++)
+        int pALive = 0;
+        for(int i = 0; i < playerAmt; i++)
         {
             if (playerAlive[i] == true)
             {
-                pAmt++;
+                pALive++;
             }
         }
-        if(pAmt == 1)
+        if(pALive == 1)
         {
+            int p = -1;
+            for (int i = 0; i < 4; i++)
+            {
+                if (playerAlive[i] == true)
+                {
+                    p = i;
+                    break;
+                }
+            }
             //Go to round end
-            StartCoroutine(NextRound());
+            StartCoroutine(NextRound(p));
         }
     }
 
@@ -114,26 +127,22 @@ public class GameHandler : MonoBehaviour
         GetMapReadyServerRPC();
     }
 
-    private IEnumerator NextRound()
+    private IEnumerator NextRound(int i)
     {
         Debug.Log("Next Round Starting");
+
+        points[i]++;
+
         yield return new WaitForSeconds(1);
+        DisplayScoreBoard.Invoke();
 
-
-        for (int i = 0; i < 4; i++)
-        {
-            if (playerAlive[i] = true)
-            {
-                points[i]++;
-            }
-        }
-
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(2.75f);
 
 
         OnRoundEnd();
 
     }
+
 
     [ServerRpc]
     void GetMapReadyServerRPC()
@@ -196,5 +205,10 @@ public class GameHandler : MonoBehaviour
             dummyPlayer.GetComponent<DummyPlayer>().PID = i;   
             dummyPlayer.transform.parent = null;
         }
+    }
+
+    public int[] GetScore()
+    {
+        return points;
     }
 }

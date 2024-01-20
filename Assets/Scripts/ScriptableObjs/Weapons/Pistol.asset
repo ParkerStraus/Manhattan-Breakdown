@@ -16,7 +16,7 @@ MonoBehaviour:
   _poseType: 1
   _firemode: 0
   Name: 
-  damage: 20
+  damage: 35
   AttackTimer: 7.9330244
   AttackRate: 0.08
   MaxAmmo: 10

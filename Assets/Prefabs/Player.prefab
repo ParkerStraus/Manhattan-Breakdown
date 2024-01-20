@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 647319380409035431}
   - component: {fileID: 1896197471962708110}
   - component: {fileID: 3537109571706422909}
-  - component: {fileID: 6796423435892354199}
   - component: {fileID: -6715554598631294668}
   - component: {fileID: 2111254551512624146}
   - component: {fileID: 1054936185553615092}
@@ -108,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3685343037
+  GlobalObjectIdHash: 2733274851
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -236,7 +235,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -333,14 +332,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ac: {fileID: 1896197471962708110}
---- !u!81 &6796423435892354199
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1960366418344800116}
-  m_Enabled: 1
 --- !u!114 &-6715554598631294668
 MonoBehaviour:
   m_ObjectHideFlags: 0
