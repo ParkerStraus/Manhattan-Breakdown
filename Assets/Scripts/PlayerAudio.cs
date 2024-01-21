@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerAudio : MonoBehaviour
 {
     public AudioSource ac;
+    public AudioClip[] footsteps;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,5 +22,11 @@ public class PlayerAudio : MonoBehaviour
     {
         //Debug.Log("Now Playing sound");
         ac.PlayOneShot(sound);
+    }
+
+    public void Footstep()
+    {
+
+        PlaySound(footsteps[Random.Range(0,(int)footsteps.Length-1)]);
     }
 }

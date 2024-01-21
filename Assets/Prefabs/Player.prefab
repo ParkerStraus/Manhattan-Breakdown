@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2733274851
+  GlobalObjectIdHash: 3685343037
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -332,6 +332,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ac: {fileID: 1896197471962708110}
+  footsteps:
+  - {fileID: 8300000, guid: c1086d772044f1040bb40298327dc390, type: 3}
+  - {fileID: 8300000, guid: 3da8c01ec4d74e34180e591e3a743bc8, type: 3}
+  - {fileID: 8300000, guid: e3a40c39ced0023499a6eb5810eea8fe, type: 3}
+  - {fileID: 8300000, guid: 56786597d809e864c8dcf72664dca0b6, type: 3}
 --- !u!114 &-6715554598631294668
 MonoBehaviour:
   m_ObjectHideFlags: 0
