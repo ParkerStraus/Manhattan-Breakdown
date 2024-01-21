@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -170,6 +171,7 @@ public class Weapon : ScriptableObject
         {
             CurrentAmmo--;
             ac.PlaySound(audio_gunshot);
+            GameObject.Find("VirCam").GetComponent<VirCamStuff>().Shake(0.9f, 1.5f, 0.2f, 0f);
             //Debug.Log(attackPoint.rotation.eulerAngles.z);
             Debug.DrawRay(attackPoint.position,
                 Quaternion.Euler(0, 0, attackPoint.rotation.eulerAngles.z) * Vector2.right, Color.white, 0.1f);
@@ -202,6 +204,7 @@ public class Weapon : ScriptableObject
             {
                 Debug.Log("Hit");
                 ac.PlaySound(audio_impact);
+                GameObject.Find("VirCam").GetComponent<VirCamStuff>().Shake(0.9f, 1.5f, 0.2f, 0f);
                 if (hit.gameObject.GetComponent<IDamageable>() != null)
                 {
                     if (hit.gameObject.GetComponent<IDamageable>().Damage(damage))
