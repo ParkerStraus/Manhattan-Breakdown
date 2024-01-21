@@ -11,6 +11,7 @@ public class ScoreBoard : MonoBehaviour
     [SerializeField] private TMP_Text[] Label;
     [SerializeField] private TMP_Text[] Scores;
     [SerializeField] private AudioClip ding;
+    [SerializeField] private AudioSource ac;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +20,7 @@ public class ScoreBoard : MonoBehaviour
     public void InitScoreBoard()
     {
         int[] score = _gh.GetScore();
-        for (int i = 3; i > _gh.playerAmt; i--)
+        for (int i = 3; i > _gh.playerAmt-1; i--)
         {
                 Label[i].text = "";
                 Scores[i].text = "";
@@ -34,11 +35,11 @@ public class ScoreBoard : MonoBehaviour
 
     public void UpdateScoreboard()
     {
-        AudioSource.PlayClipAtPoint(ding,Camera.main.transform.position);
+        ac.PlayOneShot(ding);
 
         int[] score = _gh.GetScore();
 
-        for (int i = 0; i < score.Length; i++)
+        for (int i = 0; i < _gh.playerAmt; i++)
         {
             Debug.Log(score[i]);
             if (score[i] == -1)

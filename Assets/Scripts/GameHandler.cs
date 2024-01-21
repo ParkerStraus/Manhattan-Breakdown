@@ -39,7 +39,7 @@ public class GameHandler : MonoBehaviour
     public string CurrentArena = null;
     public List<string> LastArenas;
     public ArenaList arenaList;
-    public int[] points = new int[4];
+    public int[] points = { -1, -1, -1, -1};
 
 
     [Header("Prefabs and Cameras")]
@@ -56,6 +56,11 @@ public class GameHandler : MonoBehaviour
         arenaList = Resources.Load<ArenaList>("ArenaList");
         //StartGame();
         playerAmt = playerAmt + DummyPlayers;
+
+        for(int i = 0; i < playerAmt; i++)
+        {
+            points[i] = 0;
+        }
 
     }
 
@@ -130,13 +135,16 @@ public class GameHandler : MonoBehaviour
     private IEnumerator NextRound(int i)
     {
         Debug.Log("Next Round Starting");
+        GetComponent<MusicHandler>().TriggerFilter(500f, 0.5f);
 
         points[i]++;
 
         yield return new WaitForSeconds(1);
         DisplayScoreBoard.Invoke();
+        yield return new WaitForSeconds(2.25f);
 
-        yield return new WaitForSeconds(2.75f);
+        GetComponent<MusicHandler>().TriggerFilter(22000f, 0.5f);
+        yield return new WaitForSeconds(0.50f);
 
 
         OnRoundEnd();
