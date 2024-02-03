@@ -54,16 +54,19 @@ public class Weapon : ScriptableObject
     public int ConeRayAmount;
 
 
+
     [Header("Aesthetic stuff here")]
     [SerializeField] private Sprite floorImage;
     [SerializeField] private AudioClip audio_gunshot;
     [SerializeField] private AudioClip audio_click;
     [SerializeField] private AudioClip audio_impact;
     [SerializeField] private GameObject Impact;
+    [SerializeField] private EffectsManager em;
 
     public void Initialize()
     {
         CurrentAmmo = MaxAmmo;
+        em = GameObject.Find("Main Camera").GetComponent<EffectsManager>();
     }
 
     public int UseWeapon(UnityEngine.Transform attackPoint, PlayerAudio ac, GameObject player)
@@ -100,6 +103,7 @@ public class Weapon : ScriptableObject
                                     AttackTimer = 0;
                                     //Debug.Log("Bang");
                                     GunShot(attackPoint, ac);
+                                    player.GetComponent<Player>().SendWeaponInfo();
                                 }
                             }
                             break;
@@ -112,6 +116,7 @@ public class Weapon : ScriptableObject
                                     AttackTimer = 0;
                                     //Debug.Log("Tacka");
                                     GunShot(attackPoint, ac);
+                                    player.GetComponent<Player>().SendWeaponInfo();
                                 }
 
                             }
@@ -128,6 +133,7 @@ public class Weapon : ScriptableObject
                                         AttackTimer = 0;
                                         //Debug.Log("RadaTada");
                                         GunShot(attackPoint, ac);
+                                        player.GetComponent<Player>().SendWeaponInfo();
                                     }
                                 }
                             }
@@ -145,6 +151,7 @@ public class Weapon : ScriptableObject
                                     AttackTimer = 0;
                                     //Debug.Log("Bagoom");
                                     GunShot(attackPoint, ac);
+                                    player.GetComponent<Player>().SendWeaponInfo();
                                 }
                             }
                             break;
@@ -159,7 +166,6 @@ public class Weapon : ScriptableObject
 
             case WeaponType.Consumeable:
                 return -1;
-                break;
         }
         AttackTimer += Time.deltaTime;
         return 0;
@@ -189,6 +195,7 @@ public class Weapon : ScriptableObject
                         KillConfirm();
                     }
                 }
+                Tracer(hit, attackPoint);
                 break;
             }
         }
@@ -217,9 +224,27 @@ public class Weapon : ScriptableObject
         }
     }
 
+    public void Tracer(RaycastHit2D hit, UnityEngine.Transform attackPoint)
+    {
+        TrailRenderer TrailBase = GameObject.Find("Trail").GetComponent<TrailRenderer>();
+        TrailRenderer trail = Instantiate(TrailBase, attackPoint.position, Quaternion.identity);
+
+        em.StartCoroutine(em.BulletTrailRoutine(trail, hit));
+    }
+
     public void KillConfirm()
     {
 
+    }
+
+    public string GetName()
+    {
+        return Name;
+    }
+
+    public string GetAmmo()
+    {
+        return CurrentAmmo.ToString();
     }
 
     public Sprite GetWeaponSprite()

@@ -17,8 +17,8 @@ MonoBehaviour:
   _firemode: 0
   Name: 
   damage: 20
-  AttackTimer: 6.422166
-  AttackRate: 0.3
+  AttackTimer: 4.5539317
+  AttackRate: 0.36666667
   MaxAmmo: 0
   CurrentAmmo: 0
   ConeSegment: 0
@@ -31,3 +31,4 @@ MonoBehaviour:
   audio_click: {fileID: 0}
   audio_impact: {fileID: 8300000, guid: 9216fd108095fc043903259c2f8e8bbc, type: 3}
   Impact: {fileID: 0}
+  em: {fileID: 0}

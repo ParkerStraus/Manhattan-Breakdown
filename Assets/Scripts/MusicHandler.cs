@@ -5,6 +5,7 @@ using UnityEngine.Audio;
 
 public class MusicHandler : MonoBehaviour
 {
+    public bool StartMusicNow;
     public AudioSource musicSource;
     public AudioClip musicStart;
     public AudioMixer mixer;
@@ -12,13 +13,9 @@ public class MusicHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(musicStart != null) {
-        musicSource.PlayOneShot(musicStart);
-        musicSource.PlayScheduled(AudioSettings.dspTime + musicStart.length);
-        }
-        else
+        if (StartMusicNow)
         {
-            musicSource.Play();
+            StartMusic();
         }
     }
 
@@ -28,10 +25,50 @@ public class MusicHandler : MonoBehaviour
 
     }
 
+    public void StartMusic()
+    {
+        if (musicStart != null)
+        {
+            musicSource.PlayOneShot(musicStart);
+            musicSource.PlayScheduled(AudioSettings.dspTime + musicStart.length);
+        }
+        else
+        {
+            musicSource.Play();
+        }
+    }
+
+    public void QueueNewSong(AudioClip songStart, AudioClip songLoop)
+    {
+        if (musicSource.isPlaying)
+        {
+            musicSource.Stop();
+
+        }
+
+        musicSource.clip = songLoop;
+        if (songStart != null)
+        {
+            musicSource.PlayOneShot(songStart);
+            musicSource.PlayScheduled(AudioSettings.dspTime + songStart.length);
+        }
+        else
+        {
+            musicSource.Play();
+        }
+    }
+
     public void TriggerFilter(float FilterPoint, float MoveTime)
     {
         Debug.Log("Now Moving Filter to " + FilterPoint);
         StartCoroutine(MoveFilter(FilterPoint, MoveTime));
+    }
+
+
+    public void TriggerFilter(float[] param)
+    {
+        Debug.Log("Now Moving Filter to " + param[0]);
+        StartCoroutine(MoveFilter(param[0], param[1]));
     }
 
     IEnumerator MoveFilter(float FilterPoint, float MoveTime)

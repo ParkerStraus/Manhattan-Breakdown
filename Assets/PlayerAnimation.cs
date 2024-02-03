@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
@@ -7,23 +9,42 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private PlayerData playerData;
     [SerializeField] private Animator animator;
+    [SerializeField] private PlayerAudio audio;
     int Idle = Animator.StringToHash("Idle");
     int Walk = Animator.StringToHash("Walk");
     int Gun_Pistol = Animator.StringToHash("Pistol");
     int Gun_Rifle = Animator.StringToHash("Rifle");
+
+    int PunchL = Animator.StringToHash("Punch_Left");
+    int PunchR = Animator.StringToHash("Punch_Right");
+    [SerializeField] private bool flipped = false;
+
+    private float _lockedTill;
+
+    private float FootStepTimer = 0;
+    [SerializeField] private float FootStepThreshold;
     // Start is called before the first frame update
     void Start()
     {
         player = GetComponent<Player>();
         animator = GetComponent<Animator>();
+        audio = GetComponent<PlayerAudio>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Time.time < _lockedTill) return;
         playerData = player.GetPlayerData();
         if(playerData.poseType == PoseType.None )
         {
+            if (playerData.attacking == true)
+            {
+                if (flipped == true)
+                    LockState(PunchL, 0.36666666666f);
+                else LockState(PunchR, 0.36666666666f);
+                flipped = !flipped;
+            }
             if (playerData.Moving)
             {
                 animator.CrossFade(Walk, 0, 0);
@@ -45,5 +66,25 @@ public class PlayerAnimation : MonoBehaviour
                     break;
             }
         }
+
+        if(playerData.Moving == true)
+        {
+            FootStepTimer += Time.deltaTime;
+            if(FootStepTimer >= FootStepThreshold) {
+                audio.Footstep();
+                FootStepTimer = 0;
+            }
+        }
+        else
+        {
+            FootStepTimer = 0;
+        }
+    }
+
+    void LockState(int s, float t)
+    {
+        _lockedTill = Time.time + t;
+        animator.CrossFade(s, 0, 0);
+        return;
     }
 }

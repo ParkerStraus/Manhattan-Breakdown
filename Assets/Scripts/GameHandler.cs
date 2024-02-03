@@ -49,6 +49,10 @@ public class GameHandler : MonoBehaviour
 
     [Header("UI")]
     public UnityEvent DisplayScoreBoard;
+    public UnityEvent DisplayVHS;
+    public UnityEvent HideVHS;
+    public GameObject FinalScoreBoard;
+    public MainUI MainUI;
 
     // Start is called before the first frame update
     void Start()
@@ -120,8 +124,24 @@ public class GameHandler : MonoBehaviour
                     break;
                 }
             }
+            bool rflag = true;
+            points[p]++;
+            for(int x =0; x<points.Length; x++)
+            {
+                if (points[x] >= 5)
+                {
+                    StartCoroutine(GameComplete());
+                    rflag = false;
+                    break;
+                }
+
+            }
+
+
+
+            if (rflag == true) StartCoroutine(NextRound());
             //Go to round end
-            StartCoroutine(NextRound(p));
+
         }
     }
 
@@ -132,22 +152,37 @@ public class GameHandler : MonoBehaviour
         GetMapReadyServerRPC();
     }
 
-    private IEnumerator NextRound(int i)
+    private IEnumerator NextRound()
     {
         Debug.Log("Next Round Starting");
         GetComponent<MusicHandler>().TriggerFilter(500f, 0.5f);
 
-        points[i]++;
-
         yield return new WaitForSeconds(1);
+        DisplayVHS.Invoke();
         DisplayScoreBoard.Invoke();
         yield return new WaitForSeconds(2.25f);
 
         GetComponent<MusicHandler>().TriggerFilter(22000f, 0.5f);
         yield return new WaitForSeconds(0.50f);
+        HideVHS.Invoke();
 
 
         OnRoundEnd();
+
+    }
+
+
+
+    private IEnumerator GameComplete()
+    {
+        Debug.Log("Next Round Starting");
+        DisplayVHS.Invoke();
+        GetComponent<MusicHandler>().TriggerFilter(300f, 0.5f);
+
+        yield return new WaitForSeconds(3);
+        FinalScoreBoard.SetActive(true);
+        FinalScoreBoard.GetComponent<FinalResults>().SetupScoreBoard(scores: points);
+        
 
     }
 
@@ -218,5 +253,10 @@ public class GameHandler : MonoBehaviour
     public int[] GetScore()
     {
         return points;
+    }
+
+    public void UpdateMainUI(string[] Weapon)
+    {
+        MainUI.UpdateMainUI(Weapon);
     }
 }

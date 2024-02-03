@@ -12,6 +12,7 @@ public struct PlayerData
 {
     public bool Moving;
     public PoseType poseType;
+    public bool attacking;
 
 }
 
@@ -29,6 +30,7 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] private float MoveSpeed;
     [SerializeField] private Vector2 MoveRealized;
     [SerializeField] private float MoveInterp;
+    [SerializeField] private float RotationRealized;
     [SerializeField] private float RotationSpeed;
 
     [Header("Health and Guns")]
@@ -41,7 +43,7 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] private GameObject pickupPrefab;
 
 
-    private PlayerData _playerData;
+    [SerializeField] private PlayerData _playerData;
 
 
     // Start is called before the first frame update
@@ -50,6 +52,7 @@ public class Player : MonoBehaviour, IDamageable
         rb = GetComponent<Rigidbody2D>();
         gh = GameObject.Find("Main Camera").GetComponent<GameHandler>();
         pAud = GetComponent<PlayerAudio>();
+        SendWeaponInfo();
     }
 
     // Update is called once per frame
@@ -84,10 +87,10 @@ public class Player : MonoBehaviour, IDamageable
         Vector3 WorldPoint = this.gameObject.transform.position;
         //Aiming shit
         Vector3 AimPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float AimAngle = Mathf.Atan2(WorldPoint.y - AimPoint.y, WorldPoint.x - AimPoint.x) * 180 / Mathf.PI + 180;
+        float RotationRealized = Mathf.Atan2(WorldPoint.y - AimPoint.y, WorldPoint.x - AimPoint.x) * 180 / Mathf.PI + 180;
         float DirectionAngle = Vector2.Angle((Vector2)transform.position, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition));
         //Debug.Log((Vector2)transform.position +"   " + (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) );
-        transform.rotation = Quaternion.Euler(0, 0, AimAngle);
+        transform.rotation = Quaternion.Euler(0, 0, RotationRealized);
         if(MoveVector.sqrMagnitude > 0)
         {
             _playerData.Moving = true;
@@ -98,6 +101,7 @@ public class Player : MonoBehaviour, IDamageable
 
     private void HandleCombat()
     {
+        _playerData.attacking = false;
         int result = 0;
         if (weapon != null) {
             result = weapon.UseWeapon(attackPoint, pAud, this.gameObject);
@@ -106,6 +110,10 @@ public class Player : MonoBehaviour, IDamageable
         else
         {
             unhandedWeapon.UseWeapon(attackPoint, pAud, this.gameObject);
+            if (Input.GetButtonDown("Fire1"))
+            {
+                _playerData.attacking = true;
+            }
             _playerData.poseType = PoseType.None;
         }
 
@@ -148,6 +156,7 @@ public class Player : MonoBehaviour, IDamageable
                 weapon = null;
 
             }
+            SendWeaponInfo();
         }
 
         //Change Pose based on gun
@@ -175,6 +184,24 @@ public class Player : MonoBehaviour, IDamageable
         MovePlayerServerRpc();
     }
 
+    public void SendWeaponInfo()
+    {
+
+        string[] value = new string[2];
+        if (weapon != null)
+        {
+            value[0] = weapon.GetName();
+            value[1] = weapon.GetAmmo();
+        }
+        else
+        {
+            value[0] = "";
+            value[1] = "";
+        }
+
+        gh.UpdateMainUI(value);
+    }
+
     [ServerRpc]
     private void MovePlayerServerRpc()
     {
@@ -191,16 +218,3 @@ public class Player : MonoBehaviour, IDamageable
     }
 }
 
-[CustomEditor(typeof(Player))]
-public class PlayerEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        var myScript = target as Player;
-
-        if (GUILayout.Button("Kill"))
-        {
-            myScript.Damage(999999f);
-        }
-    }
-}

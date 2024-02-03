@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4699653499200014256}
   - component: {fileID: 4684043014765318444}
   - component: {fileID: 157251067483864177}
+  - component: {fileID: -8206203030892874778}
   m_Layer: 8
   m_Name: Random Weapon Pickup
   m_TagString: Untagged
@@ -166,3 +167,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-8206203030892874778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1726320929415071596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 068265a9ab09bf945a400052e4c01c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShadowOffset: {x: 0.050625, y: -0.09375}
+  StartOffset: {x: 0, y: 0}
+  ShadowMaterial: {fileID: 2100000, guid: 9763b5aa29ef070459fabe65c717791c, type: 2}
