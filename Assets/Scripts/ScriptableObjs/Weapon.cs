@@ -53,10 +53,13 @@ public class Weapon : ScriptableObject
     public float BurstInterval;
     public int ConeRayAmount;
 
+    [Header("Weapon Info")]
+    public float AttackSize;
 
 
     [Header("Aesthetic stuff here")]
     [SerializeField] private Sprite floorImage;
+    [SerializeField] private Sprite HeldImage;
     [SerializeField] private AudioClip audio_gunshot;
     [SerializeField] private AudioClip audio_click;
     [SerializeField] private AudioClip audio_impact;
@@ -209,11 +212,11 @@ public class Weapon : ScriptableObject
         {
             if(hit.gameObject != player)
             {
-                Debug.Log("Hit");
-                ac.PlaySound(audio_impact);
-                GameObject.Find("VirCam").GetComponent<VirCamStuff>().Shake(0.9f, 1.5f, 0.2f, 0f);
                 if (hit.gameObject.GetComponent<IDamageable>() != null)
                 {
+                    Debug.Log("Hit");
+                    ac.PlaySound(audio_impact);
+                    GameObject.Find("VirCam").GetComponent<VirCamStuff>().Shake(0.9f, 1.5f, 0.2f, 0f);
                     if (hit.gameObject.GetComponent<IDamageable>().Damage(damage))
                     {
                         KillConfirm();
@@ -250,6 +253,11 @@ public class Weapon : ScriptableObject
     public Sprite GetWeaponSprite()
     {
         return floorImage;
+    }
+
+    public Sprite GetWeaponSprite_Held()
+    {
+        return HeldImage;
     }
 }
 

@@ -22,6 +22,7 @@ public class GameHandler : MonoBehaviour
     public List<GameObject> players;
     public int playerAmt = 1;
     public bool[] playerAlive = { false, false, false, false};
+    public bool CanPlayersDoStuff;
 
     [Header("Debug Stuff")]
     public int DummyPlayers;
@@ -50,9 +51,11 @@ public class GameHandler : MonoBehaviour
     [Header("UI")]
     public UnityEvent DisplayScoreBoard;
     public UnityEvent DisplayVHS;
+    public GameObject StartScreen;
     public UnityEvent HideVHS;
     public GameObject FinalScoreBoard;
     public MainUI MainUI;
+
 
     // Start is called before the first frame update
     void Start()
@@ -96,7 +99,36 @@ public class GameHandler : MonoBehaviour
 
     public void StartGame()
     {
+        StartCoroutine(OnStartGame());
+    }
+
+    private IEnumerator OnStartGame()
+    {
+        //Start Animation of players
+        CanPlayersDoStuff = false;
+        StartScreen.SetActive(true);
+        //Load Level
         GetMapReadyServerRPC();
+        yield return new WaitForSeconds(7);
+        //disable ui
+        StartScreen.GetComponent<Animator>().SetTrigger("Finish");
+        yield return new WaitForSeconds(2);
+        StartScreen.SetActive(false);
+
+        //Start countdown
+        
+        MainUI.CountDown("3");
+        yield return new WaitForSeconds(1);
+        MainUI.CountDown("2");
+        yield return new WaitForSeconds(1);
+        MainUI.CountDown("1");
+        yield return new WaitForSeconds(1);
+        MainUI.CountDown("Fight");
+
+        //on end enable character control
+        CanPlayersDoStuff = true;
+        yield return new WaitForEndOfFrame();
+        MainUI.CountDown("");
     }
 
     public void OnKill(int id)
@@ -158,6 +190,7 @@ public class GameHandler : MonoBehaviour
         GetComponent<MusicHandler>().TriggerFilter(500f, 0.5f);
 
         yield return new WaitForSeconds(1);
+        CanPlayersDoStuff = false;
         DisplayVHS.Invoke();
         DisplayScoreBoard.Invoke();
         yield return new WaitForSeconds(2.25f);
@@ -168,6 +201,7 @@ public class GameHandler : MonoBehaviour
 
 
         OnRoundEnd();
+        CanPlayersDoStuff = true;
 
     }
 
@@ -175,6 +209,7 @@ public class GameHandler : MonoBehaviour
 
     private IEnumerator GameComplete()
     {
+        CanPlayersDoStuff = false;
         Debug.Log("Next Round Starting");
         DisplayVHS.Invoke();
         GetComponent<MusicHandler>().TriggerFilter(300f, 0.5f);
@@ -248,11 +283,19 @@ public class GameHandler : MonoBehaviour
             dummyPlayer.GetComponent<DummyPlayer>().PID = i;   
             dummyPlayer.transform.parent = null;
         }
+
+
+        virtualCamera.gameObject.GetComponent<VirCamStuff>().SnapToFollow();
     }
 
     public int[] GetScore()
     {
         return points;
+    }
+
+    public bool CanthePlayersMove()
+    {
+        return CanPlayersDoStuff;
     }
 
     public void UpdateMainUI(string[] Weapon)

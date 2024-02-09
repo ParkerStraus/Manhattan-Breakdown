@@ -36,6 +36,7 @@ public class Player : MonoBehaviour, IDamageable
     [Header("Health and Guns")]
     [SerializeField] private float Health = 100;
     [SerializeField] private Weapon weapon = null;
+    [SerializeField] private SpriteRenderer WeaponDraw;
     [SerializeField] private Weapon unhandedWeapon;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private LayerMask itemMask;
@@ -76,12 +77,16 @@ public class Player : MonoBehaviour, IDamageable
 
     private void HandleMovement()
     {
-        //Get Move Vector
-        Vector2 MoveVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        Vector2 MoveVector = Vector2.zero;
+        if (gh.CanthePlayersMove())
+        {
+            //Get Move Vector
+            MoveVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-        //Set Realized Speed
-        MoveRealized = Vector2.Lerp(MoveRealized, MoveVector, MoveInterp * Time.deltaTime);
+            //Set Realized Speed
+            MoveRealized = Vector2.Lerp(MoveRealized, MoveVector, MoveInterp * Time.deltaTime);
 
+        }
         //Rotate Based on where the camera is looking
         //Vector2 MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         Vector3 WorldPoint = this.gameObject.transform.position;
@@ -91,74 +96,79 @@ public class Player : MonoBehaviour, IDamageable
         float DirectionAngle = Vector2.Angle((Vector2)transform.position, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition));
         //Debug.Log((Vector2)transform.position +"   " + (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) );
         transform.rotation = Quaternion.Euler(0, 0, RotationRealized);
-        if(MoveVector.sqrMagnitude > 0)
+        if (MoveVector.sqrMagnitude > 0)
         {
             _playerData.Moving = true;
         }
-        else { _playerData.Moving = false;}
+        else { _playerData.Moving = false; }
 
     }
 
     private void HandleCombat()
     {
         _playerData.attacking = false;
-        int result = 0;
-        if (weapon != null) {
-            result = weapon.UseWeapon(attackPoint, pAud, this.gameObject);
-            _playerData.poseType = weapon._poseType;
-        }
-        else
+        if (gh.CanthePlayersMove())
         {
-            unhandedWeapon.UseWeapon(attackPoint, pAud, this.gameObject);
-            if (Input.GetButtonDown("Fire1"))
+            int result = 0;
+            if (weapon != null)
             {
-                _playerData.attacking = true;
-            }
-            _playerData.poseType = PoseType.None;
-        }
-
-        //Remove Consumeables
-        if (result == -1)
-        {
-            weapon = null;
-        }
-
-        //Interact with dropping weapons
-        if (Input.GetButtonDown("Fire2"))
-        {
-            Collider2D[] hitItems = Physics2D.OverlapCircleAll(transform.position, pickupRadius, itemMask);
-
-            Debug.Log(hitItems.ToString());
-            GameObject newWep = null;
-            foreach (Collider2D hitItem in hitItems)
-            {
-                if (hitItem.GetComponent<WeaponPickup>() != null)
-                {
-                    newWep = hitItem.GameObject();
-                    
-                    break;
-                }
-            }
-
-            if(weapon != null)
-            {
-                GameObject wpn = GameObject.Instantiate(pickupPrefab, transform);
-                wpn.GetComponent<WeaponPickup>().SetupPickup(weapon);
-                wpn.transform.parent = null;
-            }
-
-            if (newWep != null)
-            {
-                weapon = newWep.GetComponent<WeaponPickup>().PickupWeapon();
+                result = weapon.UseWeapon(attackPoint, pAud, this.gameObject);
+                _playerData.poseType = weapon._poseType;
+                WeaponDraw.sprite = weapon.GetWeaponSprite_Held();
             }
             else
             {
-                weapon = null;
-
+                unhandedWeapon.UseWeapon(attackPoint, pAud, this.gameObject);
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    _playerData.attacking = true;
+                }
+                _playerData.poseType = PoseType.None;
+                WeaponDraw.sprite = null;
             }
-            SendWeaponInfo();
-        }
 
+            //Remove Consumeables
+            if (result == -1)
+            {
+                weapon = null;
+            }
+
+            //Interact with dropping weapons
+            if (Input.GetButtonDown("Fire2"))
+            {
+                Collider2D[] hitItems = Physics2D.OverlapCircleAll(transform.position, pickupRadius, itemMask);
+
+                Debug.Log(hitItems.ToString());
+                GameObject newWep = null;
+                foreach (Collider2D hitItem in hitItems)
+                {
+                    if (hitItem.GetComponent<WeaponPickup>() != null)
+                    {
+                        newWep = hitItem.GameObject();
+
+                        break;
+                    }
+                }
+
+                if (weapon != null)
+                {
+                    GameObject wpn = GameObject.Instantiate(pickupPrefab, transform);
+                    wpn.GetComponent<WeaponPickup>().SetupPickup(weapon);
+                    wpn.transform.parent = null;
+                }
+
+                if (newWep != null)
+                {
+                    weapon = newWep.GetComponent<WeaponPickup>().PickupWeapon();
+                }
+                else
+                {
+                    weapon = null;
+
+                }
+                SendWeaponInfo();
+            }
+        }
         //Change Pose based on gun
     }
 
@@ -170,7 +180,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         Health -= damage;
 
-        if(Health <= 0)
+        if (Health <= 0)
         {
             Destroy(this.gameObject);
             gh.OnKill(0);

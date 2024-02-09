@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class MusicHandler : MonoBehaviour
 {
@@ -9,10 +11,19 @@ public class MusicHandler : MonoBehaviour
     public AudioSource musicSource;
     public AudioClip musicStart;
     public AudioMixer mixer;
+    public MusicSelector musicSelector;
+
+    [Header("UI Elements")]
+    public Animator musicInfoUiAnimator;
+    public Image AlbumArt;
+    public TMP_Text Title;
+    public TMP_Text Artist;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        musicSelector = Resources.Load<MusicSelector>("MusicList");
         if (StartMusicNow)
         {
             StartMusic();
@@ -36,6 +47,16 @@ public class MusicHandler : MonoBehaviour
         {
             musicSource.Play();
         }
+    }
+
+    public void PlayRandomSong()
+    {
+        MusicFile music = musicSelector.GetRandomMusic();
+        QueueNewSong(music.getIntro(), music.getLoop());
+        AlbumArt.sprite = music.GetImage();
+        Title.text = music.GetTitle();
+        Artist.text = music.GetArtist();
+        musicInfoUiAnimator.SetTrigger("Show");
     }
 
     public void QueueNewSong(AudioClip songStart, AudioClip songLoop)

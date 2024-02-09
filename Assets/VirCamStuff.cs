@@ -42,4 +42,10 @@ public class VirCamStuff : MonoBehaviour
         perlinNoise.m_FrequencyGain = Freq_Default;
         perlinNoise.m_AmplitudeGain = Amp_Default;
     }
+
+    public void SnapToFollow()
+    {
+        Transform snapobj = vircam.m_Follow;
+        vircam.ForceCameraPosition(snapobj.position, Quaternion.identity);
+    }
 }
