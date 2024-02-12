@@ -16,7 +16,7 @@ MonoBehaviour:
   _poseType: 2
   _firemode: 3
   Name: SPAS-12
-  damage: 50
+  damage: 250
   AttackTimer: 0
   AttackRate: 1
   MaxAmmo: 6
@@ -28,7 +28,7 @@ MonoBehaviour:
   ConeRayAmount: 10
   AttackSize: 0
   floorImage: {fileID: 21300000, guid: 14b849494029bc742a9c70ccc937270b, type: 3}
-  HeldImage: {fileID: 0}
+  HeldImage: {fileID: 21300000, guid: d045cd91cbf264a4c8ece8acf69d2069, type: 3}
   audio_gunshot: {fileID: 8300000, guid: fda7b958999c64e4c813e68247962f08, type: 3}
   audio_click: {fileID: 8300000, guid: 83bca8e348b3b484db1a873edd936bba, type: 3}
   audio_impact: {fileID: 0}

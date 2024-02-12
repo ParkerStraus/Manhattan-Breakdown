@@ -55,6 +55,8 @@ public class GameHandler : MonoBehaviour
     public UnityEvent DisplayScoreBoard;
     public UnityEvent DisplayVHS;
     public GameObject StartScreen;
+    public GameObject[] StartScreen_PlayerPortraits;
+    public GameObject[] StartScreen_PlayerPortraitsTitles;
     public UnityEvent HideVHS;
     public GameObject FinalScoreBoard;
     public MainUI MainUI;
@@ -132,6 +134,11 @@ public class GameHandler : MonoBehaviour
         GetMapReadyServerRPC();
         CanPlayersDoStuff = false;
         StartScreen.SetActive(true);
+        for (int i = 0; i < playerAmt; i++)
+        {
+            StartScreen_PlayerPortraits[i].SetActive(true);
+            StartScreen_PlayerPortraitsTitles[i].SetActive(true);
+        }
         yield return new WaitForSeconds(0.2f);
         //Start Song
         musicHand.PlayRandomSong();

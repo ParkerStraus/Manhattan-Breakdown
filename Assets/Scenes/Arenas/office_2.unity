@@ -6962,6 +6962,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 100
+  damage: 20
+  Force: 0
+  explosion:
+  - {fileID: 8300000, guid: 911f688e3094100448d3e4fcea0f06dd, type: 3}
+  BlastRadius: 2
 --- !u!50 &1696585372
 Rigidbody2D:
   serializedVersion: 4
