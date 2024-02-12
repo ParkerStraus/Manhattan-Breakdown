@@ -43,7 +43,6 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] private float pickupRadius;
     [SerializeField] private GameObject pickupPrefab;
 
-
     [SerializeField] private PlayerData _playerData;
 
 
@@ -69,7 +68,7 @@ public class Player : MonoBehaviour, IDamageable
         else
         {
             //Set Character to zero
-            MoveRealized = Vector2.Lerp(MoveRealized, Vector2.zero, MoveInterp * Time.deltaTime);
+            MoveRealized = Vector2.Lerp(MoveRealized, Vector2.zero, MoveInterp * Time.fixedDeltaTime);
         }
 
 
@@ -84,7 +83,7 @@ public class Player : MonoBehaviour, IDamageable
             MoveVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
             //Set Realized Speed
-            MoveRealized = Vector2.Lerp(MoveRealized, MoveVector, MoveInterp * Time.deltaTime);
+            MoveRealized = Vector2.Lerp(MoveRealized, MoveVector, MoveInterp * Time.fixedDeltaTime);
 
         }
         //Rotate Based on where the camera is looking

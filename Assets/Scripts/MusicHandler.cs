@@ -8,10 +8,14 @@ using UnityEngine.UI;
 public class MusicHandler : MonoBehaviour
 {
     public bool StartMusicNow;
+    public bool ResetFilters;
     public AudioSource musicSource;
     public AudioClip musicStart;
     public AudioMixer mixer;
     public MusicSelector musicSelector;
+
+    public AudioMixerSnapshot Base;
+    public AudioMixerSnapshot MuffledMusic;
 
     [Header("UI Elements")]
     public Animator musicInfoUiAnimator;
@@ -28,6 +32,7 @@ public class MusicHandler : MonoBehaviour
         {
             StartMusic();
         }
+        if (ResetFilters) TriggerSnapshot(0, 0.0f);
     }
 
     // Update is called once per frame
@@ -56,7 +61,6 @@ public class MusicHandler : MonoBehaviour
         AlbumArt.sprite = music.GetImage();
         Title.text = music.GetTitle();
         Artist.text = music.GetArtist();
-        musicInfoUiAnimator.SetTrigger("Show");
     }
 
     public void QueueNewSong(AudioClip songStart, AudioClip songLoop)
@@ -79,12 +83,33 @@ public class MusicHandler : MonoBehaviour
         }
     }
 
+    public void ShowSongInfo()
+    {
+        musicInfoUiAnimator.SetTrigger("Show");
+    }
+
     public void TriggerFilter(float FilterPoint, float MoveTime)
     {
         Debug.Log("Now Moving Filter to " + FilterPoint);
         StartCoroutine(MoveFilter(FilterPoint, MoveTime));
     }
 
+    public void TriggerSnapshot(int filterType, float TimeInterp)
+    {
+        switch(filterType)
+        {
+            case 0:
+                //base
+                Debug.Log("Now set to normal");
+                Base.TransitionTo(TimeInterp);
+                break;
+            case 1:
+                //base
+                Debug.Log("Now set to muffled");
+                MuffledMusic.TransitionTo(TimeInterp);
+                break;
+        }
+    }
 
     public void TriggerFilter(float[] param)
     {

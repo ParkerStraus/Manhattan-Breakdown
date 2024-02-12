@@ -43,6 +43,7 @@ AudioMixerController:
   m_MasterGroup: {fileID: 24300002}
   m_Snapshots:
   - {fileID: 24500006}
+  - {fileID: 2971919416066623603}
   m_StartSnapshot: {fileID: 24500006}
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
@@ -59,7 +60,7 @@ AudioMixerController:
     - daeed9bf168375841ae838d703a3a22c
     name: View
   m_CurrentViewIndex: 0
-  m_TargetSnapshot: {fileID: 24500006}
+  m_TargetSnapshot: {fileID: 2971919416066623603}
 --- !u!243 &24300002
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -101,7 +102,7 @@ AudioMixerSnapshotController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Snapshot
+  m_Name: Base
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 4f2c838551e4bec499ec97e6fd14fa3f
   m_FloatValues:
@@ -180,6 +181,37 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!245 &2971919416066623603
+AudioMixerSnapshotController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Music Filter
+  m_AudioMixer: {fileID: 24100000}
+  m_SnapshotID: 199bd006ded301148b6070899a892773
+  m_FloatValues:
+    f66c24b05a5e7754f9ae09f17453e4a1: 1.2
+    457413c075009a74e841a6ba895eb0a1: 42.3
+    0dc44a93397f88247831d2034a94a39c: 500
+    da13edb445b2bed45ad3944d0c9d85c4: -630
+    f940a6d47f6d406418003d33892f5a7d: 11831
+    daa82e15eb4f7ef4fb11cf076df367da: 1
+    f6d6872647a64d245b81acf549ef785a: 0
+    3989f8a948364714c8fec2029582d3f7: 0
+    145de7b9d074e08458ef1fc184cb5193: -10
+    90df62c96d048c44cb02962b64092846: 1561
+    00c4c07a7c173d047a160baac753953d: 1.531
+    d38b979a2151d9141aaf2d20f7c471b4: -2204
+    e7ac85ea240e50d49bae10c3a908c80c: 192
+    5bf8722b2e2ef0b438b1b0742c5c26c2: 1
+    d386ddab4ea0271429b6468da228c31f: -2676
+    31d07b7cf19c91c488724da344b647c6: 0
+    c68a44cde7ee45844863ec109928676d: 86
+    f6c703fef88cf5c42b16f9431673fcab: -707
+    1d96ef6ff34e3434fbb97f9ecab06908: 22000
+  m_TransitionOverrides:
+    0dc44a93397f88247831d2034a94a39c: 3
 --- !u!244 &3516527093811698061
 AudioMixerEffectController:
   m_ObjectHideFlags: 3

@@ -17,8 +17,8 @@ MonoBehaviour:
   _firemode: 0
   Name: 
   damage: 20
-  AttackTimer: 4.5539317
-  AttackRate: 0.36666667
+  AttackTimer: 3.341
+  AttackRate: 0.26
   MaxAmmo: 0
   CurrentAmmo: 0
   ConeSegment: 0
@@ -26,7 +26,9 @@ MonoBehaviour:
   BurstCurrent: 0
   BurstInterval: 0
   ConeRayAmount: 0
+  AttackSize: 0
   floorImage: {fileID: 0}
+  HeldImage: {fileID: 0}
   audio_gunshot: {fileID: 8300000, guid: 3e2c0108b7f01644fabf612d6a89ce93, type: 3}
   audio_click: {fileID: 0}
   audio_impact: {fileID: 8300000, guid: 9216fd108095fc043903259c2f8e8bbc, type: 3}

@@ -18,8 +18,9 @@ public class WeaponPickup : MonoBehaviour
         {
             weapon = Instantiate(Resources.Load<WeaponList>("WeaponData/WeaponList")
                                      .GetWeapon(WeaponIndex));
-            weapon.Initialize();
+            
         }
+        weapon.Initialize();
 
         sprite.sprite = weapon.GetWeaponSprite();
 

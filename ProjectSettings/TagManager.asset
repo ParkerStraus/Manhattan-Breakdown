@@ -16,7 +16,7 @@ TagManager:
   - EnemyPlayers
   - Items
   - Permeable
-  - 
+  - NonPermeable
   - 
   - 
   - 

@@ -45,6 +45,9 @@ public class GameHandler : MonoBehaviour
 
     [Header("Prefabs and Cameras")]
     public CinemachineVirtualCamera virtualCamera;
+    public Vector3 OffsetCurrent = Vector3.zero;
+    public float OffsetInterp;
+    public float OffsetClamp;
     public GameObject playerPrefab;
     public GameObject playerObject;
 
@@ -55,6 +58,11 @@ public class GameHandler : MonoBehaviour
     public UnityEvent HideVHS;
     public GameObject FinalScoreBoard;
     public MainUI MainUI;
+
+    [Header("Music/SoundStuff")]
+    public MusicHandler musicHand;
+    public AudioSource aSource;
+    public AudioClip[] audioClips; 
 
 
     // Start is called before the first frame update
@@ -78,17 +86,30 @@ public class GameHandler : MonoBehaviour
         {
             OnGamePause();
         }
+
+        //Edit Position of camera via aim
+        Vector2 aimPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if(playerObject != null)
+        {
+            Vector2 offset = aimPos - (Vector2)playerObject.transform.position;
+            //Debug.Log(aimPos + ", " + Vector3.Magnitude(offset));
+            Vector3 OffsetRealized = new Vector3(Mathf.Clamp(offset.x / 4, -OffsetClamp, OffsetClamp), Mathf.Clamp(offset.y / 4, -OffsetClamp, OffsetClamp), -5);
+            OffsetCurrent = Vector3.Lerp(OffsetCurrent, OffsetRealized, OffsetInterp*Time.deltaTime);
+            virtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = OffsetCurrent;
+        }
     }
 
-    void OnGamePause()
+    public void OnGamePause()
     {
         CurrentlyPaused = !CurrentlyPaused;
         if(CurrentlyPaused)
         {
+            musicHand.TriggerSnapshot(1, 0.01f);
             OnPause.Invoke();
         }
         else
         {
+            musicHand.TriggerSnapshot(0, 0.01f);
             OnUnpause.Invoke();
         }
     }
@@ -105,25 +126,37 @@ public class GameHandler : MonoBehaviour
     private IEnumerator OnStartGame()
     {
         //Start Animation of players
-        CanPlayersDoStuff = false;
-        StartScreen.SetActive(true);
+        musicHand.TriggerSnapshot(1, 0.01f);
+        Debug.Log("Now starting game");
         //Load Level
         GetMapReadyServerRPC();
-        yield return new WaitForSeconds(7);
+        CanPlayersDoStuff = false;
+        StartScreen.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        //Start Song
+        musicHand.PlayRandomSong();
+        yield return new WaitForSeconds(6.8f);
+        musicHand.TriggerSnapshot(0, 3f);
         //disable ui
         StartScreen.GetComponent<Animator>().SetTrigger("Finish");
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(0.5f);
+        musicHand.ShowSongInfo();
+        yield return new WaitForSeconds(1.5f);
         StartScreen.SetActive(false);
 
         //Start countdown
         
         MainUI.CountDown("3");
+        aSource.PlayOneShot(audioClips[0]);
         yield return new WaitForSeconds(1);
         MainUI.CountDown("2");
+        aSource.PlayOneShot(audioClips[0]);
         yield return new WaitForSeconds(1);
         MainUI.CountDown("1");
+        aSource.PlayOneShot(audioClips[0]);
         yield return new WaitForSeconds(1);
         MainUI.CountDown("Fight");
+        aSource.PlayOneShot(audioClips[1]);
 
         //on end enable character control
         CanPlayersDoStuff = true;
@@ -187,7 +220,7 @@ public class GameHandler : MonoBehaviour
     private IEnumerator NextRound()
     {
         Debug.Log("Next Round Starting");
-        GetComponent<MusicHandler>().TriggerFilter(500f, 0.5f);
+        musicHand.TriggerSnapshot(1, 0.5f);
 
         yield return new WaitForSeconds(1);
         CanPlayersDoStuff = false;
@@ -195,7 +228,7 @@ public class GameHandler : MonoBehaviour
         DisplayScoreBoard.Invoke();
         yield return new WaitForSeconds(2.25f);
 
-        GetComponent<MusicHandler>().TriggerFilter(22000f, 0.5f);
+        musicHand.TriggerSnapshot(0, 0.5f);
         yield return new WaitForSeconds(0.50f);
         HideVHS.Invoke();
 
@@ -212,7 +245,7 @@ public class GameHandler : MonoBehaviour
         CanPlayersDoStuff = false;
         Debug.Log("Next Round Starting");
         DisplayVHS.Invoke();
-        GetComponent<MusicHandler>().TriggerFilter(300f, 0.5f);
+        musicHand.TriggerSnapshot(1, 2f);
 
         yield return new WaitForSeconds(3);
         FinalScoreBoard.SetActive(true);
@@ -272,9 +305,11 @@ public class GameHandler : MonoBehaviour
 
         //DEBUG Populate with dummy players
         var player = Instantiate(playerPrefab, spawn[int.Parse(shuffledLoadOrder[0].ToString())].transform);
-        player.transform.parent = null;
+        player.transform.SetParent(null);
         playerAlive[0] = true;
         virtualCamera.Follow = player.transform;
+        playerObject = player;
+
 
         for(int i = 1; i <= DummyPlayers; i++)
         {

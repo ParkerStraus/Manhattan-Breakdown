@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Arenas/office_1.unity
     guid: 587a7c32f35bb8542bcd511032fdac60
   - enabled: 1
+    path: Assets/Scenes/Arenas/office_2.unity
+    guid: 430bfa1f13fc3104c89efec808397dbb
+  - enabled: 1
     path: Assets/Scenes/Arenas/streets_1.unity
     guid: 3c1b61c7c4d1dc346b6aa99ca42d4335
   - enabled: 1

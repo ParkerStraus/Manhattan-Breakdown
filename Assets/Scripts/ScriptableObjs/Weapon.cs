@@ -47,7 +47,7 @@ public class Weapon : ScriptableObject
     [Header("Gun Info")]
     public int MaxAmmo;
     public int CurrentAmmo;
-    public float ConeSegment;
+    public float ConeRadius;
     public int BurstAmount;
     public int BurstCurrent = 0;
     public float BurstInterval;
@@ -153,7 +153,7 @@ public class Weapon : ScriptableObject
                                 {
                                     AttackTimer = 0;
                                     //Debug.Log("Bagoom");
-                                    GunShot(attackPoint, ac);
+                                    GunShot_Scatter(attackPoint, ac);
                                     player.GetComponent<Player>().SendWeaponInfo();
                                 }
                             }
@@ -200,6 +200,40 @@ public class Weapon : ScriptableObject
                 }
                 Tracer(hit, attackPoint);
                 break;
+            }
+        }
+    }
+
+    public void GunShot_Scatter(UnityEngine.Transform attackPoint, PlayerAudio ac)
+    {
+        if (CurrentAmmo > 0)
+        {
+            CurrentAmmo--;
+            ac.PlaySound(audio_gunshot);
+            GameObject.Find("VirCam").GetComponent<VirCamStuff>().Shake(0.9f, 1.5f, 0.2f, 0f);
+            //Debug.Log(attackPoint.rotation.eulerAngles.z);
+            Debug.DrawRay(attackPoint.position,
+                Quaternion.Euler(0, 0, attackPoint.rotation.eulerAngles.z) * Vector2.right, Color.white, 0.1f);
+            //Shoot Ray
+            for(int i = 0; i < ConeRayAmount; i++)
+            {
+                RaycastHit2D[] hits = Physics2D.RaycastAll(attackPoint.position,
+                    Quaternion.Euler(0, 0, attackPoint.rotation.eulerAngles.z - ConeRadius/2 + (((float)(i+1)/ConeRayAmount)*ConeRadius)) * Vector2.right, 9999, ~(LayerMask.GetMask("Items")));
+
+                foreach (RaycastHit2D hit in hits)
+                {
+
+                    Instantiate(Impact, hit.point, Quaternion.LookRotation(hit.normal, Vector3.left));
+                    if (hit.collider.gameObject.GetComponent<IDamageable>() != null)
+                    {
+                        if (hit.collider.gameObject.GetComponent<IDamageable>().Damage(damage/ ConeRayAmount))
+                        {
+                            KillConfirm();
+                        }
+                    }
+                    Tracer(hit, attackPoint);
+                    break;
+                }
             }
         }
     }
