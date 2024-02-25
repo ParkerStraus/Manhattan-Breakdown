@@ -3,7 +3,9 @@ guid: f81d87ddabb85a946a59745235b3557d
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - ac: {instanceID: 0}
+  - KillConfirm_snd: {fileID: 8300000, guid: e1044a30b3a88804c970f05afb3b6396, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

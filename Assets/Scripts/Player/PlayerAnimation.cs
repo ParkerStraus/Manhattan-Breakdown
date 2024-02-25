@@ -19,21 +19,28 @@ public class PlayerAnimation : MonoBehaviour
     int PunchR = Animator.StringToHash("Punch_Right");
     [SerializeField] private bool flipped = false;
 
-    private float _lockedTill;
+    [SerializeField] private float _lockedTill;
 
-    private float FootStepTimer = 0;
+    [SerializeField] private float FootStepTimer = 0;
     [SerializeField] private float FootStepThreshold;
+
+    [SerializeField] private bool Dead = false;
+    [SerializeField] private SpriteRenderer _sprite;
+    [SerializeField] private Sprite[] deathSprites;
+    [SerializeField] private int SpriteOffset;
     // Start is called before the first frame update
     void Start()
     {
         player = GetComponent<Player>();
         animator = GetComponent<Animator>();
         audio = GetComponent<PlayerAudio>();
+        _sprite = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Dead) return;
 
         if (playerData.Moving == true)
         {
@@ -87,5 +94,14 @@ public class PlayerAnimation : MonoBehaviour
         _lockedTill = Time.time + t;
         animator.CrossFade(s, 0, 0);
         return;
+    }
+
+    public void OnDeath()
+    {
+        animator.enabled = false;
+        Dead = true;
+        //set random sprite
+
+        _sprite.sprite = deathSprites[(int)Random.Range(0, deathSprites.Length)];
     }
 }

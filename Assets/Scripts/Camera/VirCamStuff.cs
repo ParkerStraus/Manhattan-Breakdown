@@ -19,11 +19,19 @@ public class VirCamStuff : MonoBehaviour
 
     public void Shake(float Freq, float Amp, float TimeDecay, float TimeShake)
     {
-        StartCoroutine(ShakeProtocol(Freq, Amp, TimeDecay, TimeShake));
+        StopAllCoroutines();
+        StartCoroutine(ShakeProtocol(Freq, Amp, TimeDecay, TimeShake, 0));
+    }
+    public void Shake(float Freq, float Amp, float TimeDecay, float TimeShake, float ActivateDelay)
+    {
+        StopAllCoroutines();
+        StartCoroutine(ShakeProtocol(Freq, Amp, TimeDecay, TimeShake, ActivateDelay));
     }
 
-    IEnumerator ShakeProtocol(float Freq, float Amp, float TimeDecay, float TimeShake)
+    IEnumerator ShakeProtocol(float Freq, float Amp, float TimeDecay, float TimeShake, float ActivateDelay)
     {
+        yield return new WaitForSeconds(ActivateDelay);
+
         perlinNoise.m_FrequencyGain = Freq;
         perlinNoise.m_AmplitudeGain = Amp;
 

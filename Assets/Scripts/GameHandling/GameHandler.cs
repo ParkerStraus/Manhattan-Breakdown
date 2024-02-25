@@ -50,6 +50,7 @@ public class GameHandler : MonoBehaviour
     public float OffsetClamp;
     public GameObject playerPrefab;
     public GameObject playerObject;
+    public GameObject FOVLight;
 
     [Header("UI")]
     public UnityEvent DisplayScoreBoard;
@@ -63,7 +64,8 @@ public class GameHandler : MonoBehaviour
 
     [Header("Music/SoundStuff")]
     public MusicHandler musicHand;
-    public AudioSource aSource;
+    public AudioSource musicSource;
+    public AudioSource aSource_extra;
     public AudioClip[] audioClips; 
 
 
@@ -154,20 +156,20 @@ public class GameHandler : MonoBehaviour
         //Start countdown
         
         MainUI.CountDown("3");
-        aSource.PlayOneShot(audioClips[0]);
+        aSource_extra.PlayOneShot(audioClips[0]);
         yield return new WaitForSeconds(1);
         MainUI.CountDown("2");
-        aSource.PlayOneShot(audioClips[0]);
+        aSource_extra.PlayOneShot(audioClips[0]);
         yield return new WaitForSeconds(1);
         MainUI.CountDown("1");
-        aSource.PlayOneShot(audioClips[0]);
+        aSource_extra.PlayOneShot(audioClips[0]);
         yield return new WaitForSeconds(1);
+        CanPlayersDoStuff = true;
         MainUI.CountDown("Fight");
-        aSource.PlayOneShot(audioClips[1]);
+        aSource_extra.PlayOneShot(audioClips[1]);
+        yield return new WaitForSeconds(1);
 
         //on end enable character control
-        CanPlayersDoStuff = true;
-        yield return new WaitForEndOfFrame();
         MainUI.CountDown("");
     }
 
@@ -249,6 +251,7 @@ public class GameHandler : MonoBehaviour
 
     private IEnumerator GameComplete()
     {
+        aSource_extra.PlayOneShot(audioClips[2]);
         CanPlayersDoStuff = false;
         Debug.Log("Next Round Starting");
         DisplayVHS.Invoke();
@@ -284,6 +287,7 @@ public class GameHandler : MonoBehaviour
 
         if (CurrentArena != "")
         {
+            FOVLight.transform.SetParent(this.gameObject.transform);
             SceneManager.UnloadScene(CurrentArena);
         }
         AsyncOperation scene = SceneManager.LoadSceneAsync(map, LoadSceneMode.Additive);
@@ -326,6 +330,9 @@ public class GameHandler : MonoBehaviour
             dummyPlayer.transform.parent = null;
         }
 
+        //Add sight view
+        FOVLight.transform.position = player.transform.position;
+        FOVLight.transform.SetParent(player.transform);
 
         virtualCamera.gameObject.GetComponent<VirCamStuff>().SnapToFollow();
     }

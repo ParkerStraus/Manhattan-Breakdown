@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 647319380409035431}
   - component: {fileID: -3305735741596666255}
   - component: {fileID: 1556402670665577477}
-  - component: {fileID: 7237413952200306526}
   m_Layer: 6
   m_Name: DummyPlayer
   m_TagString: Player
@@ -166,6 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 100
   PID: 0
+  ImpactEffect: {fileID: 2085389234366473006, guid: c1f4380d80f237c4bb581a54ca90b5ef, type: 3}
 --- !u!114 &1556402670665577477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,18 +181,6 @@ MonoBehaviour:
   ShadowOffset: {x: 0.0675, y: -0.125}
   StartOffset: {x: 0, y: 0}
   ShadowMaterial: {fileID: 2100000, guid: 9763b5aa29ef070459fabe65c717791c, type: 2}
---- !u!114 &7237413952200306526
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1960366418344800116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8686c4f9fa5ad304a91dcdd4d890da2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3303841168001822170
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,13 +16,14 @@ public struct PlayerData
 
 }
 
-public class Player : MonoBehaviour, IDamageable
+public class Player : MonoBehaviour, IDamageable, IForceObject
 {
 
     [Header("Game Components")]
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private GameHandler gh;
     [SerializeField] private PlayerAudio pAud;
+    [SerializeField] private PlayerAnimation anim;
 
     [Header("Movement")]
     [SerializeField] private NetworkVariable<Vector2> Position;
@@ -30,10 +31,13 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] private float MoveSpeed;
     [SerializeField] private Vector2 MoveRealized;
     [SerializeField] private float MoveInterp;
+    [SerializeField] private Vector2 MoveForce;
+    [SerializeField] private float ForceInterp;
     [SerializeField] private float RotationRealized;
     [SerializeField] private float RotationSpeed;
 
     [Header("Health and Guns")]
+    [SerializeField] private bool Dead = false;
     [SerializeField] private float Health = 100;
     [SerializeField] private Weapon weapon = null;
     [SerializeField] private SpriteRenderer WeaponDraw;
@@ -45,6 +49,9 @@ public class Player : MonoBehaviour, IDamageable
 
     [SerializeField] private PlayerData _playerData;
 
+    [Header("Damageable Stuff")]
+    [SerializeField] private GameObject impactEffect;
+
 
     // Start is called before the first frame update
     void Start()
@@ -52,6 +59,7 @@ public class Player : MonoBehaviour, IDamageable
         rb = GetComponent<Rigidbody2D>();
         gh = GameObject.Find("Main Camera").GetComponent<GameHandler>();
         pAud = GetComponent<PlayerAudio>();
+        anim = GetComponent<PlayerAnimation>();
         SendWeaponInfo();
     }
 
@@ -59,8 +67,7 @@ public class Player : MonoBehaviour, IDamageable
     void Update()
     {
 
-
-        if (!gh.IsPaused())
+        if (!gh.IsPaused() && !Dead)
         {
             HandleMovement();
             HandleCombat();
@@ -70,6 +77,7 @@ public class Player : MonoBehaviour, IDamageable
             //Set Character to zero
             MoveRealized = Vector2.Lerp(MoveRealized, Vector2.zero, MoveInterp * Time.fixedDeltaTime);
         }
+        MoveForce = Vector2.Lerp(MoveForce, Vector2.zero, ForceInterp * Time.deltaTime);
 
 
     }
@@ -181,9 +189,18 @@ public class Player : MonoBehaviour, IDamageable
 
         if (Health <= 0)
         {
-            Destroy(this.gameObject);
-            gh.OnKill(0);
-            return true;
+            if (Dead == true)
+            {
+                return false;
+            }
+            else
+            {
+                gh.OnKill(0);
+                Dead = true;
+                anim.OnDeath();
+                WeaponDraw.sprite = null;
+                return true;
+            }
         }
         return false;
     }
@@ -211,10 +228,20 @@ public class Player : MonoBehaviour, IDamageable
         gh.UpdateMainUI(value);
     }
 
+    public GameObject GetImpactEffect()
+    {
+        return impactEffect;
+    }
+
+    public void ApplyForce(Vector2 force)
+    {
+        MoveForce += force;
+    }
+
     [ServerRpc]
     private void MovePlayerServerRpc()
     {
-        rb.velocity = (Vector3)(MoveRealized * MoveSpeed);
+        rb.velocity = (Vector3)(MoveRealized * MoveSpeed + MoveForce);
         ApplyMovePlayerClientRpc();
 
     }
@@ -223,7 +250,7 @@ public class Player : MonoBehaviour, IDamageable
     private void ApplyMovePlayerClientRpc()
     {
 
-        rb.velocity = (Vector3)(MoveRealized * MoveSpeed);
+        rb.velocity = (Vector3)(MoveRealized * MoveSpeed + MoveForce);
     }
 }
 

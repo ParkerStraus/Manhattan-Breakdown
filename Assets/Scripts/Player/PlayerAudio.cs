@@ -6,6 +6,7 @@ public class PlayerAudio : MonoBehaviour
 {
     public AudioSource ac;
     public AudioClip[] footsteps;
+    public AudioClip KillConfirm_snd;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,5 +29,10 @@ public class PlayerAudio : MonoBehaviour
     {
 
         PlaySound(footsteps[Random.Range(0,(int)footsteps.Length-1)]);
+    }
+
+    public void KillConfirmed()
+    {
+        PlaySound(KillConfirm_snd);
     }
 }

@@ -113,6 +113,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   gh: {fileID: 0}
   pAud: {fileID: 3537109571706422909}
+  anim: {fileID: 0}
   Position:
     m_InternalValue: {x: 0, y: 0}
   Rotation:
@@ -120,8 +121,11 @@ MonoBehaviour:
   MoveSpeed: 5
   MoveRealized: {x: 0, y: 0}
   MoveInterp: 15
+  MoveForce: {x: 0, y: 0}
+  ForceInterp: 4
   RotationRealized: 0
   RotationSpeed: -8.04
+  Dead: 0
   Health: 0
   weapon: {fileID: 0}
   WeaponDraw: {fileID: 3047056063672479387}
@@ -132,6 +136,7 @@ MonoBehaviour:
     m_Bits: 256
   pickupRadius: 1
   pickupPrefab: {fileID: 1726320929415071596, guid: c32e38efab784d44d9c352d94aac5409, type: 3}
+  impactEffect: {fileID: 0}
 --- !u!114 &-442989624983559690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,7 +153,22 @@ MonoBehaviour:
   animator: {fileID: 0}
   audio: {fileID: 0}
   flipped: 0
+  _lockedTill: 0
+  FootStepTimer: 0
   FootStepThreshold: 0.25
+  Dead: 0
+  _sprite: {fileID: 0}
+  deathSprites:
+  - {fileID: 21300000, guid: 9116763b4c2aa944b92bdcf4188775b4, type: 3}
+  - {fileID: 21300000, guid: 2ed6889c30775fe45be56498de7d357e, type: 3}
+  - {fileID: 21300000, guid: 1065ebce81a472c4780247969eabddcc, type: 3}
+  - {fileID: 21300000, guid: 3f194ff7065f4264cb95dc5a76acd7e3, type: 3}
+  - {fileID: 21300000, guid: 87c2d9d016a9ca34ab43c67c0b414c00, type: 3}
+  - {fileID: 21300000, guid: 8f1e1de5391ce014d8dfc63111cad939, type: 3}
+  - {fileID: 21300000, guid: f7521cfce54fb3548a7ca09869824b4f, type: 3}
+  - {fileID: 21300000, guid: 43165c194332fbc4b89a6226efb1a41d, type: 3}
+  - {fileID: 21300000, guid: 31aa39629d843b842b337d371dec59b5, type: 3}
+  SpriteOffset: 0
 --- !u!95 &1054936185553615092
 Animator:
   serializedVersion: 5
@@ -188,6 +208,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3da8c01ec4d74e34180e591e3a743bc8, type: 3}
   - {fileID: 8300000, guid: e3a40c39ced0023499a6eb5810eea8fe, type: 3}
   - {fileID: 8300000, guid: 56786597d809e864c8dcf72664dca0b6, type: 3}
+  KillConfirm_snd: {fileID: 8300000, guid: e1044a30b3a88804c970f05afb3b6396, type: 3}
 --- !u!50 &647319380409035431
 Rigidbody2D:
   serializedVersion: 4
@@ -202,7 +223,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.95
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:

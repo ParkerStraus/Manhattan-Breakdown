@@ -1,6 +1,7 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
@@ -105,7 +106,7 @@ public class Weapon : ScriptableObject
                                 {
                                     AttackTimer = 0;
                                     //Debug.Log("Bang");
-                                    GunShot(attackPoint, ac);
+                                    GunShot(attackPoint, ac, player);
                                     player.GetComponent<Player>().SendWeaponInfo();
                                 }
                             }
@@ -118,7 +119,7 @@ public class Weapon : ScriptableObject
                                 {
                                     AttackTimer = 0;
                                     //Debug.Log("Tacka");
-                                    GunShot(attackPoint, ac);
+                                    GunShot(attackPoint, ac, player);
                                     player.GetComponent<Player>().SendWeaponInfo();
                                 }
 
@@ -135,7 +136,7 @@ public class Weapon : ScriptableObject
                                         BurstCurrent++;
                                         AttackTimer = 0;
                                         //Debug.Log("RadaTada");
-                                        GunShot(attackPoint, ac);
+                                        GunShot(attackPoint, ac, player);
                                         player.GetComponent<Player>().SendWeaponInfo();
                                     }
                                 }
@@ -153,7 +154,7 @@ public class Weapon : ScriptableObject
                                 {
                                     AttackTimer = 0;
                                     //Debug.Log("Bagoom");
-                                    GunShot_Scatter(attackPoint, ac);
+                                    GunShot_Scatter(attackPoint, ac, player);
                                     player.GetComponent<Player>().SendWeaponInfo();
                                 }
                             }
@@ -174,7 +175,7 @@ public class Weapon : ScriptableObject
         return 0;
     }
 
-    public void GunShot(UnityEngine.Transform attackPoint, PlayerAudio ac)
+    public void GunShot(UnityEngine.Transform attackPoint, PlayerAudio ac, GameObject player)
     {
         if(CurrentAmmo > 0)
         {
@@ -191,12 +192,14 @@ public class Weapon : ScriptableObject
             {
                 
                 Instantiate(Impact, hit.point, Quaternion.LookRotation(hit.normal, Vector3.left));
-                if (hit.collider.gameObject.GetComponent<IDamageable>() != null)
+                IDamageable obj = hit.collider.gameObject.GetComponent<IDamageable>();
+                if (obj != null)
                 {
-                    if (hit.collider.gameObject.GetComponent<IDamageable>().Damage(damage))
+                    if (obj.Damage(damage))
                     {
-                        KillConfirm();
+                        KillConfirm(player);
                     }
+                    CreateParticle(obj.GetImpactEffect(), hit);
                 }
                 Tracer(hit, attackPoint);
                 break;
@@ -204,7 +207,7 @@ public class Weapon : ScriptableObject
         }
     }
 
-    public void GunShot_Scatter(UnityEngine.Transform attackPoint, PlayerAudio ac)
+    public void GunShot_Scatter(UnityEngine.Transform attackPoint, PlayerAudio ac, GameObject player)
     {
         if (CurrentAmmo > 0)
         {
@@ -224,12 +227,14 @@ public class Weapon : ScriptableObject
                 {
 
                     Instantiate(Impact, hit.point, Quaternion.LookRotation(hit.normal, Vector3.left));
-                    if (hit.collider.gameObject.GetComponent<IDamageable>() != null)
+                    IDamageable obj = hit.collider.gameObject.GetComponent<IDamageable>();
+                    if (obj != null)
                     {
-                        if (hit.collider.gameObject.GetComponent<IDamageable>().Damage(damage/ ConeRayAmount))
+                        if (obj.Damage(damage/ ConeRayAmount))
                         {
-                            KillConfirm();
+                            KillConfirm(player);
                         }
+                        CreateParticle(obj.GetImpactEffect(), hit);
                     }
                     Tracer(hit, attackPoint);
                     break;
@@ -253,7 +258,7 @@ public class Weapon : ScriptableObject
                     GameObject.Find("VirCam").GetComponent<VirCamStuff>().Shake(0.9f, 1.5f, 0.2f, 0f);
                     if (hit.gameObject.GetComponent<IDamageable>().Damage(damage))
                     {
-                        KillConfirm();
+                        KillConfirm(player);
                     }
                 }
 
@@ -269,9 +274,15 @@ public class Weapon : ScriptableObject
         em.StartCoroutine(em.BulletTrailRoutine(trail, hit));
     }
 
-    public void KillConfirm()
+    public void KillConfirm(GameObject player)
     {
+        player.SendMessage("KillConfirmed");
+    }
 
+    public void CreateParticle(GameObject particles, RaycastHit2D point)
+    {
+        Debug.Log("Now Shooting blud");
+        Instantiate(particles, point.point, Quaternion.LookRotation(point.normal, Vector3.left));
     }
 
     public string GetName()

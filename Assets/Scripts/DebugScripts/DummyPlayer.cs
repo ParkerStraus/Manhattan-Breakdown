@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class DummyPlayer : MonoBehaviour, IDamageable
 {
-
     [SerializeField] private float Health = 100;
     [SerializeField] public int PID;
+    [SerializeField] private GameObject ImpactEffect;
     public bool Damage(float damage)
     {
         Health -= damage;
@@ -18,5 +18,10 @@ public class DummyPlayer : MonoBehaviour, IDamageable
             return true;
         }
         return false;
+    }
+
+    public GameObject GetImpactEffect()
+    {
+        return ImpactEffect;
     }
 }
