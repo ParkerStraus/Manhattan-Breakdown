@@ -9,6 +9,7 @@ public class MainUI : MonoBehaviour
     [SerializeField] private TMP_Text Ammo;
     [SerializeField] private TMP_Text CountDown_Text;
     [SerializeField] private Animator Anim;
+    [SerializeField] private bool DisplayAmmo;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,10 +22,28 @@ public class MainUI : MonoBehaviour
         
     }
 
-    public void UpdateMainUI(string[] weapon)
+    public void UpdateMainUI(int overrideShow, string[] weapon)
     {
-        Title.text = weapon[0];
-        Ammo.text = weapon[1];
+        if (overrideShow == 2)
+        {
+            Anim.SetBool("ammo Reveal", false);
+            Anim.CrossFade("ammo_unIdle", 0, 1);
+            return;
+        }
+        //Toggle
+        if (overrideShow == 0)
+        {
+            DisplayAmmo = false;
+            Anim.SetBool("ammo Reveal", DisplayAmmo);
+        }
+        else if(overrideShow == 1)
+        {
+            DisplayAmmo = true;
+            Anim.SetBool("ammo Reveal", DisplayAmmo);
+            Title.text = weapon[0];
+            Ammo.text = "AMMO: "+ weapon[1];
+
+        }
     }
     public void CountDown(string Text)
     {

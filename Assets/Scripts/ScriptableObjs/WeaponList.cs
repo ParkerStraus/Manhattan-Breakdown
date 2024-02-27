@@ -11,7 +11,7 @@ public class WeaponList : ScriptableObject
     {
         if (index == -1)
         {
-            return (Weapon)weapons[Random.Range(0, index)];
+            return (Weapon)weapons[Random.Range(0, weapons.Count)];
         }
         else
         {

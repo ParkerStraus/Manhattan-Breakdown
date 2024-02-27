@@ -232,6 +232,7 @@ public class GameHandler : MonoBehaviour
         musicHand.TriggerSnapshot(1, 0.5f);
 
         yield return new WaitForSeconds(1);
+        UpdateMainUI(2, null);
         CanPlayersDoStuff = false;
         DisplayVHS.Invoke();
         DisplayScoreBoard.Invoke();
@@ -251,6 +252,7 @@ public class GameHandler : MonoBehaviour
 
     private IEnumerator GameComplete()
     {
+        UpdateMainUI(2, null);
         aSource_extra.PlayOneShot(audioClips[2]);
         CanPlayersDoStuff = false;
         Debug.Log("Next Round Starting");
@@ -260,7 +262,6 @@ public class GameHandler : MonoBehaviour
         yield return new WaitForSeconds(3);
         FinalScoreBoard.SetActive(true);
         FinalScoreBoard.GetComponent<FinalResults>().SetupScoreBoard(scores: points);
-        
 
     }
 
@@ -347,8 +348,8 @@ public class GameHandler : MonoBehaviour
         return CanPlayersDoStuff;
     }
 
-    public void UpdateMainUI(string[] Weapon)
+    public void UpdateMainUI(int overrideView, string[] Weapon)
     {
-        MainUI.UpdateMainUI(Weapon);
+        MainUI.UpdateMainUI(overrideView, Weapon);
     }
 }

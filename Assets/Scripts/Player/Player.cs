@@ -214,18 +214,21 @@ public class Player : MonoBehaviour, IDamageable, IForceObject
     {
 
         string[] value = new string[2];
+        int UIOverride = 0;
         if (weapon != null)
         {
             value[0] = weapon.GetName();
             value[1] = weapon.GetAmmo();
+            UIOverride = 1;
         }
         else
         {
             value[0] = "";
             value[1] = "";
+            UIOverride = 0;
         }
 
-        gh.UpdateMainUI(value);
+        gh.UpdateMainUI(UIOverride, value);
     }
 
     public GameObject GetImpactEffect()
