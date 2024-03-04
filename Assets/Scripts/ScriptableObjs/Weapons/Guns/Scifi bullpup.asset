@@ -10,26 +10,33 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d841893a6728a54bb96456607dc4960, type: 3}
-  m_Name: Barrett
+  m_Name: Scifi bullpup
   m_EditorClassIdentifier: 
   _weaponType: 1
   _poseType: 2
   _firemode: 0
-  Name: B 50.Cal
-  damage: 250
+  Name: XR23 Bullpup
+  damage: 10
   AttackTimer: 0
-  AttackRate: 1.5
-  MaxAmmo: 5
-  CurrentAmmo: 5
+  AttackRate: 0.07552083
+  MaxAmmo: 30
+  CurrentAmmo: 30
   ConeRadius: 45
   BurstAmount: 0
   BurstCurrent: 0
   BurstInterval: 0
   ConeRayAmount: 10
+  OnLastBulletFire_Event:
+    m_PersistentCalls:
+      m_Calls: []
   AttackSize: 0
-  floorImage: {fileID: 21300000, guid: 0d40134e23c186d4daef552bb2595181, type: 3}
-  HeldImage: {fileID: 21300000, guid: 806b789fb11a8004ebd3ba1444f2abe1, type: 3}
-  audio_gunshot: {fileID: 8300000, guid: fda7b958999c64e4c813e68247962f08, type: 3}
+  Cooked: 0
+  CookTimer: 0
+  CookTimer_Current: 0
+  GrenadeOBJ: {fileID: 0}
+  floorImage: {fileID: 21300000, guid: c62a384932b71ad4a9cd05628b05bc57, type: 3}
+  HeldImage: {fileID: 21300000, guid: 1ae68ce12d0b2af4b9426c15311e3d71, type: 3}
+  audio_gunshot: {fileID: 8300000, guid: 51dcc13719f97e14281ca1d2c5f340ab, type: 3}
   audio_click: {fileID: 8300000, guid: 83bca8e348b3b484db1a873edd936bba, type: 3}
   audio_impact: {fileID: 0}
   Impact: {fileID: 2085389234366473006, guid: 101ba8c7e6214d14e91e39f3fb5aac5c, type: 3}

@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arenas:
   - hotel_1
+  - hotel_2
   - office_1
+  - office_2
   - streets_1
   - arena_1
-  - office_2

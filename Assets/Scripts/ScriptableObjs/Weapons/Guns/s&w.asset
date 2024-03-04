@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d841893a6728a54bb96456607dc4960, type: 3}
-  m_Name: Pistol
+  m_Name: s&w
   m_EditorClassIdentifier: 
   _weaponType: 1
-  _poseType: 1
+  _poseType: 0
   _firemode: 0
-  Name: 1911
-  damage: 35
-  AttackTimer: 7.9330244
-  AttackRate: 0.08
-  MaxAmmo: 10
-  CurrentAmmo: 0
-  ConeRadius: 0
-  BurstAmount: 4
-  BurstCurrent: 2
+  Name: S&W Model 29
+  damage: 100
+  AttackTimer: 0
+  AttackRate: 0.5
+  MaxAmmo: 6
+  CurrentAmmo: 6
+  ConeRadius: 45
+  BurstAmount: 0
+  BurstCurrent: 0
   BurstInterval: 0
-  ConeRayAmount: 0
+  ConeRayAmount: 10
   AttackSize: 0
-  floorImage: {fileID: 21300000, guid: a6244b27103f5eb4e9d9d77ad68fc9a6, type: 3}
-  HeldImage: {fileID: 21300000, guid: f8c68c2728467d24cb64d9e3f5bac37c, type: 3}
-  audio_gunshot: {fileID: 8300000, guid: b95be4da13114b941bc857c0d8381b42, type: 3}
+  floorImage: {fileID: 21300000, guid: 78eed222e7450c143a63bbe3dfaa0bac, type: 3}
+  HeldImage: {fileID: 21300000, guid: b46ff02d765060c47b26ae4f6b4bc72e, type: 3}
+  audio_gunshot: {fileID: 8300000, guid: 695a68424ade5c54dbcd26061d70d338, type: 3}
   audio_click: {fileID: 8300000, guid: 83bca8e348b3b484db1a873edd936bba, type: 3}
   audio_impact: {fileID: 0}
   Impact: {fileID: 2085389234366473006, guid: 101ba8c7e6214d14e91e39f3fb5aac5c, type: 3}

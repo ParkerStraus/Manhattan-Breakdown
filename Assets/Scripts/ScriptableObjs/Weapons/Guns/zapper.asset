@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d841893a6728a54bb96456607dc4960, type: 3}
-  m_Name: Shotgun
+  m_Name: zapper
   m_EditorClassIdentifier: 
   _weaponType: 1
-  _poseType: 2
-  _firemode: 3
-  Name: SPAS-12
-  damage: 250
+  _poseType: 1
+  _firemode: 0
+  Name: Zapper
+  damage: 100
   AttackTimer: 0
-  AttackRate: 1
-  MaxAmmo: 6
-  CurrentAmmo: 6
+  AttackRate: 2
+  MaxAmmo: 3
+  CurrentAmmo: 3
   ConeRadius: 45
-  BurstAmount: 0
+  BurstAmount: 4
   BurstCurrent: 0
   BurstInterval: 0
   ConeRayAmount: 10
   AttackSize: 0
-  floorImage: {fileID: 21300000, guid: acdc9d5613c90594393f0d1c0b2901c3, type: 3}
-  HeldImage: {fileID: 21300000, guid: bedfc50050923c64e893ce0f3de50a87, type: 3}
-  audio_gunshot: {fileID: 8300000, guid: fda7b958999c64e4c813e68247962f08, type: 3}
+  floorImage: {fileID: 21300000, guid: 05d1198cf7497824083aed21887bd583, type: 3}
+  HeldImage: {fileID: 21300000, guid: 4e264f0b1ff899941bc61b0ae93e8aa2, type: 3}
+  audio_gunshot: {fileID: 8300000, guid: 18ad61b5d75131140ad9a4a641fe6cdc, type: 3}
   audio_click: {fileID: 8300000, guid: 83bca8e348b3b484db1a873edd936bba, type: 3}
   audio_impact: {fileID: 0}
   Impact: {fileID: 2085389234366473006, guid: 101ba8c7e6214d14e91e39f3fb5aac5c, type: 3}

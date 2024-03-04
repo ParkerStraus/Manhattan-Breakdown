@@ -22,6 +22,15 @@ public class PlayerAudio : MonoBehaviour
     public void PlaySound(AudioClip sound)
     {
         //Debug.Log("Now Playing sound");
+        ac.pitch = 1;
+        ac.PlayOneShot(sound);
+    }
+
+
+    public void PlaySound(AudioClip sound, float pitchRange)
+    {
+        //Debug.Log("Now Playing sound");
+        ac.pitch = 1 + Random.Range(-pitchRange, pitchRange);
         ac.PlayOneShot(sound);
     }
 

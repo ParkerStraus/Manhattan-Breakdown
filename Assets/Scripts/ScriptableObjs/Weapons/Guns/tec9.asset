@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d841893a6728a54bb96456607dc4960, type: 3}
-  m_Name: m16
+  m_Name: tec9
   m_EditorClassIdentifier: 
   _weaponType: 1
-  _poseType: 2
+  _poseType: 1
   _firemode: 1
-  Name: uzi
+  Name: TEC-9
   damage: 100
   AttackTimer: 0
   AttackRate: 0.1
-  MaxAmmo: 20
-  CurrentAmmo: 20
+  MaxAmmo: 16
+  CurrentAmmo: 16
   ConeRadius: 45
-  BurstAmount: 3
+  BurstAmount: 4
   BurstCurrent: 0
   BurstInterval: 0
   ConeRayAmount: 10
   AttackSize: 0
-  floorImage: {fileID: 21300000, guid: d56d97e2487f80d4a82d90b073555b4c, type: 3}
-  HeldImage: {fileID: 21300000, guid: c335fa69a0c9a0447a98a5eccff840f4, type: 3}
-  audio_gunshot: {fileID: 8300000, guid: 26e7ec142fd551a42bc9a61f749ca14a, type: 3}
+  floorImage: {fileID: 21300000, guid: f01422a22fb88164fb0f8430a5189d90, type: 3}
+  HeldImage: {fileID: 21300000, guid: f5c2211f245c5164c9b4e7bfb3c0fc1e, type: 3}
+  audio_gunshot: {fileID: 8300000, guid: 6bb6b258a6473d24ba10a83568412ce0, type: 3}
   audio_click: {fileID: 8300000, guid: 83bca8e348b3b484db1a873edd936bba, type: 3}
   audio_impact: {fileID: 0}
   Impact: {fileID: 2085389234366473006, guid: 101ba8c7e6214d14e91e39f3fb5aac5c, type: 3}

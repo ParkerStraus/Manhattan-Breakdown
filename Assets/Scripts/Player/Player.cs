@@ -138,6 +138,7 @@ public class Player : MonoBehaviour, IDamageable, IForceObject
             if (result == -1)
             {
                 weapon = null;
+                SendWeaponInfo();
             }
 
             //Interact with dropping weapons

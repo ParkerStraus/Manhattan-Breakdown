@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class MainUI : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class MainUI : MonoBehaviour
     [SerializeField] private TMP_Text CountDown_Text;
     [SerializeField] private Animator Anim;
     [SerializeField] private bool DisplayAmmo;
+    [SerializeField] private bool FinalOverride = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,28 +24,40 @@ public class MainUI : MonoBehaviour
         
     }
 
-    public void UpdateMainUI(int overrideShow, string[] weapon)
+    public void UpdateMainUI(int setShow, string[] weapon)
     {
-        if (overrideShow == 2)
-        {
-            Anim.SetBool("ammo Reveal", false);
-            Anim.CrossFade("ammo_unIdle", 0, 1);
-            return;
-        }
         //Toggle
-        if (overrideShow == 0)
+        if (!FinalOverride)
         {
-            DisplayAmmo = false;
-            Anim.SetBool("ammo Reveal", DisplayAmmo);
+            if (setShow == 1)
+            {
+                DisplayAmmo = true;
+                Anim.SetBool("ammo Reveal", DisplayAmmo);
+                Title.text = weapon[0];
+                Ammo.text = "AMMO: " + weapon[1];
+            }
+            else if(setShow == 1)
+            {
+                DisplayAmmo = false;
+                Anim.SetBool("ammo Reveal", DisplayAmmo);
+            }
+            if (setShow == 2)
+            {
+                DisplayAmmo = false;
+                Anim.SetBool("ammo Reveal", DisplayAmmo);
+                Anim.CrossFade("ammo_unIdle", 0, 1);
+            }
         }
-        else if(overrideShow == 1)
-        {
-            DisplayAmmo = true;
-            Anim.SetBool("ammo Reveal", DisplayAmmo);
-            Title.text = weapon[0];
-            Ammo.text = "AMMO: "+ weapon[1];
+    }
 
-        }
+    public void Override()
+    {
+        FinalOverride = true;
+        Anim.SetBool("ammo Reveal", false);
+        DisplayAmmo = false;
+        Anim.CrossFade("ammo_unIdle", 0, 1);
+        return;
+
     }
     public void CountDown(string Text)
     {

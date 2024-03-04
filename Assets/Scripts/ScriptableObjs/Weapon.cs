@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Experimental.Rendering;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
@@ -53,9 +54,16 @@ public class Weapon : ScriptableObject
     public int BurstCurrent = 0;
     public float BurstInterval;
     public int ConeRayAmount;
+    public UnityEvent OnLastBulletFire_Event;
 
     [Header("Weapon Info")]
     public float AttackSize;
+
+    [Header("Grenade Info")]
+    public bool Cooked;
+    public float CookTimer;
+    public float CookTimer_Current;
+    public GameObject GrenadeOBJ;
 
 
     [Header("Aesthetic stuff here")]
@@ -69,6 +77,7 @@ public class Weapon : ScriptableObject
 
     public void Initialize()
     {
+        CookTimer_Current = CookTimer;
         CurrentAmmo = MaxAmmo;
         em = GameObject.Find("Main Camera").GetComponent<EffectsManager>();
     }
@@ -169,7 +178,15 @@ public class Weapon : ScriptableObject
                 break;
 
             case WeaponType.Consumeable:
-                return -1;
+                bool Expended = Use_Grenade(attackPoint, ac, player);
+                if (Expended)
+                {
+                    return -1;
+                }
+                else
+                {
+                    break;
+                }
         }
         AttackTimer += Time.deltaTime;
         return 0;
@@ -180,7 +197,7 @@ public class Weapon : ScriptableObject
         if(CurrentAmmo > 0)
         {
             CurrentAmmo--;
-            ac.PlaySound(audio_gunshot);
+            ac.PlaySound(audio_gunshot, 0.2f);
             GameObject.Find("VirCam").GetComponent<VirCamStuff>().Shake(0.9f, 1.5f, 0.2f, 0f);
             //Debug.Log(attackPoint.rotation.eulerAngles.z);
             Debug.DrawRay(attackPoint.position,
@@ -204,6 +221,10 @@ public class Weapon : ScriptableObject
                 Tracer(hit, attackPoint);
                 break;
             }
+            if(CurrentAmmo == 0)
+            {
+                OnLastBulletFire();
+            }
         }
     }
 
@@ -212,7 +233,7 @@ public class Weapon : ScriptableObject
         if (CurrentAmmo > 0)
         {
             CurrentAmmo--;
-            ac.PlaySound(audio_gunshot);
+            ac.PlaySound(audio_gunshot, 0.2f);
             GameObject.Find("VirCam").GetComponent<VirCamStuff>().Shake(0.9f, 1.5f, 0.2f, 0f);
             //Debug.Log(attackPoint.rotation.eulerAngles.z);
             Debug.DrawRay(attackPoint.position,
@@ -240,7 +261,16 @@ public class Weapon : ScriptableObject
                     break;
                 }
             }
+            if (CurrentAmmo == 0)
+            {
+                OnLastBulletFire();
+            }
         }
+    }
+
+    public void OnLastBulletFire()
+    {
+        OnLastBulletFire_Event.Invoke();
     }
 
     public void Melee(UnityEngine.Transform attackPoint, PlayerAudio ac, GameObject player)
@@ -266,6 +296,38 @@ public class Weapon : ScriptableObject
         }
     }
 
+    public bool Use_Grenade(UnityEngine.Transform attackPoint, PlayerAudio ac, GameObject player)
+    {
+        if (Cooked)
+        {
+            if (Input.GetButtonUp("Fire1"))
+            {
+                GameObject gre = Instantiate(GrenadeOBJ, attackPoint);
+                gre.GetComponent<GrenadeObj>().PrepareGrenade(damage, CookTimer_Current);
+                gre.transform.parent = null;
+                return true;
+            }
+            CookTimer_Current -= Time.deltaTime;
+            if(CookTimer_Current <= 0)
+            {
+                ac.PlaySound(audio_click, 0.2f);
+                GameObject gre = Instantiate(GrenadeOBJ, attackPoint);
+                gre.GetComponent<GrenadeObj>().PrepareGrenade(damage, CookTimer_Current);
+                gre.transform.parent = null;
+                return true;
+            }
+        }
+        else
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                Cooked = true;
+                CookTimer_Current = CookTimer;
+            }
+
+        }
+        return false;
+    }
     public void Tracer(RaycastHit2D hit, UnityEngine.Transform attackPoint)
     {
         TrailRenderer TrailBase = GameObject.Find("Trail").GetComponent<TrailRenderer>();

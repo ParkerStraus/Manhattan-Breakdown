@@ -3,7 +3,15 @@ guid: 4d841893a6728a54bb96456607dc4960
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - GrenadeOBJ: {fileID: 7141454327199773043, guid: 63f3ff932350a8e49bd7e9333b8790de, type: 3}
+  - floorImage: {instanceID: 0}
+  - HeldImage: {instanceID: 0}
+  - audio_gunshot: {instanceID: 0}
+  - audio_click: {instanceID: 0}
+  - audio_impact: {instanceID: 0}
+  - Impact: {instanceID: 0}
+  - em: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

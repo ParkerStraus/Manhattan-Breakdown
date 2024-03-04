@@ -9,6 +9,7 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using Random = System.Random;
 using UnityEngine.UIElements;
+using static UnityEngine.Rendering.DebugUI;
 
 public class GameHandler : MonoBehaviour
 {
@@ -252,10 +253,9 @@ public class GameHandler : MonoBehaviour
 
     private IEnumerator GameComplete()
     {
-        UpdateMainUI(2, null);
+        MainUI.Override();
         aSource_extra.PlayOneShot(audioClips[2]);
         CanPlayersDoStuff = false;
-        Debug.Log("Next Round Starting");
         DisplayVHS.Invoke();
         musicHand.TriggerSnapshot(1, 2f);
 
@@ -297,6 +297,12 @@ public class GameHandler : MonoBehaviour
         {
             Debug.Log("loading new arena");
             yield return null;
+        }
+        //Clear all Particles
+        GameObject[] particles = GameObject.FindGameObjectsWithTag("Particles");
+        foreach(GameObject particle in particles)
+        {
+            Destroy(particle);
         }
         PreparePlayersForArena();
         CurrentArena = map;
@@ -348,8 +354,9 @@ public class GameHandler : MonoBehaviour
         return CanPlayersDoStuff;
     }
 
-    public void UpdateMainUI(int overrideView, string[] Weapon)
+
+    public void UpdateMainUI(int UIOverride, string[] value)
     {
-        MainUI.UpdateMainUI(overrideView, Weapon);
+        MainUI.UpdateMainUI(UIOverride, value);
     }
 }
