@@ -6,11 +6,13 @@ using UnityEngine;
 
 public class TestConnect : MonoBehaviourPunCallbacks
 {
+    [SerializeField] private MasterManager _MasterManager;
     // Start is called before the first frame update
     void Start()
     {
         print("Connected to server");
-        PhotonNetwork.GameVersion = "0.0.1";
+        PhotonNetwork.NickName = MasterManager.GameSettings.Nickname;
+        PhotonNetwork.GameVersion = MasterManager.GameSettings.GameVersion;
         PhotonNetwork.ConnectUsingSettings();
     }
 
@@ -18,6 +20,8 @@ public class TestConnect : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         print("Connected to server");
+        print (PhotonNetwork.LocalPlayer.NickName);
+        print(PhotonNetwork.GameVersion);
     }
 
     public override void OnDisconnected(DisconnectCause cause)
