@@ -16,11 +16,10 @@ public struct PlayerData
 
 }
 
-public class Player : MonoBehaviour, IDamageable, IForceObject
+public class Player : IForceObject, IDamageable
 {
 
     [Header("Game Components")]
-    [SerializeField] private Rigidbody2D rb;
     [SerializeField] private GameHandler gh;
     [SerializeField] private PlayerAudio pAud;
     [SerializeField] private PlayerAnimation anim;
@@ -31,8 +30,6 @@ public class Player : MonoBehaviour, IDamageable, IForceObject
     [SerializeField] private float MoveSpeed;
     [SerializeField] private Vector2 MoveRealized;
     [SerializeField] private float MoveInterp;
-    [SerializeField] private Vector2 MoveForce;
-    [SerializeField] private float ForceInterp;
     [SerializeField] private float RotationRealized;
     [SerializeField] private float RotationSpeed;
 
@@ -77,7 +74,7 @@ public class Player : MonoBehaviour, IDamageable, IForceObject
             //Set Character to zero
             MoveRealized = Vector2.Lerp(MoveRealized, Vector2.zero, MoveInterp * Time.fixedDeltaTime);
         }
-        MoveForce = Vector2.Lerp(MoveForce, Vector2.zero, ForceInterp * Time.deltaTime);
+        base.Update();
 
 
     }
@@ -119,13 +116,13 @@ public class Player : MonoBehaviour, IDamageable, IForceObject
             int result = 0;
             if (weapon != null)
             {
-                result = weapon.UseWeapon(attackPoint, pAud, this.gameObject);
+                result = ((IWeapon)weapon).UseWeapon(attackPoint, pAud, this.gameObject);
                 _playerData.poseType = weapon._poseType;
                 WeaponDraw.sprite = weapon.GetWeaponSprite_Held();
             }
             else
             {
-                unhandedWeapon.UseWeapon(attackPoint, pAud, this.gameObject);
+                ((IWeapon)unhandedWeapon).UseWeapon(attackPoint, pAud, this.gameObject);
                 if (Input.GetButtonDown("Fire1"))
                 {
                     _playerData.attacking = true;
@@ -237,10 +234,6 @@ public class Player : MonoBehaviour, IDamageable, IForceObject
         return impactEffect;
     }
 
-    public void ApplyForce(Vector2 force)
-    {
-        MoveForce += force;
-    }
 
     [ServerRpc]
     private void MovePlayerServerRpc()

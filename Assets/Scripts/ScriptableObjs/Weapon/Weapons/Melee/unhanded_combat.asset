@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bf21205b8ecf5d4dbf18ca633c9b4e7, type: 3}
+  m_Name: unhanded_combat
+  m_EditorClassIdentifier: 
+  _poseType: 3
+  Name: 
+  damage: 50
+  AttackTimer: 0
+  AttackRate: 0.36231884
+  AttackSize: 0.9
+  floorImage: {fileID: 0}
+  HeldImage: {fileID: 0}
+  audio_gunshot: {fileID: 8300000, guid: 3e2c0108b7f01644fabf612d6a89ce93, type: 3}
+  audio_click: {fileID: 8300000, guid: 3e2c0108b7f01644fabf612d6a89ce93, type: 3}
+  audio_impact: {fileID: 8300000, guid: 9216fd108095fc043903259c2f8e8bbc, type: 3}
+  Impact: {fileID: 0}
+  em: {fileID: 0}

@@ -35,4 +35,20 @@ public class EffectsManager : MonoBehaviour
         trail.transform.position = hit.point;
         Destroy( trail.gameObject, trail.time );
     }
+    public IEnumerator BulletTrailRoutine(TrailRenderer trail, Vector2 hit)
+    {
+        float time = 0;
+        Vector3 startPos = trail.transform.position;
+
+        while (time < 1)
+        {
+            trail.transform.position = Vector3.Lerp(startPos, hit, time);
+            time += Time.deltaTime / trail.time;
+
+            yield return null;
+        }
+
+        trail.transform.position = hit;
+        Destroy(trail.gameObject, trail.time);
+    }
 }

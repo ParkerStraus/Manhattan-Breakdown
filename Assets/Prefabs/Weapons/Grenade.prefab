@@ -47,7 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a1bf5ada28ad63419e8c28404b0609e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FuseTime: 0
+  MoveForce: {x: 0, y: 0}
+  ForceInterp: 1.84
+  rb: {fileID: -3061511618810686019}
+  FuseTime: 0.78
   Damage: 50
   SFX:
   - {fileID: 8300000, guid: 707219d641891c44484966bf3d55c43c, type: 3}

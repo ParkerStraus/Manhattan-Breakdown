@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class GrenadeObj : MonoBehaviour, IForceObject
+public class GrenadeObj : IForceObject
 {
     [SerializeField] private float FuseTime;
     [SerializeField] private float Damage;
@@ -17,16 +17,16 @@ public class GrenadeObj : MonoBehaviour, IForceObject
         
     }
 
-    public void PrepareGrenade(float Damage, float fuse)
+    public void PrepareGrenade(float Damage, float fuse, Vector2 throwSpeed, float SlowDownSpeed, float InertTime)
     {
+        ForceInterp = SlowDownSpeed;
+        SetInertia(InertTime);
         this.Damage = Damage;
         this.FuseTime = fuse;
-    }
-
-    void ApplyForce(Vector2 force)
-    {
+        ApplyForce(throwSpeed);
 
     }
+
 
     // Update is called once per frame
     void Update()
@@ -60,5 +60,6 @@ public class GrenadeObj : MonoBehaviour, IForceObject
             exp.transform.position = transform.position;
             Destroy(gameObject);
         }
+        base.Update();
     }
 }

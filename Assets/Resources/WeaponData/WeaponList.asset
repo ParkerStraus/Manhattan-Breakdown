@@ -13,18 +13,19 @@ MonoBehaviour:
   m_Name: WeaponList
   m_EditorClassIdentifier: Assembly-CSharp::WeaponList
   weapons:
-  - {fileID: 11400000, guid: fa9744984911bba41af686869bc92e27, type: 2}
-  - {fileID: 11400000, guid: 6d7b34b18f1c2cd439f0a5bafbca3b73, type: 2}
-  - {fileID: 11400000, guid: a6e2581bd538ed64981e0fd16e010c1d, type: 2}
-  - {fileID: 11400000, guid: 0ba5932729e33104e921e6a3deb72ed9, type: 2}
-  - {fileID: 11400000, guid: 2d796fdd447e3ea4da23d7b391e5e4f3, type: 2}
-  - {fileID: 11400000, guid: 24ac39bd5bbe66942b65b600b18b563f, type: 2}
-  - {fileID: 11400000, guid: ba4003047e5678b4ea3a6e59d90ecc78, type: 2}
-  - {fileID: 11400000, guid: aa83ea65b8b97f8449b68d655323e8d7, type: 2}
-  - {fileID: 11400000, guid: 9f0b34c3023f5484fb223e1983bebf82, type: 2}
-  - {fileID: 11400000, guid: 3645764988bd888499b614089e8defe2, type: 2}
-  - {fileID: 11400000, guid: f791bad19e459bc4583c455b36a7a467, type: 2}
-  - {fileID: 11400000, guid: 8045957e07e310e41a3a3f8f0ee67be6, type: 2}
-  - {fileID: 11400000, guid: 30ea9123db156af4d86b83aba1b1c749, type: 2}
-  - {fileID: 11400000, guid: e419e78de7d95804ca81855b593761b1, type: 2}
-  - {fileID: 11400000, guid: 0209174aad21d904cad9f1cfc56177ca, type: 2}
+  - {fileID: 11400000, guid: eb2bb046a22dd7249b703f16ad31eb80, type: 2}
+  - {fileID: 11400000, guid: 1f284e6e27f1a1e4ca029c1d51622c3a, type: 2}
+  - {fileID: 11400000, guid: d1e6feb2842b00649af2b4d27a198d9f, type: 2}
+  - {fileID: 11400000, guid: 80b97e37c9d571249b0cb439445684b3, type: 2}
+  - {fileID: 11400000, guid: 6f624338933458c4fa8ffc788372e5cf, type: 2}
+  - {fileID: 11400000, guid: 4cd086c452fd9874f9fd1827e84db04c, type: 2}
+  - {fileID: 11400000, guid: d7cc9e85ccc00bd41984977dba5cf75e, type: 2}
+  - {fileID: 11400000, guid: 586f27a0db575004ca2c9d50830ba42c, type: 2}
+  - {fileID: 11400000, guid: 6af393c23a11b32458762850b5e86cce, type: 2}
+  - {fileID: 11400000, guid: 96d08cbae8d2c9945930d486f83f29c4, type: 2}
+  - {fileID: 11400000, guid: 8baf75ddb3d70c84f97deb4dfd0109e8, type: 2}
+  - {fileID: 11400000, guid: 8b756904ab609254d8e14c555b330fed, type: 2}
+  - {fileID: 11400000, guid: 90661acfbb860444ba827fb00c744be1, type: 2}
+  - {fileID: 11400000, guid: 91f93c1f3c66cc64790b4a3566af8cc5, type: 2}
+  - {fileID: 11400000, guid: 47d59e369c22d69428006c13d3607cf2, type: 2}
+  - {fileID: 11400000, guid: 721a425f94e7aff438e60374621d8180, type: 2}

@@ -4,13 +4,12 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - GrenadeOBJ: {fileID: 7141454327199773043, guid: 63f3ff932350a8e49bd7e9333b8790de, type: 3}
-  - floorImage: {instanceID: 0}
-  - HeldImage: {instanceID: 0}
-  - audio_gunshot: {instanceID: 0}
-  - audio_click: {instanceID: 0}
+  - floorImage: {fileID: 21300000, guid: a6244b27103f5eb4e9d9d77ad68fc9a6, type: 3}
+  - HeldImage: {fileID: 21300000, guid: f8c68c2728467d24cb64d9e3f5bac37c, type: 3}
+  - audio_gunshot: {fileID: 8300000, guid: a442723dcc99b1441971a32dac118b41, type: 3}
+  - audio_click: {fileID: 8300000, guid: 83bca8e348b3b484db1a873edd936bba, type: 3}
   - audio_impact: {instanceID: 0}
-  - Impact: {instanceID: 0}
+  - Impact: {fileID: 2085389234366473006, guid: 101ba8c7e6214d14e91e39f3fb5aac5c, type: 3}
   - em: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
