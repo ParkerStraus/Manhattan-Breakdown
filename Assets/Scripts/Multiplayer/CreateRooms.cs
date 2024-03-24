@@ -7,7 +7,7 @@ using Photon.Realtime;
 
 public class CreateRooms : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private TMP_Text _roomName;
+    [SerializeField] private TMP_InputField _roomName;
 
     public void OnClick_CreateRoom()
     {
@@ -17,7 +17,7 @@ public class CreateRooms : MonoBehaviourPunCallbacks
         }
         RoomOptions option = new RoomOptions();
         option.MaxPlayers = 4;
-        PhotonNetwork.JoinOrCreateRoom("basic", option, TypedLobby.Default);
+        PhotonNetwork.JoinOrCreateRoom(_roomName.text, option, TypedLobby.Default);
     }
 
     public override void OnCreatedRoom()
