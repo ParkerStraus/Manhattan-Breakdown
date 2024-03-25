@@ -33,6 +33,7 @@ public class LobbyHandler : MonoBehaviourPunCallbacks
     {
         SetInRoom(true);
         RoomTitle.text = PhotonNetwork.CurrentRoom.Name;
+            print(PhotonNetwork.PlayerList);
         base.OnJoinedRoom();
     }
 
