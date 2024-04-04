@@ -11,6 +11,8 @@ public class LobbyHandler : MonoBehaviourPunCallbacks
     private GameObject CreateOrJoinLobby;
     [SerializeField]
     private GameObject CurrentRoomLobby;
+    [SerializeField]
+    private GameObject StartGameButton;
 
     [SerializeField]
     private TMP_Text RoomTitle;
@@ -34,6 +36,16 @@ public class LobbyHandler : MonoBehaviourPunCallbacks
         SetInRoom(true);
         RoomTitle.text = PhotonNetwork.CurrentRoom.Name;
             print(PhotonNetwork.PlayerList);
+
+        //Disable start game if not host
+        if (PhotonNetwork.IsMasterClient)
+        {
+            StartGameButton.SetActive(true);
+        }
+        else
+        {
+            StartGameButton.SetActive(false);
+        }
         base.OnJoinedRoom();
     }
 
