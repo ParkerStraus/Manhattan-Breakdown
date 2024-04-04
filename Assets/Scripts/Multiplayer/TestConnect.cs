@@ -24,6 +24,8 @@ public class TestConnect : MonoBehaviourPunCallbacks
         print(PhotonNetwork.GameVersion);
 
         PhotonNetwork.JoinLobby();
+
+        PhotonNetwork.AutomaticallySyncScene = true;
     }
 
     public override void OnDisconnected(DisconnectCause cause)

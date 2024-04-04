@@ -60,4 +60,10 @@ public class LobbyHandler : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
     }
 
+    public void OnStartGame()
+    {
+        Debug.Log("Going to game now");
+        PhotonNetwork.LoadLevel(1);
+    }
+
 }

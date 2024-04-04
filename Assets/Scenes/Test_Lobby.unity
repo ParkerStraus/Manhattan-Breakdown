@@ -432,7 +432,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 515601265}
         m_TargetAssemblyTypeName: LobbyHandler, Assembly-CSharp
-        m_MethodName: OnClick_DisconnectRoom
+        m_MethodName: OnStartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

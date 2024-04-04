@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Test_Lobby.unity
     guid: 281555241098d4f4bac138154d8c950e
   - enabled: 1
+    path: Assets/Scenes/Test_Multiplayer.unity
+    guid: bc22f7e1b9ecdac4c9eb95afa4af974d
+  - enabled: 1
     path: Assets/Scenes/Intro.unity
     guid: 1fa860376667d654892dd6406433b6ba
   - enabled: 1
