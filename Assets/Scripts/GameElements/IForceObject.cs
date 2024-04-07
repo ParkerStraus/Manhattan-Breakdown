@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public abstract class IForceObject : MonoBehaviour
+public abstract class IForceObject : MonoBehaviourPunCallbacks
 {
     [SerializeField] protected Vector2 MoveForce;
     [SerializeField] protected float InertTime;

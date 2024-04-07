@@ -9243,6 +9243,10 @@ PrefabInstance:
       propertyPath: gh
       value: 
       objectReference: {fileID: 2045280754}
+    - target: {fileID: 3535896171002120506, guid: 12b34abea06fbb14e96b889f2c1cb46f, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5591914611599682179, guid: 12b34abea06fbb14e96b889f2c1cb46f, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 2798271379

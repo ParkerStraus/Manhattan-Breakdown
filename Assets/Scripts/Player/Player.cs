@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine.UIElements;
 using Unity.Multiplayer.Tools.NetStatsMonitor;
 using UnityEditor;
+using Photon.Pun;
 
 public struct PlayerData
 {
@@ -20,9 +21,12 @@ public class Player : IForceObject, IDamageable
 {
 
     [Header("Game Components")]
-    [SerializeField] private GameHandler gh;
+    [SerializeField] public IGameHandler gh;
     [SerializeField] private PlayerAudio pAud;
     [SerializeField] private PlayerAnimation anim;
+    [SerializeField] private PauseMenu pauseMenu;
+    [SerializeField] private PhotonView PV;
+    [SerializeField] private MainUI mainUI;
 
     [Header("Movement")]
     [SerializeField] private NetworkVariable<Vector2> Position;
@@ -54,17 +58,24 @@ public class Player : IForceObject, IDamageable
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        gh = GameObject.Find("Main Camera").GetComponent<GameHandler>();
+        //gh = GameObject.Find("GameManager").GetComponent<IGameHandler>();
         pAud = GetComponent<PlayerAudio>();
         anim = GetComponent<PlayerAnimation>();
+        pauseMenu = GameObject.Find("UI").GetComponent<PauseMenu>();
+        mainUI = GameObject.Find("MainUI").GetComponent<MainUI>();
         SendWeaponInfo();
+    }
+
+    public void SetIGH(IGameHandler input)
+    {
+        Debug.Log("Now setting to " + input);
+        gh = input;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (!gh.IsPaused() && !Dead)
+        if ((!pauseMenu.IsPaused())  && !Dead)
         {
             HandleMovement();
             HandleCombat();
@@ -226,7 +237,7 @@ public class Player : IForceObject, IDamageable
             UIOverride = 0;
         }
 
-        gh.UpdateMainUI(UIOverride, value);
+        mainUI.UpdateMainUI(UIOverride, value);
     }
 
     public GameObject GetImpactEffect()

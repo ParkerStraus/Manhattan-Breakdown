@@ -11,13 +11,10 @@ using Random = System.Random;
 using UnityEngine.UIElements;
 using static UnityEngine.Rendering.DebugUI;
 
-public class GameHandler : MonoBehaviour
+public class GameHandler : MonoBehaviour, IGameHandler
 {
 
     [Header("Pause Stuff")]
-    bool CurrentlyPaused = false;
-    public UnityEvent OnPause;
-    public UnityEvent OnUnpause;
 
     [Header("Player Stuff")]
     public List<GameObject> players;
@@ -70,7 +67,7 @@ public class GameHandler : MonoBehaviour
     public AudioClip[] audioClips; 
 
 
-    // Start is called before the first frame update
+    // Start is called before the first frame 
     void Start()
     {
         arenaList = Resources.Load<ArenaList>("ArenaList");
@@ -87,10 +84,6 @@ public class GameHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            OnGamePause();
-        }
 
         //Edit Position of camera via aim
         Vector2 aimPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -104,24 +97,6 @@ public class GameHandler : MonoBehaviour
         }
     }
 
-    public void OnGamePause()
-    {
-        CurrentlyPaused = !CurrentlyPaused;
-        if(CurrentlyPaused)
-        {
-            musicHand.TriggerSnapshot(1, 0.01f);
-            OnPause.Invoke();
-        }
-        else
-        {
-            musicHand.TriggerSnapshot(0, 0.01f);
-            OnUnpause.Invoke();
-        }
-    }
-    public bool IsPaused()
-    {
-        return CurrentlyPaused;
-    }
 
     public void StartGame()
     {
