@@ -7,9 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class RoomManager : MonoBehaviourPunCallbacks
 {
-    public static RoomManager instance;
-    public OnlineGameCoordinator OGC;
 
+    #region Connection Stuff
+
+    public static RoomManager instance;
 
 
     private void Awake()
@@ -40,7 +41,45 @@ public class RoomManager : MonoBehaviourPunCallbacks
         if(scene.buildIndex == 1)
         {
             var go = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
-            OGC.enabled = true;
+            
         }
     }
+
+#endregion
+
+    #region GameCentric Info
+
+    //Game
+    [SerializeField] private GameObject[] Spawnpoints;
+    [SerializeField] private List<PlayerManager> playerManager = new List<PlayerManager>();
+
+    public void RegisterPlayerManager(PlayerManager pm)
+    {
+        playerManager.Add(pm);
+        print("Added " + pm.name);
+
+        if (PhotonNetwork.IsMasterClient && playerManager.Count == PhotonNetwork.PlayerList.Length)
+        {
+            GetSpawns();
+            SpawnPlayers();
+        }
+    }
+
+    private void GetSpawns()
+    {
+        Spawnpoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
+    }
+
+    void SpawnPlayers()
+    {
+        int i = 0;
+        foreach(PlayerManager pm in playerManager)
+        {
+            pm.SpawnPlayer(Spawnpoints[i].transform.position);
+            i++;
+        }
+    }
+
+    #endregion
+
 }

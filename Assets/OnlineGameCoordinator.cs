@@ -5,21 +5,27 @@ using Photon.Pun;
 
 public class OnlineGameCoordinator : MonoBehaviourPunCallbacks
 {
+    public static OnlineGameCoordinator instance;
     [SerializeField] private GameObject[] Spawnpoints;
-    [SerializeField] private PlayerManager[] playerManager;
+    [SerializeField] private List<PlayerManager> playerManager = new List<PlayerManager>();
     private void OnEnable()
     {
         if(PhotonNetwork.IsMasterClient)
         {
             print("Now working with MasterClient");
             GetSpawns();
-            GetPlayerManagers();
         }else print("Now working with other");
     }
 
-    private void GetPlayerManagers()
+    public void RegisterPlayerManager(PlayerManager pm)
     {
-        playerManager = (PlayerManager[])FindObjectsOfType(typeof(PlayerManager));
+        playerManager.Add(pm);
+        print("Added "+pm.name);
+    }
+
+    [PunRPC]
+    private void SpawnPlayer()
+    {
     }
 
     private void GetSpawns()

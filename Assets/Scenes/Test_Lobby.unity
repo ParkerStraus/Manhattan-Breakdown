@@ -2870,7 +2870,6 @@ GameObject:
   - component: {fileID: 1967688845}
   - component: {fileID: 1967688844}
   - component: {fileID: 1967688846}
-  - component: {fileID: 1967688847}
   m_Layer: 0
   m_Name: RoomManager
   m_TagString: Untagged
@@ -2890,7 +2889,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73a53bc44ae20a642bc91d0d6210e0a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OGC: {fileID: 1967688847}
+  Spawnpoints: []
+  playerManager: []
 --- !u!4 &1967688845
 Transform:
   m_ObjectHideFlags: 0
@@ -2928,20 +2928,6 @@ MonoBehaviour:
   sceneViewId: 999
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &1967688847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1967688843}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3a01075c759e6f418e840e2132e0ede, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Spawnpoints: []
-  playerManager: []
 --- !u!1 &2019010899
 GameObject:
   m_ObjectHideFlags: 0

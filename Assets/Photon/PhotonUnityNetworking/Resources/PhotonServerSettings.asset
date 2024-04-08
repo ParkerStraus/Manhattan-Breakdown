@@ -48,6 +48,8 @@ MonoBehaviour:
   - AnimateCrossfade
   - AnimateCrossfadeOther
   - LockStateOther
+  - SpawnPlayer
+  - SpawnPlayerLocal
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
