@@ -25,16 +25,16 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
     public void SpawnPlayer(Vector3 pos)
     {
         PV = GetComponent<PhotonView>();
-        PV.RPC("SpawnPlayerLocal", RpcTarget.All, new object[] { pos.x, pos.y});
+        PV.RPC("SpawnPlayerLocal", RpcTarget.All, pos);
     }
 
     [PunRPC]
-    public void SpawnPlayerLocal(float x, float y)
+    public void SpawnPlayerLocal(Vector3 pos)
     {
 
         if (PV.IsMine)
         {
-            var pla = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), Vector3.zero, Quaternion.identity);
+            var pla = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), pos, Quaternion.identity);
             pla.GetComponent<Player>().SetIGH(this);
             if (PhotonNetwork.IsMasterClient)
             {
