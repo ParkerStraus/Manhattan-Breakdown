@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class RoomManager : MonoBehaviourPunCallbacks
 {
     public static RoomManager instance;
+    public OnlineGameCoordinator OGC;
 
 
 
@@ -39,6 +40,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
         if(scene.buildIndex == 1)
         {
             var go = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
+            OGC.enabled = true;
         }
     }
 }

@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,7 +31,8 @@ public class GeneralScript : MonoBehaviour
 
     public void GotoMenu()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
+        PhotonNetwork.LeaveRoom();
     }
 
 }
