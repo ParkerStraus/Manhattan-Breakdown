@@ -7,34 +7,25 @@ using Unity.Netcode;
 using System.Collections.Generic;
 using System.IO;
 
-public class OnlineGameManager : MonoBehaviourPunCallbacks, IGameHandler
+public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
 {
-    [SerializeField] private GameObject[] spawnpoints;
     PhotonView PV;
     // Start is called before the first frame update
     void Start()
     {
-        GetSpawnpoints();
         PV = GetComponent<PhotonView>();
-        if(PhotonNetwork.IsMasterClient == false){
-            Debug.Log("This device is not the admin");
-            return;
+        if (PV.IsMine)
+        {
+            var pla = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), Vector3.zero, Quaternion.identity);
+            pla.GetComponent<Player>().SetIGH(this);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                Debug.Log("Is Master Client");
+            }
         }
-        Debug.Log("This device is the admin");
-        SpawnPlayers();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void CreateController()
-    {
-
-    }
-
+    /*
     void GetSpawnpoints()
     {
         spawnpoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
@@ -67,7 +58,6 @@ public class OnlineGameManager : MonoBehaviourPunCallbacks, IGameHandler
             array[n] = temp;
         }
     }
-
     [PunRPC]
     private void SpawnThePlayer(int spawnpoint)
     {
@@ -78,6 +68,7 @@ public class OnlineGameManager : MonoBehaviourPunCallbacks, IGameHandler
             player.GetComponent<Player>().SetIGH(this);
         }
     }
+    */
 
     public bool IsMine()
     {

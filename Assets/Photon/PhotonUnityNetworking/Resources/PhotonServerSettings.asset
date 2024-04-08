@@ -41,6 +41,13 @@ MonoBehaviour:
   - RespawnSpaceship
   - ChatMessage
   - SpawnThePlayer
+  - OnDamage
+  - Die
+  - DieVisual
+  - LockState
+  - AnimateCrossfade
+  - AnimateCrossfadeOther
+  - LockStateOther
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

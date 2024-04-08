@@ -9,6 +9,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
 {
     public static RoomManager instance;
 
+
+
     private void Awake()
     {
         if (instance)
@@ -36,8 +38,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         if(scene.buildIndex == 1)
         {
-            var go = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "GameManager"), Vector3.zero, Quaternion.identity);
-            go.name = "GameManager";
+            var go = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
         }
     }
 }

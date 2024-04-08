@@ -15,6 +15,8 @@ public class VirCamStuff : MonoBehaviour
     {
         vircam = GetComponent<CinemachineVirtualCamera>();
         perlinNoise = vircam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        perlinNoise.m_AmplitudeGain = 0;
+        perlinNoise.m_FrequencyGain = 0;
     }
 
     public void Shake(float Freq, float Amp, float TimeDecay, float TimeShake)

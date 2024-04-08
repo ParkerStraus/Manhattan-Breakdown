@@ -127,7 +127,7 @@ MonoBehaviour:
   RotationRealized: 0
   RotationSpeed: -8.04
   Dead: 0
-  Health: 0
+  Health: 100
   weapon: {fileID: 0}
   WeaponDraw: {fileID: 3047056063672479387}
   unhandedWeapon: {fileID: 11400000, guid: d39726239c5b61e48b2f40cc6d65d263, type: 2}

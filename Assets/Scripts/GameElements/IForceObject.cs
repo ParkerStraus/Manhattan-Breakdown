@@ -12,13 +12,13 @@ public abstract class IForceObject : MonoBehaviourPunCallbacks
 
     public void ApplyForce(Vector2 force)
     {
-        Debug.Log(force);
+        //Debug.Log(force);
         MoveForce += force;
     }
 
     protected void Update()
     {
-        Debug.Log(MoveForce);
+        //Debug.Log(MoveForce);
         if(InertTime > 0 || InertTime == -1)
         {
             InertTime -= Time.deltaTime;

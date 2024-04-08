@@ -63,6 +63,7 @@ public class Player : IForceObject, IDamageable
         anim = GetComponent<PlayerAnimation>();
         pauseMenu = GameObject.Find("UI").GetComponent<PauseMenu>();
         mainUI = GameObject.Find("MainUI").GetComponent<MainUI>();
+        PV = GetComponent<PhotonView>();
         SendWeaponInfo();
     }
 
@@ -75,6 +76,10 @@ public class Player : IForceObject, IDamageable
     // Update is called once per frame
     void Update()
     {
+        if (!PV.IsMine)
+        {
+            return;
+        }
         if ((!pauseMenu.IsPaused())  && !Dead)
         {
             HandleMovement();
@@ -93,6 +98,7 @@ public class Player : IForceObject, IDamageable
     private void HandleMovement()
     {
         Vector2 MoveVector = Vector2.zero;
+        
         if (gh.CanthePlayersMove())
         {
             //Get Move Vector
@@ -194,29 +200,40 @@ public class Player : IForceObject, IDamageable
     }
     public bool Damage(float damage)
     {
+        PV.RPC("OnDamage", RpcTarget.All, damage);
+        return false;
+    }
+
+    [PunRPC]
+    public void OnDamage(float damage)
+    {
         Health -= damage;
 
         if (Health <= 0)
         {
             if (Dead == true)
             {
-                return false;
             }
             else
             {
-                gh.OnKill(0);
-                Dead = true;
-                anim.OnDeath();
-                WeaponDraw.sprite = null;
-                return true;
+                PV.RPC("Die", RpcTarget.All);
             }
         }
-        return false;
+    }
+
+    [PunRPC]
+    public void Die()
+    {
+        if(PV.IsMine) gh.OnKill(0);
+        Dead = true;
+        anim.OnDeath();
+        WeaponDraw.sprite = null;
+
     }
 
     private void FixedUpdate()
     {
-        MovePlayerServerRpc();
+        rb.velocity = (Vector3)(MoveRealized * MoveSpeed + MoveForce);
     }
 
     public void SendWeaponInfo()
@@ -243,22 +260,6 @@ public class Player : IForceObject, IDamageable
     public GameObject GetImpactEffect()
     {
         return impactEffect;
-    }
-
-
-    [ServerRpc]
-    private void MovePlayerServerRpc()
-    {
-        rb.velocity = (Vector3)(MoveRealized * MoveSpeed + MoveForce);
-        ApplyMovePlayerClientRpc();
-
-    }
-
-    [ClientRpc]
-    private void ApplyMovePlayerClientRpc()
-    {
-
-        rb.velocity = (Vector3)(MoveRealized * MoveSpeed + MoveForce);
     }
 }
 

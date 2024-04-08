@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEditor;
 using UnityEngine;
+using Photon.Pun;
 
-public class PlayerAnimation : MonoBehaviour
+public class PlayerAnimation : MonoBehaviourPunCallbacks
 {
     [SerializeField] private Player player;
     [SerializeField] private PlayerData playerData;
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerAudio audio;
+    private PhotonView PV;
     int Idle = Animator.StringToHash("Idle");
     int Walk = Animator.StringToHash("Walk");
     int Gun_Pistol = Animator.StringToHash("Pistol");
@@ -35,12 +37,13 @@ public class PlayerAnimation : MonoBehaviour
         animator = GetComponent<Animator>();
         audio = GetComponent<PlayerAudio>();
         _sprite = GetComponent<SpriteRenderer>();
+        PV = GetComponent<PhotonView>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Dead) return;
+        if (Dead||!PV.IsMine) return;
 
         if (playerData.Moving == true)
         {
@@ -68,33 +71,55 @@ public class PlayerAnimation : MonoBehaviour
             }
             if (playerData.Moving)
             {
-                animator.CrossFade(Walk, 0, 0);
+                AnimateCrossfade(Walk);
             }
-            else animator.CrossFade(Idle, 0, 0);
+            else AnimateCrossfade(Idle);
         }
         else
         {
             switch(playerData.poseType)
             {
                 case PoseType.Pistol:
-                    animator.CrossFade(Gun_Pistol, 0, 0);
+                    AnimateCrossfade(Gun_Pistol);
                     break;
                 case PoseType.Rifle:
-                    animator.CrossFade(Gun_Rifle, 0, 0);
+                    AnimateCrossfade(Gun_Rifle);
                     break;
                 default:
-                    animator.CrossFade(Idle, 0, 0);
+                    AnimateCrossfade(Idle);
                     break;
             }
         }
     }
 
+    void AnimateCrossfade(int anim)
+    {
+        animator.CrossFade(anim, 0, 0);
+        PV.RPC("AnimateCrossfadeOther", RpcTarget.Others, anim);
+    }
+
+
+    [PunRPC]
+    void AnimateCrossfadeOther(int animate)
+    {
+        animator.CrossFade(animate, 0, 0);
+    }
+
     void LockState(int s, float t)
     {
         _lockedTill = Time.time + t;
-        animator.CrossFade(s, 0, 0);
-        return;
+        AnimateCrossfadeOther(s);
+        PV.RPC("LockStateOther", RpcTarget.Others, new object[] { s, t });
     }
+
+    [PunRPC]
+    void LockStateOther(int s, float t)
+    {
+        _lockedTill = Time.time + t;
+        animator.CrossFade(s, 0, 0);
+        AnimateCrossfadeOther(s);
+    }
+
 
     public void OnDeath()
     {
