@@ -11,7 +11,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     #region Connection Stuff
 
     public static RoomManager instance;
-
+    public PhotonView PV;
 
     private void Awake()
     {
@@ -21,6 +21,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
             return;
         }
         DontDestroyOnLoad(gameObject);
+        PV = GetComponent<PhotonView>();
         instance = this;
     }
 
@@ -45,13 +46,14 @@ public class RoomManager : MonoBehaviourPunCallbacks
         }
     }
 
-#endregion
+    #endregion
 
     #region GameCentric Info
 
     //Game
     [SerializeField] private GameObject[] Spawnpoints;
     [SerializeField] private List<PlayerManager> playerManager = new List<PlayerManager>();
+    [SerializeField] private bool[] playersAlive = new bool[] { false, false, false, false };
 
     public void RegisterPlayerManager(PlayerManager pm)
     {
@@ -76,9 +78,37 @@ public class RoomManager : MonoBehaviourPunCallbacks
         foreach(PlayerManager pm in playerManager)
         {
             pm.SpawnPlayer(Spawnpoints[i].transform.position);
+            playersAlive[i] = true;
             i++;
+
         }
     }
+
+    public void PlayerDied(int ply)
+    {
+        print("Player died: "+ply);
+        playersAlive[ply] = false;
+        int playersLeft = 0;
+        for (int i = 0; i < playersAlive.Length; i++)
+        {
+            if (playersAlive[i] = true)
+            {
+                playersLeft++;
+            }
+        }
+
+        if (playersLeft <= 1)
+        {
+            PV.RPC("RoundWin", RpcTarget.All);
+        }
+    }
+
+    [PunRPC]
+    public void RoundWin()
+    {
+        print("Everyone is dead");
+    }
+    
 
     #endregion
 

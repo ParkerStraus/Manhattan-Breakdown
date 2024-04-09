@@ -32,4 +32,6 @@ public class OnlineGameCoordinator : MonoBehaviourPunCallbacks
     {
         Spawnpoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
     }
+
+
 }

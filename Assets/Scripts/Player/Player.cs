@@ -200,13 +200,6 @@ public class Player : IForceObject, IDamageable
     }
     public bool Damage(float damage)
     {
-        PV.RPC("OnDamage", RpcTarget.All, damage);
-        return false;
-    }
-
-    [PunRPC]
-    public void OnDamage(float damage)
-    {
         Health -= damage;
 
         if (Health <= 0)
@@ -216,18 +209,33 @@ public class Player : IForceObject, IDamageable
             }
             else
             {
+                
                 PV.RPC("Die", RpcTarget.All);
+                return true;
             }
         }
+        PV.RPC("SetHealth", RpcTarget.All, Health);
+
+        return false;
+    }
+
+    [PunRPC]
+    public void SetHealth(float Health)
+    {
+        this.Health = Health;
     }
 
     [PunRPC]
     public void Die()
     {
-        if(PV.IsMine) gh.OnKill(0);
         Dead = true;
-        anim.OnDeath();
         WeaponDraw.sprite = null;
+        if (PV.IsMine)
+        {
+            anim.OnDeath();
+            Debug.LogError("dead now");
+            gh.OnKill(0);
+        }
 
     }
 

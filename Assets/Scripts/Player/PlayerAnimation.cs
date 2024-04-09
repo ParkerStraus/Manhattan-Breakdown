@@ -102,7 +102,14 @@ public class PlayerAnimation : MonoBehaviourPunCallbacks
     [PunRPC]
     void AnimateCrossfadeOther(int animate)
     {
-        animator.CrossFade(animate, 0, 0);
+        try
+        {
+            animator.CrossFade(animate, 0, 0);
+        }
+        catch(UnassignedReferenceException e)
+        {
+            print("Animator not initialized yet");
+        }
     }
 
     void LockState(int s, float t)
@@ -127,6 +134,18 @@ public class PlayerAnimation : MonoBehaviourPunCallbacks
         Dead = true;
         //set random sprite
 
-        _sprite.sprite = deathSprites[(int)Random.Range(0, deathSprites.Length)];
+        int spriteIndex = (int)Random.Range(0, deathSprites.Length);
+
+        _sprite.sprite = deathSprites[spriteIndex];
+
+        PV.RPC("DeathSprite", RpcTarget.All, spriteIndex);
+    }
+
+    [PunRPC]
+    public void DeathSprite(int spr)
+    {
+        animator.enabled = false;
+        Dead = true;
+        _sprite.sprite = deathSprites[spr];
     }
 }

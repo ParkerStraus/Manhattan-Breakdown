@@ -2889,8 +2889,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73a53bc44ae20a642bc91d0d6210e0a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PV: {fileID: 0}
   Spawnpoints: []
   playerManager: []
+  playersAlive: 00000000
 --- !u!4 &1967688845
 Transform:
   m_ObjectHideFlags: 0

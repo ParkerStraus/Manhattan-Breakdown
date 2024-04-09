@@ -28,6 +28,15 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
         PV.RPC("SpawnPlayerLocal", RpcTarget.All, pos);
     }
 
+
+    public void OnKill(int whoDied)
+    {
+        if(PV.IsMine)
+        {
+            RoomManager.instance.PlayerDied(PhotonNetwork.LocalPlayer.ActorNumber);
+        }
+    }
+
     [PunRPC]
     public void SpawnPlayerLocal(Vector3 pos)
     {
