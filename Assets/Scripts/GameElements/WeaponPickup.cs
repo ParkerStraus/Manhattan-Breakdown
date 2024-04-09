@@ -44,4 +44,14 @@ public class WeaponPickup : MonoBehaviourPunCallbacks
     {
         this.weapon = weapon;
     }
+
+    public void SetupPickup(int weapon, int Ammo)
+    {
+        this.weapon = Instantiate(Resources.Load<WeaponList>("WeaponData/WeaponList")
+                                     .GetWeapon(weapon));
+        if(this.weapon.GetType() == typeof(Gun))
+        {
+            ((Gun)this.weapon).CurrentAmmo = AmmoInClip;
+        }
+    }
 }
