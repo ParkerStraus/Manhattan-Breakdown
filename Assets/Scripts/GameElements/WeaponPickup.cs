@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Photon.Pun;
 
-public class WeaponPickup : MonoBehaviour
+public class WeaponPickup : MonoBehaviourPunCallbacks
 {
     [SerializeField] private int WeaponIndex;
     [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private Weapon weapon;
+    [SerializeField] private int Ammo;
+    [SerializeField] private int AmmoInClip;
 
     [SerializeField] private float Rotate;
     [SerializeField] private float RotateSpeed;

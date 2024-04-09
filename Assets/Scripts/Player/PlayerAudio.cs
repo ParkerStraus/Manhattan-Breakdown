@@ -1,9 +1,12 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class PlayerAudio : MonoBehaviour
+public class PlayerAudio : MonoBehaviourPunCallbacks
 {
+    public PhotonView PV;
     public AudioSource ac;
     public AudioClip[] footsteps;
     public AudioClip KillConfirm_snd;
