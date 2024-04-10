@@ -1676,6 +1676,7 @@ GameObject:
   - component: {fileID: 519420038}
   - component: {fileID: 519420037}
   - component: {fileID: 519420040}
+  - component: {fileID: 519420041}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1982,6 +1983,124 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41d8532f6816c2347be523f36782a56f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &519420041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 469c3591b9f06464dafe36916c98cea3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  players: []
+  playerAmt: 1
+  playerAlive: 01010101
+  CanPlayersDoStuff: 0
+  DummyPlayers: 2
+  dummyPrefab: {fileID: 1960366418344800116, guid: 44b93c17a3107994285dc8621876f397, type: 3}
+  CurrentArena: 
+  LastArenas: []
+  arenaList: {fileID: 11400000, guid: cbb6c654234a2ff4092b23973d148a30, type: 2}
+  points: ffffffffffffffffffffffffffffffff
+  virtualCamera: {fileID: 874662460}
+  OffsetCurrent: {x: 0, y: 0, z: 0}
+  OffsetInterp: 4
+  OffsetClamp: 2
+  playerPrefab: {fileID: 1960366418344800116, guid: 12b34abea06fbb14e96b889f2c1cb46f, type: 3}
+  playerObject: {fileID: 0}
+  FOVLight: {fileID: 2095182645}
+  DisplayScoreBoard:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1337401620}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1337401624}
+        m_TargetAssemblyTypeName: ScoreBoard, Assembly-CSharp
+        m_MethodName: InitScoreBoard
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1661448333}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  DisplayVHS:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1661448333}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  StartScreen: {fileID: 925246279}
+  StartScreen_PlayerPortraits:
+  - {fileID: 2127265190}
+  - {fileID: 598598584}
+  - {fileID: 73883454}
+  - {fileID: 432672221}
+  StartScreen_PlayerPortraitsTitles:
+  - {fileID: 1983209946}
+  - {fileID: 1059260891}
+  - {fileID: 1153792675}
+  - {fileID: 1417230651}
+  HideVHS:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1661448333}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  FinalScoreBoard: {fileID: 60587132}
+  MainUI: {fileID: 707866604}
+  musicHand: {fileID: 519420038}
+  musicSource: {fileID: 519420037}
+  aSource_extra: {fileID: 1076222157}
+  audioClips:
+  - {fileID: 8300000, guid: 94d87fde0b8162c469d119f2cb56018d, type: 3}
+  - {fileID: 8300000, guid: a5bfdaaf420183847ae2a2ac9e76b418, type: 3}
+  - {fileID: 8300000, guid: 886147d53ff22a34b95260873b8e8da1, type: 3}
 --- !u!1 &551655692
 GameObject:
   m_ObjectHideFlags: 0
@@ -4629,13 +4748,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f565dd0f95f8f847b572da9057b1d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UI: {fileID: 0}
+  Paused: 0
+  UI: {fileID: 1625011037}
   OnPause:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1625011037}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   OnUnpause:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1625011037}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1105090272
 GameObject:
   m_ObjectHideFlags: 0
@@ -5716,8 +5860,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_NoiseProfile: {fileID: 11400000, guid: e9ce97b7a206dc64d90931ea044e0c72, type: 2}
   m_PivotOffset: {x: 0, y: 0, z: 0}
-  m_AmplitudeGain: 1.581442
-  m_FrequencyGain: 1.054294
+  m_AmplitudeGain: 0
+  m_FrequencyGain: 0
   mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!114 &1324910053
 MonoBehaviour:
@@ -5732,7 +5876,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 0.3690024, y: 1.71413, z: -5}
+  m_FollowOffset: {x: -0.230576, y: 1.960605, z: -5}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -6079,156 +6223,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1417230651}
   m_CullTransparentMesh: 1
---- !u!1 &1475291662
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1475291664}
-  - component: {fileID: 1475291663}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1475291663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1475291662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 469c3591b9f06464dafe36916c98cea3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  players: []
-  playerAmt: 1
-  playerAlive: 01010101
-  CanPlayersDoStuff: 0
-  DummyPlayers: 2
-  dummyPrefab: {fileID: 1960366418344800116, guid: 44b93c17a3107994285dc8621876f397, type: 3}
-  CurrentArena: 
-  LastArenas: []
-  arenaList: {fileID: 11400000, guid: cbb6c654234a2ff4092b23973d148a30, type: 2}
-  points: ffffffffffffffffffffffffffffffff
-  virtualCamera: {fileID: 874662460}
-  OffsetCurrent: {x: 0, y: 0, z: 0}
-  OffsetInterp: 4
-  OffsetClamp: 2
-  playerPrefab: {fileID: 1960366418344800116, guid: 12b34abea06fbb14e96b889f2c1cb46f, type: 3}
-  playerObject: {fileID: 0}
-  FOVLight: {fileID: 2095182645}
-  DisplayScoreBoard:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1337401620}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1337401624}
-        m_TargetAssemblyTypeName: ScoreBoard, Assembly-CSharp
-        m_MethodName: InitScoreBoard
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1661448333}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  DisplayVHS:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1661448333}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  StartScreen: {fileID: 925246279}
-  StartScreen_PlayerPortraits:
-  - {fileID: 2127265190}
-  - {fileID: 598598584}
-  - {fileID: 73883454}
-  - {fileID: 432672221}
-  StartScreen_PlayerPortraitsTitles:
-  - {fileID: 1983209946}
-  - {fileID: 1059260891}
-  - {fileID: 1153792675}
-  - {fileID: 1417230651}
-  HideVHS:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1661448333}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  FinalScoreBoard: {fileID: 60587132}
-  MainUI: {fileID: 707866604}
-  musicHand: {fileID: 519420038}
-  musicSource: {fileID: 519420037}
-  aSource_extra: {fileID: 1076222157}
-  audioClips:
-  - {fileID: 8300000, guid: 94d87fde0b8162c469d119f2cb56018d, type: 3}
-  - {fileID: 8300000, guid: a5bfdaaf420183847ae2a2ac9e76b418, type: 3}
-  - {fileID: 8300000, guid: 886147d53ff22a34b95260873b8e8da1, type: 3}
---- !u!4 &1475291664
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1475291662}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 441.63773, y: 355.433, z: 35.44428}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1625011037
 GameObject:
   m_ObjectHideFlags: 0
@@ -6598,7 +6592,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 519420041}
         m_TargetAssemblyTypeName: GameHandler, Assembly-CSharp
         m_MethodName: StartGame
         m_Mode: 1
@@ -8470,7 +8464,6 @@ SceneRoots:
   - {fileID: 1448184249275165284}
   - {fileID: 1094292824}
   - {fileID: 519420032}
-  - {fileID: 1475291664}
   - {fileID: 874662461}
   - {fileID: 905711691}
   - {fileID: 1102596518}

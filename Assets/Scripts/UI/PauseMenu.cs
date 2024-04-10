@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class PauseMenu : MonoBehaviour
 {
 
-    bool Paused = false;
+    [SerializeField] bool Paused = false;
     public GameObject UI;
     public UnityEvent OnPause;
     public UnityEvent OnUnpause;

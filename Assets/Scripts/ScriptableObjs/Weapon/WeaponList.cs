@@ -9,14 +9,9 @@ public class WeaponList : ScriptableObject
 
     public Weapon GetWeapon(int index)
     {
-        if (index == -1)
-        {
-            return (Weapon)weapons[Random.Range(0, weapons.Count)];
-        }
-        else
-        {
-            return (Weapon)weapons[index];
-        }
+        Weapon wpn = (Weapon)weapons[index];
+        wpn.Index = index;
+        return wpn;
     }
 
     public int GetWeaponIndex(Weapon weapon)
@@ -24,5 +19,14 @@ public class WeaponList : ScriptableObject
         return weapons.IndexOf(weapon);
     }
 
+    public int GetRandomWeaponIndex()
+    {
+        return Random.Range(0, weapons.Count);
+    }
+
+    public int GetIndex(Weapon weapon)
+    {
+        return weapons.IndexOf(weapon);
+    }
 
 }

@@ -211,6 +211,11 @@ public class Gun : Weapon
         return CurrentAmmo.ToString();
     }
 
+    public int GetAmmo_Int()
+    {
+        return CurrentAmmo;
+    }
+
     public void OnLastBulletFire()
     {
         OnLastBulletFire_Event.Invoke();

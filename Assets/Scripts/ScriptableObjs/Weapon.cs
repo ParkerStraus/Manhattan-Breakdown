@@ -30,7 +30,7 @@ public abstract class Weapon : ScriptableObject, IWeapon
 
     public PoseType _poseType;
 
-
+    public int Index;
     public string Name;
     public float damage;
     public float AttackTimer;

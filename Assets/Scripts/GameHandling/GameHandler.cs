@@ -10,8 +10,9 @@ using UnityEngine.SceneManagement;
 using Random = System.Random;
 using UnityEngine.UIElements;
 using static UnityEngine.Rendering.DebugUI;
+using Photon.Pun;
 
-public class GameHandler : MonoBehaviour, IGameHandler
+public class GameHandler : MonoBehaviourPunCallbacks, IGameHandler
 {
 
     [Header("Pause Stuff")]
@@ -78,6 +79,7 @@ public class GameHandler : MonoBehaviour, IGameHandler
         {
             points[i] = 0;
         }
+        PhotonNetwork.OfflineMode = true;
 
     }
 
@@ -299,6 +301,7 @@ public class GameHandler : MonoBehaviour, IGameHandler
         //DEBUG Populate with dummy players
         var player = Instantiate(playerPrefab, spawn[int.Parse(shuffledLoadOrder[0].ToString())].transform);
         player.transform.SetParent(null);
+        player.GetComponent<Player>().SetOffline();
         playerAlive[0] = true;
         virtualCamera.Follow = player.transform;
         playerObject = player;

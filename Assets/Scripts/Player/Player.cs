@@ -11,6 +11,7 @@ using Photon.Pun;
 
 public struct PlayerData
 {
+    public bool offline;
     public bool Moving;
     public PoseType poseType;
     public bool attacking;
@@ -27,6 +28,7 @@ public class Player : IForceObject, IDamageable
     [SerializeField] private PauseMenu pauseMenu;
     [SerializeField] private PhotonView PV;
     [SerializeField] private MainUI mainUI;
+    [SerializeField] private bool offline = false;
 
     [Header("Movement")]
     [SerializeField] private NetworkVariable<Vector2> Position;
@@ -58,13 +60,19 @@ public class Player : IForceObject, IDamageable
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        //gh = GameObject.Find("GameManager").GetComponent<IGameHandler>();
+        gh = GameObject.Find("Main Camera").GetComponent<IGameHandler>();
         pAud = GetComponent<PlayerAudio>();
         anim = GetComponent<PlayerAnimation>();
         pauseMenu = GameObject.Find("UI").GetComponent<PauseMenu>();
         mainUI = GameObject.Find("MainUI").GetComponent<MainUI>();
         PV = GetComponent<PhotonView>();
         SendWeaponInfo();
+    }
+
+    public void SetOffline()
+    {
+        offline = true;
+        _playerData.offline = true;
     }
 
     public void SetIGH(IGameHandler input)
@@ -76,7 +84,7 @@ public class Player : IForceObject, IDamageable
     // Update is called once per frame
     void Update()
     {
-        if (!PV.IsMine)
+        if (!PV.IsMine && !offline) 
         {
             return;
         }

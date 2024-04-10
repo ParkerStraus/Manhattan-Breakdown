@@ -44,6 +44,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
         if (PV.IsMine)
         {
             var pla = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), pos, Quaternion.identity);
+            
             pla.GetComponent<Player>().SetIGH(this);
             if (PhotonNetwork.IsMasterClient)
             {

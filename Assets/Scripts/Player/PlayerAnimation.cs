@@ -43,7 +43,8 @@ public class PlayerAnimation : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        if (Dead||!PV.IsMine) return;
+        playerData = player.GetPlayerData();
+        if ((Dead||!PV.IsMine) && !playerData.offline) return;
 
         if (playerData.Moving == true)
         {
@@ -59,7 +60,6 @@ public class PlayerAnimation : MonoBehaviourPunCallbacks
             FootStepTimer = 0;
         }
         if (Time.time < _lockedTill) return;
-        playerData = player.GetPlayerData();
         if(playerData.poseType == PoseType.None )
         {
             if (playerData.attacking == true)
