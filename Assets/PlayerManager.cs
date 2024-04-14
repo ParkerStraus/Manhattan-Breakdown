@@ -112,6 +112,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
         CanThePlayerDoStuff = false;
         _ScoreBoard.PlayAnim();
         yield return new WaitForSeconds(0.25f);
+        //Send message to Room Manager to start loading new level
+        yield return new WaitForSeconds(0.75f);
+        _ScoreBoard.UpdateScoreboard();
 
         yield return new WaitForSeconds(2f);
 
