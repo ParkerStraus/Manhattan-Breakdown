@@ -50,7 +50,7 @@ public class Melee : Weapon
         }
     }
 
-    public override string GetAmmo()
+    public override string GetAmmoString()
     {
         return "";
     }

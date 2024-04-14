@@ -12,6 +12,7 @@ using UnityEngine.UIElements;
 using static UnityEngine.Rendering.DebugUI;
 using Photon.Pun;
 
+
 public class GameHandler : MonoBehaviourPunCallbacks, IGameHandler
 {
 
@@ -19,7 +20,8 @@ public class GameHandler : MonoBehaviourPunCallbacks, IGameHandler
 
     [Header("Player Stuff")]
     public List<GameObject> players;
-    public int playerAmt = 1;
+    public int PlayerAmt = 2;
+
     public bool[] playerAlive = { false, false, false, false};
     public bool CanPlayersDoStuff;
 
@@ -55,6 +57,7 @@ public class GameHandler : MonoBehaviourPunCallbacks, IGameHandler
     public UnityEvent DisplayScoreBoard;
     public UnityEvent DisplayVHS;
     public GameObject StartScreen;
+    public GameObject Scoreboard;
     public GameObject[] StartScreen_PlayerPortraits;
     public GameObject[] StartScreen_PlayerPortraitsTitles;
     public UnityEvent HideVHS;
@@ -73,15 +76,16 @@ public class GameHandler : MonoBehaviourPunCallbacks, IGameHandler
     {
         arenaList = Resources.Load<ArenaList>("ArenaList");
         //StartGame();
-        playerAmt = playerAmt + DummyPlayers;
+        PlayerAmt = 1 + DummyPlayers;
 
-        for(int i = 0; i < playerAmt; i++)
+        for(int i = 0; i < PlayerAmt; i++)
         {
             points[i] = 0;
         }
         PhotonNetwork.OfflineMode = true;
 
     }
+
 
     // Update is called once per frame
     void Update()
@@ -114,7 +118,7 @@ public class GameHandler : MonoBehaviourPunCallbacks, IGameHandler
         GetMapReadyServerRPC();
         CanPlayersDoStuff = false;
         StartScreen.SetActive(true);
-        for (int i = 0; i < playerAmt; i++)
+        for (int i = 0; i < PlayerAmt; i++)
         {
             StartScreen_PlayerPortraits[i].SetActive(true);
             StartScreen_PlayerPortraitsTitles[i].SetActive(true);
@@ -158,7 +162,7 @@ public class GameHandler : MonoBehaviourPunCallbacks, IGameHandler
 
         //Check if only one is alive
         int pALive = 0;
-        for(int i = 0; i < playerAmt; i++)
+        for(int i = 0; i < PlayerAmt; i++)
         {
             if (playerAlive[i] == true)
             {
@@ -213,6 +217,7 @@ public class GameHandler : MonoBehaviourPunCallbacks, IGameHandler
         UpdateMainUI(2, null);
         CanPlayersDoStuff = false;
         DisplayVHS.Invoke();
+        Scoreboard.SetActive(true);
         DisplayScoreBoard.Invoke();
         yield return new WaitForSeconds(2.25f);
 
@@ -326,6 +331,8 @@ public class GameHandler : MonoBehaviourPunCallbacks, IGameHandler
     {
         return points;
     }
+
+    public int GetPlayerAmt() { return PlayerAmt; }
 
     public bool CanthePlayersMove()
     {

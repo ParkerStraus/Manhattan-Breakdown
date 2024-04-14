@@ -5,9 +5,11 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SocialPlatforms.Impl;
 
+
 public class ScoreBoard : MonoBehaviour
 {
-    [SerializeField] private GameHandler _gh;
+    [SerializeField, SerializeReference]
+    public IGameHandler _gh;
     [SerializeField] private TMP_Text[] Label;
     [SerializeField] private TMP_Text[] Scores;
     [SerializeField] private AudioClip ding;
@@ -15,12 +17,19 @@ public class ScoreBoard : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _gh = GameObject.Find("Main Camera").GetComponent<IGameHandler>();
+
+        if(_gh == null)
+        {
+
+        }
+        InitScoreBoard();
     }
 
     public void InitScoreBoard()
     {
         int[] score = _gh.GetScore();
-        for (int i = 3; i > _gh.playerAmt-1; i--)
+        for (int i = 3; i > _gh.GetPlayerAmt()-1; i--)
         {
                 Label[i].text = "";
                 Scores[i].text = "";
@@ -39,7 +48,7 @@ public class ScoreBoard : MonoBehaviour
 
         int[] score = _gh.GetScore();
 
-        for (int i = 0; i < _gh.playerAmt; i++)
+        for (int i = 0; i < _gh.GetPlayerAmt()-1; i++)
         {
             Debug.Log(score[i]);
             if (score[i] == -1)

@@ -9,6 +9,12 @@ public class WeaponList : ScriptableObject
 
     public Weapon GetWeapon(int index)
     {
+        if(index > weapons.Count || index < 0)
+        {
+            Weapon wpn0 = (Weapon)weapons[0];
+            wpn0.Index = 0;
+            return wpn0;
+        }
         Weapon wpn = (Weapon)weapons[index];
         wpn.Index = index;
         return wpn;

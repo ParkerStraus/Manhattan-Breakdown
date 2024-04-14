@@ -8,6 +8,7 @@ using UnityEngine.UIElements;
 using Unity.Multiplayer.Tools.NetStatsMonitor;
 using UnityEditor;
 using Photon.Pun;
+using System;
 
 public struct PlayerData
 {
@@ -60,7 +61,10 @@ public class Player : IForceObject, IDamageable
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        gh = GameObject.Find("Main Camera").GetComponent<IGameHandler>();
+        if(gh == null)
+        {
+            gh = GameObject.Find("Main Camera").GetComponent<IGameHandler>();
+        }
         pAud = GetComponent<PlayerAudio>();
         anim = GetComponent<PlayerAnimation>();
         pauseMenu = GameObject.Find("UI").GetComponent<PauseMenu>();
@@ -143,7 +147,9 @@ public class Player : IForceObject, IDamageable
             {
                 result = ((IWeapon)weapon).UseWeapon(attackPoint, pAud, this.gameObject);
                 _playerData.poseType = weapon._poseType;
+                //Debug.Log(_playerData.poseType);
                 WeaponDraw.sprite = weapon.GetWeaponSprite_Held();
+                PV.RPC("SetWeaponSpriteRPC", RpcTarget.Others, weapon.Index);
             }
             else
             {
@@ -154,6 +160,7 @@ public class Player : IForceObject, IDamageable
                 }
                 _playerData.poseType = PoseType.None;
                 WeaponDraw.sprite = null;
+                PV.RPC("SetWeaponSpriteRPC", RpcTarget.Others, -1);
             }
 
             //Remove Consumeables
@@ -182,7 +189,7 @@ public class Player : IForceObject, IDamageable
 
                 if (weapon != null)
                 {
-                    GameObject wpn = GameObject.Instantiate(pickupPrefab, transform);
+                    GameObject wpn = PhotonNetwork.Instantiate("PhotonPrefabs/"+pickupPrefab.name, transform.position, Quaternion.identity);
                     wpn.GetComponent<WeaponPickup>().SetupPickup(weapon);
                     wpn.transform.parent = null;
                 }
@@ -200,6 +207,19 @@ public class Player : IForceObject, IDamageable
             }
         }
         //Change Pose based on gun
+    }
+
+    [PunRPC] public void SetWeaponSpriteRPC(int weapon)
+    {
+        if(weapon == -1)
+        {
+            WeaponDraw.sprite = null;
+        }
+        else
+        {
+            WeaponDraw.sprite = Resources.Load<WeaponList>("WeaponData/WeaponList")
+                                             .GetWeapon(weapon).GetWeaponSprite_Held();
+        }
     }
 
     public PlayerData GetPlayerData()
@@ -238,6 +258,8 @@ public class Player : IForceObject, IDamageable
     {
         Dead = true;
         WeaponDraw.sprite = null;
+        PV.RPC("SetWeaponSpriteRPC", RpcTarget.Others, -1);
+
         if (PV.IsMine)
         {
             anim.OnDeath();
@@ -254,22 +276,22 @@ public class Player : IForceObject, IDamageable
 
     public void SendWeaponInfo()
     {
-
+        //Debug.Log(weapon.Name);
         string[] value = new string[2];
-        int UIOverride = 0;
-        if (weapon != null)
-        {
+        int UIOverride;
+        try { 
             value[0] = weapon.GetName();
-            value[1] = weapon.GetAmmo();
+            value[1] = weapon.GetAmmoString();
             UIOverride = 1;
         }
-        else
+        catch(NullReferenceException e)
         {
             value[0] = "";
             value[1] = "";
             UIOverride = 0;
-        }
 
+        }
+        Debug.Log(UIOverride);
         mainUI.UpdateMainUI(UIOverride, value);
     }
 

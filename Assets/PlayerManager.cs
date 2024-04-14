@@ -10,6 +10,7 @@ using System.IO;
 public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
 {
     PhotonView PV;
+    public int PlayerAmt { get; set; }
     // Start is called before the first frame update
     void Start()
     {

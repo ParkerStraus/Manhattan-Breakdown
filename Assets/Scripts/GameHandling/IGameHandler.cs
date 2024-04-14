@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
+
 public interface IGameHandler
 {
+
 
     bool CanthePlayersMove()
     {
@@ -28,4 +31,11 @@ public interface IGameHandler
     {
         return true;
     }
+
+    int[] GetScore()
+    {
+        return new int[] { 0, 0, 0, 0 };
+    }
+
+    int GetPlayerAmt() { return 0; }
 }

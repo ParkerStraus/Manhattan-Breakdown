@@ -60,7 +60,7 @@ public class Throwable_Explosive : Throwable
         return false;
     }
 
-    public override string GetAmmo()
+    public override string GetAmmoString()
     {
         return "";
     }

@@ -44,6 +44,7 @@ public class PlayerAnimation : MonoBehaviourPunCallbacks
     void Update()
     {
         playerData = player.GetPlayerData();
+        //Debug.Log(playerData.poseType);
         if ((Dead||!PV.IsMine) && !playerData.offline) return;
 
         if (playerData.Moving == true)

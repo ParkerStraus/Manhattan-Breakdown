@@ -1,15 +1,18 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Diagnostics;
 
-public class EffectsManager : MonoBehaviour
+public class EffectsManager : MonoBehaviourPunCallbacks
 {
+    public PhotonView PV;
+    public TrailRenderer TrailRenderer;
     // Start is called before the first frame update
     void Start()
     {
-        
+        PV = GetComponent<PhotonView>();
     }
 
     // Update is called once per frame
@@ -17,7 +20,6 @@ public class EffectsManager : MonoBehaviour
     {
         
     }
-
 
     public IEnumerator BulletTrailRoutine(TrailRenderer trail, RaycastHit2D hit)
     {
@@ -51,4 +53,5 @@ public class EffectsManager : MonoBehaviour
         trail.transform.position = hit;
         Destroy(trail.gameObject, trail.time);
     }
+    
 }

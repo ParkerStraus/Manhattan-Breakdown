@@ -28,15 +28,21 @@ public class Gun : Weapon
     public int BurstCurrent = 0;
     public float BurstInterval;
     public int ConeRayAmount;
+    public GameObject Trail;
     public UnityEvent OnLastBulletFire_Event;
     public bool NextBulletReady;
     public UnityEvent OnNextBulletReady;
+
 
     public override void Initialize()
     {
         CurrentAmmo = MaxAmmo;
         AttackTimer = AttackRate;
         em = GameObject.Find("Main Camera").GetComponent<EffectsManager>();
+        if(em = null)
+        {
+            em = GameObject.Find("GameManager").GetComponent<EffectsManager>();
+        }
     }
 
     public override int UseWeapon(UnityEngine.Transform attackPoint, PlayerAudio ac, GameObject player)
@@ -47,7 +53,7 @@ public class Gun : Weapon
             NextBulletReady = true;
             OnNextBulletReady.Invoke();
         }
-        Debug.Log("Gun");
+        //Debug.Log("Gun");
         if (CurrentAmmo > 0)
         {
             switch (_firemode)
@@ -206,12 +212,12 @@ public class Gun : Weapon
         }
     }
 
-    public override string GetAmmo()
+    public override string GetAmmoString()
     {
         return CurrentAmmo.ToString();
     }
 
-    public int GetAmmo_Int()
+    public int GetAmmoCount()
     {
         return CurrentAmmo;
     }
@@ -222,14 +228,14 @@ public class Gun : Weapon
     }
     public void Tracer(RaycastHit2D hit, UnityEngine.Transform attackPoint)
     {
-        TrailRenderer TrailBase = GameObject.Find("Trail").GetComponent<TrailRenderer>();
+        TrailRenderer TrailBase = Trail.GetComponent<TrailRenderer>();
         TrailRenderer trail = Instantiate(TrailBase, attackPoint.position, Quaternion.identity);
 
         em.StartCoroutine(em.BulletTrailRoutine(trail, hit));
     }
     public void Tracer(Vector2 hit, UnityEngine.Transform attackPoint)
     {
-        TrailRenderer TrailBase = GameObject.Find("Trail").GetComponent<TrailRenderer>();
+        TrailRenderer TrailBase = Trail.GetComponent<TrailRenderer>();
         TrailRenderer trail = Instantiate(TrailBase, attackPoint.position, Quaternion.identity);
 
         em.StartCoroutine(em.BulletTrailRoutine(trail, hit));

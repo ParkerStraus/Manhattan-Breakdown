@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be2251e973b34414c8f4a543cbacc694, type: 3}
   m_Name: m249
   m_EditorClassIdentifier: 
-  _poseType: 0
+  _poseType: 2
+  Index: 0
   Name: M249 SAW
   damage: 50
   AttackTimer: 0
@@ -26,7 +27,7 @@ MonoBehaviour:
   audio_impact: {fileID: 0}
   Impact: {fileID: 2085389234366473006, guid: 101ba8c7e6214d14e91e39f3fb5aac5c, type: 3}
   em: {fileID: 0}
-  _firemode: 2
+  _firemode: 0
   MaxAmmo: 50
   CurrentAmmo: 0
   ConeRadius: 0

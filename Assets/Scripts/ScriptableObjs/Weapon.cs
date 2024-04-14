@@ -72,7 +72,8 @@ public abstract class Weapon : ScriptableObject, IWeapon
         return Name;
     }
 
-    public abstract string GetAmmo();
+    public abstract string GetAmmoString();
+
 
     public Sprite GetWeaponSprite()
     {

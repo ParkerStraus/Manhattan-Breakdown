@@ -117,6 +117,7 @@ MonoBehaviour:
   pauseMenu: {fileID: 0}
   PV: {fileID: 0}
   mainUI: {fileID: 0}
+  offline: 0
   Position:
     m_InternalValue: {x: 0, y: 0}
   Rotation:
@@ -203,6 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f81d87ddabb85a946a59745235b3557d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PV: {fileID: 0}
   ac: {fileID: 1896197471962708110}
   footsteps:
   - {fileID: 8300000, guid: c1086d772044f1040bb40298327dc390, type: 3}
@@ -210,6 +212,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e3a40c39ced0023499a6eb5810eea8fe, type: 3}
   - {fileID: 8300000, guid: 56786597d809e864c8dcf72664dca0b6, type: 3}
   KillConfirm_snd: {fileID: 8300000, guid: e1044a30b3a88804c970f05afb3b6396, type: 3}
+  Sounds: {fileID: 0}
 --- !u!50 &647319380409035431
 Rigidbody2D:
   serializedVersion: 4

@@ -1983,6 +1983,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41d8532f6816c2347be523f36782a56f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PV: {fileID: 0}
+  TrailRenderer: {fileID: 0}
 --- !u!114 &519420041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1996,7 +1998,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   players: []
-  playerAmt: 1
+  PlayerAmt: 2
   playerAlive: 01010101
   CanPlayersDoStuff: 0
   DummyPlayers: 2
@@ -2019,18 +2021,6 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1337401624}
-        m_TargetAssemblyTypeName: ScoreBoard, Assembly-CSharp
-        m_MethodName: InitScoreBoard
-        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2067,6 +2057,7 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
   StartScreen: {fileID: 925246279}
+  Scoreboard: {fileID: 1337401620}
   StartScreen_PlayerPortraits:
   - {fileID: 2127265190}
   - {fileID: 598598584}
@@ -5876,7 +5867,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: -0.230576, y: 1.960605, z: -5}
+  m_FollowOffset: {x: -0.3184687, y: 1.763601, z: -5}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -5944,7 +5935,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0195e7581b784646a9ce47838afc82c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gh: {fileID: 0}
+  _gh:
+    rid: -2
   Label:
   - {fileID: 667124338}
   - {fileID: 626852240}
@@ -5957,6 +5949,11 @@ MonoBehaviour:
   - {fileID: 1630703771}
   ding: {fileID: 8300000, guid: 3159221f042cbaf47b931f283a20749b, type: 3}
   ac: {fileID: 1337401627}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!111 &1337401625
 Animation:
   m_ObjectHideFlags: 0
@@ -7905,6 +7902,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1983209946}
   m_CullTransparentMesh: 1
+--- !u!1 &1986604751
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1986604752}
+  m_Layer: 0
+  m_Name: SoundEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1986604752
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986604751}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2004626909
 GameObject:
   m_ObjectHideFlags: 0
@@ -8471,3 +8499,4 @@ SceneRoots:
   - {fileID: 6238226083868519379}
   - {fileID: 1310195125}
   - {fileID: 2133263557}
+  - {fileID: 1986604752}

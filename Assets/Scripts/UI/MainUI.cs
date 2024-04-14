@@ -36,7 +36,7 @@ public class MainUI : MonoBehaviour
                 Title.text = weapon[0];
                 Ammo.text = "AMMO: " + weapon[1];
             }
-            else if(setShow == 1)
+            else if(setShow == 0)
             {
                 DisplayAmmo = false;
                 Anim.SetBool("ammo Reveal", DisplayAmmo);
