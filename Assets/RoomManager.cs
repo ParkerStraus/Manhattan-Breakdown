@@ -41,7 +41,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         if(scene.buildIndex == 1)
         {
-            var go = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
+            PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
             
         }
     }
@@ -54,6 +54,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject[] Spawnpoints;
     [SerializeField] private List<PlayerManager> playerManager = new List<PlayerManager>();
     [SerializeField] private bool[] playersAlive = new bool[] { false, false, false, false };
+    [SerializeField] private int[] points = { -1, -1, -1, -1 };
 
     public void RegisterPlayerManager(PlayerManager pm)
     {
@@ -86,27 +87,68 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public void PlayerDied(int ply)
     {
-        print("Player died: "+ply);
+        print("Player died: "+(ply-1));
+        PV.RPC("PlayerDiedRPC", RpcTarget.MasterClient, ply-1);
+    }
+
+    [PunRPC]
+    public void PlayerDiedRPC(int ply)
+    {
+        print("Player died: " + ply);
         playersAlive[ply] = false;
         int playersLeft = 0;
         for (int i = 0; i < playersAlive.Length; i++)
         {
-            if (playersAlive[i] = true)
+            if (playersAlive[i] == true)
             {
                 playersLeft++;
             }
         }
 
-        if (playersLeft <= 1)
+        if (playersLeft <= 1 && PhotonNetwork.IsMasterClient)
         {
-            PV.RPC("RoundWin", RpcTarget.All);
+            int p = -1;
+            for (int i = 0; i < 4; i++)
+            {
+                if (playersAlive[i] == true)
+                {
+                    p = i;
+                    break;
+                }
+            }
+            bool rflag = true;
+            points[p]++;
+            for (int x = 0; x < points.Length; x++)
+            {
+                if (points[x] >= 5)
+                {
+                    PV.RPC("GameComplete", RpcTarget.All);
+                    rflag = false;
+                    break;
+                }
+
+            }
+
+            if (rflag == true) PV.RPC("NextRound", RpcTarget.All);
+        }
+    }
+
+
+    [PunRPC]
+    public void NextRound()
+    {
+        print("Everyone is dead [Finalized]");
+
+        foreach (PlayerManager pm in playerManager)
+        {
+            pm.NextRound();
         }
     }
 
     [PunRPC]
-    public void RoundWin()
+    public void GameComplete()
     {
-        print("Everyone is dead");
+        print("Everyone is dead [Finalized]");
     }
     
 

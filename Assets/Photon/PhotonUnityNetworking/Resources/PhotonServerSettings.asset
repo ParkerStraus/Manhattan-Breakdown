@@ -59,6 +59,10 @@ MonoBehaviour:
   - PlaySoundRPC
   - PickupWeaponRPC
   - SetWeaponSpriteRPC
+  - GameComplete
+  - NextRound
+  - NextRoundVisualRPC
+  - PlayerDiedRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

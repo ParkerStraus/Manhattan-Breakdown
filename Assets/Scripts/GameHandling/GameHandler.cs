@@ -64,8 +64,8 @@ public class GameHandler : MonoBehaviourPunCallbacks, IGameHandler
     public GameObject FinalScoreBoard;
     public MainUI MainUI;
 
-    [Header("Music/SoundStuff")]
     public MusicHandler musicHand;
+    [Header("Music/SoundStuff")]
     public AudioSource musicSource;
     public AudioSource aSource_extra;
     public AudioClip[] audioClips; 
@@ -202,12 +202,6 @@ public class GameHandler : MonoBehaviourPunCallbacks, IGameHandler
     }
 
 
-
-    public void OnRoundEnd()
-    {
-        GetMapReadyServerRPC();
-    }
-
     private IEnumerator NextRound()
     {
         Debug.Log("Next Round Starting");
@@ -231,7 +225,7 @@ public class GameHandler : MonoBehaviourPunCallbacks, IGameHandler
 
     }
 
-
+    
 
     private IEnumerator GameComplete()
     {
@@ -246,6 +240,12 @@ public class GameHandler : MonoBehaviourPunCallbacks, IGameHandler
         FinalScoreBoard.GetComponent<FinalResults>().SetupScoreBoard(scores: points);
 
     }
+
+    public void OnRoundEnd()
+    {
+        GetMapReadyServerRPC();
+    }
+
 
 
     [ServerRpc]

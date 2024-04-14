@@ -263,7 +263,7 @@ public class Player : IForceObject, IDamageable
         if (PV.IsMine)
         {
             anim.OnDeath();
-            Debug.LogError("dead now");
+            Debug.Log("dead now");
             gh.OnKill(0);
         }
 

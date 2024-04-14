@@ -67,3 +67,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3c6cf087ddc2d944a3d74b089d7d3b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  score: 
+  CanThePlayerDoStuff: 1
+  MainUI: {fileID: 0}
+  _ScoreBoard: {fileID: 0}
+  musicHand: {fileID: 0}

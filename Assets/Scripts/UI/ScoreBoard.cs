@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,6 +10,7 @@ using UnityEngine.SocialPlatforms.Impl;
 public class ScoreBoard : MonoBehaviour
 {
     [SerializeField, SerializeReference]
+    public Animator anim;
     public IGameHandler _gh;
     [SerializeField] private TMP_Text[] Label;
     [SerializeField] private TMP_Text[] Scores;
@@ -17,13 +19,22 @@ public class ScoreBoard : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _gh = GameObject.Find("Main Camera").GetComponent<IGameHandler>();
+        try
+        {
 
         if(_gh == null)
         {
-
+            _gh = GameObject.Find("Main Camera").GetComponent<IGameHandler>();
+            InitScoreBoard();
+            
         }
-        InitScoreBoard();
+        }
+        catch { Debug.LogWarning("Main Camera not found"); }
+    }
+
+    public void SetGH(IGameHandler gh)
+    {
+        _gh = gh;
     }
 
     public void InitScoreBoard()
@@ -40,6 +51,11 @@ public class ScoreBoard : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void PlayAnim()
+    {
+        anim.SetTrigger("go");
     }
 
     public void UpdateScoreboard()
