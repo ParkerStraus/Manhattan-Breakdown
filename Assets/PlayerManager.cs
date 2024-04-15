@@ -7,6 +7,7 @@ using Unity.Netcode;
 using System.Collections.Generic;
 using System.IO;
 using Unity.VisualScripting;
+using System;
 
 public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
 {
@@ -25,6 +26,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
     // Start is called before the first frame update
     void Start()
     {
+        PlayerAmt = PhotonNetwork.PlayerList.Length;
         RoomManager.instance.RegisterPlayerManager(this);
         PV = GetComponent<PhotonView>();
         if (PV.IsMine)
@@ -76,6 +78,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
             }
         }
     }
+
     public bool CanthePlayersMove()
     {
         return CanThePlayerDoStuff;
@@ -86,18 +89,24 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
         MainUI.UpdateMainUI(UIOverride, value);
     }
 
-    #region Next Round
-
-    public void NextRound()
+    public int[] GetScore()
     {
-        PV.RPC("NextRoundVisualRPC", RpcTarget.All);
+        return score;
     }
 
-    [PunRPC]
-    public void NextRoundVisualRPC()
+    public int GetPlayerAmt()
+    {
+        return PlayerAmt;
+    }
+
+    #region Next Round
+
+    public void NextRound(int[] points)
     {
         if (PV.IsMine)
         {
+            Debug.Log(points);
+            score = points;
             StartCoroutine(NextRoundStuff());
         }
     }
@@ -110,6 +119,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
         yield return new WaitForSeconds(1);
         UpdateMainUI(2, null);
         CanThePlayerDoStuff = false;
+        Debug.Log(String.Join(", ", score));
         _ScoreBoard.PlayAnim();
         yield return new WaitForSeconds(0.25f);
         //Send message to Room Manager to start loading new level

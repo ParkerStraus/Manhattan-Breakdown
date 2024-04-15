@@ -1,6 +1,8 @@
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -35,15 +37,16 @@ public class ScoreBoard : MonoBehaviour
     public void SetGH(IGameHandler gh)
     {
         _gh = gh;
+        InitScoreBoard();
     }
 
     public void InitScoreBoard()
     {
         int[] score = _gh.GetScore();
-        for (int i = 3; i > _gh.GetPlayerAmt()-1; i--)
+        for (int i = 0; i > _gh.GetPlayerAmt() - 1; i--)
         {
-                Label[i].text = "";
-                Scores[i].text = "";
+            Label[i].text = "";
+            Scores[i].text = "";
         }
     }
 
@@ -61,10 +64,12 @@ public class ScoreBoard : MonoBehaviour
     public void UpdateScoreboard()
     {
         ac.PlayOneShot(ding);
-
+        
         int[] score = _gh.GetScore();
 
-        for (int i = 0; i < _gh.GetPlayerAmt()-1; i++)
+        Debug.Log(String.Join(", ", score));
+
+        for (int i = 0; i < _gh.GetPlayerAmt(); i++)
         {
             Debug.Log(score[i]);
             if (score[i] == -1)

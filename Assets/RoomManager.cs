@@ -60,11 +60,25 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         playerManager.Add(pm);
         print("Added " + pm.name);
+        SetUpPlayerScore();
 
         if (PhotonNetwork.IsMasterClient && playerManager.Count == PhotonNetwork.PlayerList.Length)
         {
             GetSpawns();
             SpawnPlayers();
+        }
+    }
+
+    private void SetUpPlayerScore()
+    {
+        for(int i = 0; i < playerManager.Count; i++)
+        {
+            points[i] = 0;
+        }
+        foreach(PlayerManager pm in playerManager)
+        {
+
+            pm.score = points;
         }
     }
 
@@ -88,7 +102,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public void PlayerDied(int ply)
     {
         print("Player died: "+(ply-1));
-        PV.RPC("PlayerDiedRPC", RpcTarget.MasterClient, ply-1);
+        PV.RPC("PlayerDiedRPC", RpcTarget.All, ply-1);
     }
 
     [PunRPC]
@@ -129,19 +143,20 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
             }
 
-            if (rflag == true) PV.RPC("NextRound", RpcTarget.All);
+            if (rflag == true) PV.RPC("NextRoundRPC", RpcTarget.All, points);
         }
     }
 
 
     [PunRPC]
-    public void NextRound()
+    public void NextRoundRPC(int[] points)
     {
-        print("Everyone is dead [Finalized]");
+        this.points = points;
+        print("Everyone is dead Next round");
 
         foreach (PlayerManager pm in playerManager)
         {
-            pm.NextRound();
+            pm.NextRound(points);
         }
     }
 
