@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class FinalResults : MonoBehaviour
 {
+    public GameObject scoreboard;
     [SerializeField] private TMP_Text[] Label;
     [SerializeField] private TMP_Text[] Scores;
     // Start is called before the first frame update
@@ -22,6 +23,7 @@ public class FinalResults : MonoBehaviour
 
     public void SetupScoreBoard(int[] scores)
     {
+        scoreboard.SetActive(true);
         int[][] rankedScores = new int[scores.Length][];
 
         for (int i = 0; i < scores.Length; i++)

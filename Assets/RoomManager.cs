@@ -102,7 +102,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
             pm.SpawnPlayer(Spawnpoints[i].transform.position);
             playersAlive[i] = true;
             i++;
-
+            pm.NextRoundNowLoaded();
         }
     }
 
@@ -143,7 +143,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
             {
                 if (points[x] >= 5)
                 {
-                    PV.RPC("GameComplete", RpcTarget.All);
+                    PV.RPC("GameComplete", RpcTarget.All, points);
                     rflag = false;
                     break;
                 }
@@ -238,9 +238,14 @@ public class RoomManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void GameComplete()
+    public void GameComplete(int[] points)
     {
         print("Everyone is dead [Finalized]");
+        foreach (PlayerManager pm in playerManager)
+        {
+            pm.GameComplete(points);
+        }
+
     }
     
 

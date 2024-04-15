@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.IO;
 using Unity.VisualScripting;
 using System;
+using Unity.Mathematics;
+using UnityEngine.Events;
 
 public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
 {
@@ -15,14 +17,20 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
     public int PlayerAmt { get; set; }
     public int[] score;
     public bool CanThePlayerDoStuff = true;
+    public bool CanIReturnToGame = true;
 
     [Header("UI")]
     public MainUI MainUI;
     public ScoreBoard _ScoreBoard;
+    public FinalResults FinalScoreBoard;
+    public VHS VHS;
 
-    [Space(20)]
     [Header("Music/SoundStuff")]
     public MusicHandler musicHand;
+    public AudioSource musicSource;
+    public AudioSource aSource_extra;
+    public AudioClip[] audioClips;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +43,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
             _ScoreBoard = GameObject.Find("UI").GetComponent<ScoreBoard>();
             _ScoreBoard.SetGH(this);
             musicHand = GameObject.Find("Main Camera").GetComponent<MusicHandler>();
+            FinalScoreBoard = GameObject.Find("UI").GetComponent<FinalResults>();
             //Lock Virtual Camera to Player
+            aSource_extra = GameObject.Find("ExtraSoundEffects").GetComponent<AudioSource>();
+            VHS = GameObject.Find("Main Camera").GetComponent<VHS>();
         }
         
     }
@@ -107,6 +118,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
     {
         if (PV.IsMine)
         {
+            CanIReturnToGame = false;
             Debug.Log(points);
             score = points;
             StartCoroutine(NextRoundStuff());
@@ -120,30 +132,91 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
 
         yield return new WaitForSeconds(1);
         UpdateMainUI(2, null);
+        VHS.DisplayVHS();
         CanThePlayerDoStuff = false;
         Debug.Log(String.Join(", ", score));
         _ScoreBoard.PlayAnim();
         yield return new WaitForSeconds(0.1f);
+
+        //Delete Leftover Players
         Player[] players = GameObject.FindObjectsOfType<Player>();
         for (int i = 0; i < players.Length; i++)
         {
             Destroy(players[i].gameObject);
         }
+
+        //Delete leftover Gun Objects
+        WeaponPickup[] guns = GameObject.FindObjectsOfType<WeaponPickup>();
+        for (int i = 0; i < guns.Length; i++)
+        {
+            Destroy(guns[i].gameObject);
+        }
+
         RoomManager.instance.PlayerNowInTransition(PhotonNetwork.LocalPlayer.ActorNumber - 1);
         //Send message to Room Manager to start loading new level
         yield return new WaitForSeconds(0.9f);
         _ScoreBoard.UpdateScoreboard();
 
         yield return new WaitForSeconds(2f);
-
         musicHand.TriggerSnapshot(0, 0.5f);
-        yield return new WaitForSeconds(0.50f);
-        CanThePlayerDoStuff = true;
+        while (true)
+        {
+            if (CanIReturnToGame)
+            {
+                VHS.HideVHS();
+                CanThePlayerDoStuff = true;
+                break;
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
+
+    }
+
+    public void NextRoundNowLoaded()
+    {
+        PV.RPC("NextRoundNowLoadedRPC",RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void NextRoundNowLoadedRPC()
+    {
+        if (PV.IsMine)
+        {
+            CanIReturnToGame = true;
+        }
     }
 
     #endregion
 
     #region Game Complete
+
+    public void GameComplete(int[] points)
+    {
+        score = points;
+        if(PV.IsMine)
+        {
+            StartCoroutine(GameCompleteRoutine());
+        }
+    }
+
+    private IEnumerator GameCompleteRoutine()
+    {
+
+        //Blank Main UI
+        MainUI.Override();
+        //Play special sound effect
+        aSource_extra.PlayOneShot(audioClips[2]);
+        //Disable move for player
+        CanThePlayerDoStuff = false;
+        //Fade out music
+        musicHand.TriggerSnapshot(1, 2f);
+
+        yield return new WaitForSeconds(3);
+        //Set Final Scoreboard and display
+        FinalScoreBoard.SetupScoreBoard(scores: score);
+
+    }
 
     #endregion
 

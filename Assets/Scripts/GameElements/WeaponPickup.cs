@@ -8,7 +8,7 @@ public class WeaponPickup : MonoBehaviourPunCallbacks
 {
     private PhotonView PV;
 
-    [SerializeField] private int WeaponIndex;
+    [SerializeField] public int WeaponIndex;
     [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private Weapon weapon;
     [SerializeField] private int Ammo;
@@ -56,6 +56,7 @@ public class WeaponPickup : MonoBehaviourPunCallbacks
                                      .GetWeapon(weaponIndex));
         weapon.Initialize();
         if (this.weapon.GetType() == typeof(Gun)) Ammo = ((Gun)weapon).GetAmmoCount();
+        sprite.sprite = weapon.GetWeaponSprite();
     }
 
     private void Update()

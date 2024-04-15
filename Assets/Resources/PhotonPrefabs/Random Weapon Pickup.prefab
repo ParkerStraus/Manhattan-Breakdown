@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 397da589981c57d489fbd06642ad9d73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponIndex: 1
+  WeaponIndex: -1
   sprite: {fileID: 5455033829572928160}
   weapon: {fileID: 0}
   Ammo: 0
