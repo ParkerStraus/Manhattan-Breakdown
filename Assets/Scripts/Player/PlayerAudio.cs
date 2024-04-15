@@ -32,7 +32,7 @@ public class PlayerAudio : MonoBehaviourPunCallbacks
         ac.pitch = 1;
         ac.PlayOneShot(sound);
         int i = Sounds.GetIndex(sound);
-        PV.RPC("PlaySoundRPC", RpcTarget.Others, new object[]{ i, 1 });
+        //PV.RPC("PlaySoundRPC", RpcTarget.Others, new object[]{ i, 1 });
     }
 
 
@@ -42,7 +42,7 @@ public class PlayerAudio : MonoBehaviourPunCallbacks
         ac.pitch = 1 + Random.Range(-pitchRange, pitchRange);
         ac.PlayOneShot(sound);
         int i = Sounds.GetIndex(sound);
-        PV.RPC("PlaySoundRPC", RpcTarget.Others, new object[] { i, ac.pitch });
+        //PV.RPC("PlaySoundRPC", RpcTarget.Others, new object[] { i, ac.pitch });
     }
 
     [PunRPC]

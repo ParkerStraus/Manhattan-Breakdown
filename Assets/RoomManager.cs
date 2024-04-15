@@ -20,6 +20,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
             Destroy(gameObject);
             return;
         }
+        arenaList = Resources.Load<ArenaList>("ArenaList");
         DontDestroyOnLoad(gameObject);
         PV = GetComponent<PhotonView>();
         instance = this;
@@ -50,11 +51,18 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     #region GameCentric Info
 
+
+    [Header("Arena Stuff")]
+    public string CurrentArena = null;
+    public List<string> LastArenas;
+    public ArenaList arenaList;
+    [SerializeField] private int[] points = { -1, -1, -1, -1 };
+
     //Game
     [SerializeField] private GameObject[] Spawnpoints;
     [SerializeField] private List<PlayerManager> playerManager = new List<PlayerManager>();
     [SerializeField] private bool[] playersAlive = new bool[] { false, false, false, false };
-    [SerializeField] private int[] points = { -1, -1, -1, -1 };
+    [SerializeField] private bool[] SyncLock = { true, true, true, true };
 
     public void RegisterPlayerManager(PlayerManager pm)
     {
@@ -64,8 +72,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient && playerManager.Count == PhotonNetwork.PlayerList.Length)
         {
-            GetSpawns();
-            SpawnPlayers();
+            LoadArena();
         }
     }
 
@@ -153,11 +160,81 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         this.points = points;
         print("Everyone is dead Next round");
-
+        for(int i = 0; i < playerManager.Count; i++)
+        {
+            SyncLock[i] = false;
+        }
         foreach (PlayerManager pm in playerManager)
         {
             pm.NextRound(points);
         }
+    }
+
+    public void PlayerNowInTransition(int player)
+    {
+        PV.RPC("PlayerNowInTransitionRPC", RpcTarget.All, player);
+    }
+
+    [PunRPC]
+    public void PlayerNowInTransitionRPC(int player)
+    {
+        SyncLock[player] = true;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            bool canTransition = true;
+            for (int i = 0; i < SyncLock.Length; i++)
+            {
+                if (SyncLock[i] == false)
+                {
+                    canTransition = false;
+                }
+            }
+            if (canTransition)
+            {
+                LoadArena();
+            }
+        }
+    }
+
+    public void LoadArena()
+    {
+        Debug.Log("Now loading new level");
+        string ArenaName = arenaList.GetScene(-1);
+        PV.RPC("LoadArenaRPC", RpcTarget.All, ArenaName);
+    }
+
+    [PunRPC]
+    public void LoadArenaRPC(string ArenaName)
+    {
+        StartCoroutine(GoToNextArena(ArenaName));
+    }
+    public IEnumerator GoToNextArena(string map)
+    {
+
+        if (CurrentArena != "")
+        {
+            SceneManager.UnloadScene(CurrentArena);
+        }
+        AsyncOperation scene = SceneManager.LoadSceneAsync(map, LoadSceneMode.Additive);
+
+        while (!scene.isDone)
+        {
+            Debug.Log("loading new arena");
+            yield return null;
+        }
+        //Clear all Particles
+        GameObject[] particles = GameObject.FindGameObjectsWithTag("Particles");
+        foreach (GameObject particle in particles)
+        {
+            Destroy(particle);
+        }
+        CurrentArena = map;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            GetSpawns();
+            SpawnPlayers();
+        }
+
     }
 
     [PunRPC]

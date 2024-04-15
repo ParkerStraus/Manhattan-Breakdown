@@ -96,12 +96,12 @@ public class PlayerAnimation : MonoBehaviourPunCallbacks
     void AnimateCrossfade(int anim)
     {
         animator.CrossFade(anim, 0, 0);
-        PV.RPC("AnimateCrossfadeOther", RpcTarget.Others, anim);
+        PV.RPC("AnimateCrossfadeRPC", RpcTarget.Others, anim);
     }
 
 
     [PunRPC]
-    void AnimateCrossfadeOther(int animate)
+    void AnimateCrossfadeRPC(int animate)
     {
         try
         {
@@ -116,16 +116,16 @@ public class PlayerAnimation : MonoBehaviourPunCallbacks
     void LockState(int s, float t)
     {
         _lockedTill = Time.time + t;
-        AnimateCrossfadeOther(s);
-        PV.RPC("LockStateOther", RpcTarget.Others, new object[] { s, t });
+        AnimateCrossfadeRPC(s);
+        PV.RPC("LockStateRPC", RpcTarget.Others, new object[] { s, t });
     }
 
     [PunRPC]
-    void LockStateOther(int s, float t)
+    void LockStateRPC(int s, float t)
     {
         _lockedTill = Time.time + t;
         animator.CrossFade(s, 0, 0);
-        AnimateCrossfadeOther(s);
+        AnimateCrossfadeRPC(s);
     }
 
 
@@ -139,11 +139,11 @@ public class PlayerAnimation : MonoBehaviourPunCallbacks
 
         _sprite.sprite = deathSprites[spriteIndex];
 
-        PV.RPC("DeathSprite", RpcTarget.All, spriteIndex);
+        PV.RPC("OnDeathRPC", RpcTarget.All, spriteIndex);
     }
 
     [PunRPC]
-    public void DeathSprite(int spr)
+    public void OnDeathRPC(int spr)
     {
         animator.enabled = false;
         Dead = true;

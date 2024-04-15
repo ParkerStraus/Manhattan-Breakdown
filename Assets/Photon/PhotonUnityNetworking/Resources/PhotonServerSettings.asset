@@ -65,6 +65,11 @@ MonoBehaviour:
   - PlayerDiedRPC
   - UpdateScoreRPC
   - NextRoundRPC
+  - LoadArenaRPC
+  - PlayerNowInTransitionRPC
+  - AnimateCrossfadeRPC
+  - LockStateRPC
+  - OnDeathRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -58,4 +58,9 @@ public class VirCamStuff : MonoBehaviour
         Transform snapobj = vircam.m_Follow;
         vircam.ForceCameraPosition(snapobj.position, Quaternion.identity);
     }
+
+    public void SetNewObject(GameObject go)
+    {
+        vircam.m_Follow = go.transform;
+    }
 }

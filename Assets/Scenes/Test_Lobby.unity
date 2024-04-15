@@ -2890,10 +2890,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PV: {fileID: 0}
+  CurrentArena: 
+  LastArenas: []
+  arenaList: {fileID: 0}
+  points: ffffffffffffffffffffffffffffffff
   Spawnpoints: []
   playerManager: []
   playersAlive: 00000000
-  points: ffffffffffffffffffffffffffffffff
+  SyncLock: 01010101
 --- !u!4 &1967688845
 Transform:
   m_ObjectHideFlags: 0

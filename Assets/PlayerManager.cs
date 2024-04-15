@@ -35,6 +35,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
             _ScoreBoard = GameObject.Find("UI").GetComponent<ScoreBoard>();
             _ScoreBoard.SetGH(this);
             musicHand = GameObject.Find("Main Camera").GetComponent<MusicHandler>();
+            //Lock Virtual Camera to Player
         }
         
     }
@@ -72,6 +73,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
             var pla = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), pos, Quaternion.identity);
             
             pla.GetComponent<Player>().SetIGH(this);
+            GameObject.Find("VirCam").GetComponent<VirCamStuff>().SetNewObject(pla);
             if (PhotonNetwork.IsMasterClient)
             {
                 Debug.Log("Is Master Client");
@@ -121,9 +123,15 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
         CanThePlayerDoStuff = false;
         Debug.Log(String.Join(", ", score));
         _ScoreBoard.PlayAnim();
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.1f);
+        Player[] players = GameObject.FindObjectsOfType<Player>();
+        for (int i = 0; i < players.Length; i++)
+        {
+            Destroy(players[i].gameObject);
+        }
+        RoomManager.instance.PlayerNowInTransition(PhotonNetwork.LocalPlayer.ActorNumber - 1);
         //Send message to Room Manager to start loading new level
-        yield return new WaitForSeconds(0.75f);
+        yield return new WaitForSeconds(0.9f);
         _ScoreBoard.UpdateScoreboard();
 
         yield return new WaitForSeconds(2f);
