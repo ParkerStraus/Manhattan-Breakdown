@@ -10,32 +10,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be2251e973b34414c8f4a543cbacc694, type: 3}
-  m_Name: zapper
+  m_Name: tec9
   m_EditorClassIdentifier: 
-  _poseType: 0
-  Index: 0
-  Name: Konbini Zapster
-  damage: 75
+  _poseType: 1
+  Index: 11
+  Name: TEC-9
+  damage: 50
   AttackTimer: 0
-  AttackRate: 2
+  AttackRate: 0.075
   AttackSize: 0
   ac: {fileID: 0}
-  floorImage: {fileID: 21300000, guid: 05d1198cf7497824083aed21887bd583, type: 3}
-  HeldImage: {fileID: 21300000, guid: 4e264f0b1ff899941bc61b0ae93e8aa2, type: 3}
-  audio_gunshot: {fileID: 8300000, guid: 18ad61b5d75131140ad9a4a641fe6cdc, type: 3}
+  floorImage: {fileID: 21300000, guid: f01422a22fb88164fb0f8430a5189d90, type: 3}
+  HeldImage: {fileID: 21300000, guid: f5c2211f245c5164c9b4e7bfb3c0fc1e, type: 3}
+  audio_gunshot: {fileID: 8300000, guid: 6bb6b258a6473d24ba10a83568412ce0, type: 3}
   audio_click: {fileID: 0}
   audio_impact: {fileID: 0}
   Impact: {fileID: 2085389234366473006, guid: 101ba8c7e6214d14e91e39f3fb5aac5c, type: 3}
   em: {fileID: 0}
-  _firemode: 0
-  MaxAmmo: 3
+  _firemode: 1
+  MaxAmmo: 12
   CurrentAmmo: 0
   ConeRadius: 0
   BurstAmount: 3
   BurstCurrent: 0
   BurstInterval: 0.1
   ConeRayAmount: 0
-  Trail: {fileID: 95398463906736958, guid: 9ea65f0d0b8efd14fa3637fad22963aa, type: 3}
+  Trail: {fileID: 0}
   OnLastBulletFire_Event:
     m_PersistentCalls:
       m_Calls: []
@@ -43,13 +43,13 @@ MonoBehaviour:
   OnNextBulletReady:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000}
-        m_TargetAssemblyTypeName: Weapon, Assembly-CSharp
-        m_MethodName: PlaySound
-        m_Mode: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 83bca8e348b3b484db1a873edd936bba, type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

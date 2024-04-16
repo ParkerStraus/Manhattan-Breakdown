@@ -74,16 +74,15 @@ public class GameHandler : MonoBehaviourPunCallbacks, IGameHandler
     // Start is called before the first frame 
     void Start()
     {
+        PhotonNetwork.OfflineMode = true;
         arenaList = Resources.Load<ArenaList>("ArenaList");
         //StartGame();
         PlayerAmt = 1 + DummyPlayers;
 
-        for(int i = 0; i < PlayerAmt; i++)
+        for (int i = 0; i < PlayerAmt; i++)
         {
             points[i] = 0;
         }
-        PhotonNetwork.OfflineMode = true;
-
     }
 
 
@@ -100,6 +99,7 @@ public class GameHandler : MonoBehaviourPunCallbacks, IGameHandler
             Vector3 OffsetRealized = new Vector3(Mathf.Clamp(offset.x / 4, -OffsetClamp, OffsetClamp), Mathf.Clamp(offset.y / 4, -OffsetClamp, OffsetClamp), -5);
             OffsetCurrent = Vector3.Lerp(OffsetCurrent, OffsetRealized, OffsetInterp*Time.deltaTime);
             virtualCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = OffsetCurrent;
+            
         }
     }
 
@@ -107,6 +107,7 @@ public class GameHandler : MonoBehaviourPunCallbacks, IGameHandler
     public void StartGame()
     {
         StartCoroutine(OnStartGame());
+        playerObject.GetComponent<Player>().SetOffline();
     }
 
     private IEnumerator OnStartGame()

@@ -27,7 +27,7 @@ public interface IWeapon
 [CreateAssetMenu(fileName = "Weapon", menuName = "Weapon/Weapon Object")]
 public abstract class Weapon : ScriptableObject, IWeapon
 {
-
+    public bool Attacking;
     public PoseType _poseType;
 
     public int Index;
@@ -35,7 +35,6 @@ public abstract class Weapon : ScriptableObject, IWeapon
     public float damage;
     public float AttackTimer;
     public float AttackRate;
-
 
     [Header("Weapon Info")]
     public float AttackSize;

@@ -147,6 +147,15 @@ public class Player : IForceObject, IDamageable
             {
                 result = ((IWeapon)weapon).UseWeapon(attackPoint, pAud, this.gameObject);
                 _playerData.poseType = weapon._poseType;
+                if (weapon.Attacking)
+                {
+                    _playerData.attacking = true;
+                }
+                else
+                {
+                    _playerData.attacking = false;
+
+                }
                 //Debug.Log(_playerData.poseType);
                 WeaponDraw.sprite = weapon.GetWeaponSprite_Held();
                 PV.RPC("SetWeaponSpriteRPC", RpcTarget.Others, weapon.Index);
@@ -189,9 +198,17 @@ public class Player : IForceObject, IDamageable
 
                 if (weapon != null)
                 {
-                    GameObject wpn = PhotonNetwork.Instantiate("PhotonPrefabs/"+pickupPrefab.name, transform.position, Quaternion.identity);
-                    wpn.GetComponent<WeaponPickup>().SetupPickup(weapon);
-                    wpn.transform.parent = null;
+                    try { 
+                        GameObject wpn = PhotonNetwork.Instantiate("PhotonPrefabs/"+pickupPrefab.name, transform.position, Quaternion.identity);
+                        wpn.GetComponent<WeaponPickup>().SetupPickup(weapon);
+                        wpn.transform.parent = null;
+                    }
+                    catch
+                    {
+                        GameObject wpn = Instantiate(pickupPrefab, transform);
+                        wpn.GetComponent<WeaponPickup>().SetupPickup(weapon);
+                        wpn.transform.parent = null;
+                    }
                 }
 
                 if (newWep != null)
@@ -203,8 +220,8 @@ public class Player : IForceObject, IDamageable
                     weapon = null;
 
                 }
-                SendWeaponInfo();
             }
+            SendWeaponInfo();
         }
         //Change Pose based on gun
     }
@@ -291,7 +308,7 @@ public class Player : IForceObject, IDamageable
             UIOverride = 0;
 
         }
-        Debug.Log(UIOverride);
+        //Debug.Log(UIOverride);
         mainUI.UpdateMainUI(UIOverride, value);
     }
 

@@ -19,6 +19,14 @@ public class PlayerAnimation : MonoBehaviourPunCallbacks
 
     int PunchL = Animator.StringToHash("Punch_Left");
     int PunchR = Animator.StringToHash("Punch_Right");
+
+
+    int MeleeL = Animator.StringToHash("MeleeL");
+    int MeleeR = Animator.StringToHash("MeleeR");
+    int MeleeLIdle = Animator.StringToHash("MeleeL_Idle");
+    int MeleeRIdle = Animator.StringToHash("MeleeR_Idle");
+
+
     [SerializeField] private bool flipped = false;
 
     [SerializeField] private float _lockedTill;
@@ -86,6 +94,24 @@ public class PlayerAnimation : MonoBehaviourPunCallbacks
                 case PoseType.Rifle:
                     AnimateCrossfade(Gun_Rifle);
                     break;
+                case PoseType.TwoMelee:
+
+                    if (playerData.attacking == true)
+                    {
+                        if (flipped == true)
+                            LockState(MeleeL, 0.25f);
+                        else LockState(MeleeR, 0.25f);
+                        flipped = !flipped;
+                    }
+                    else
+                    {
+
+                        if (flipped == true)
+                            AnimateCrossfade(MeleeLIdle);
+                        else AnimateCrossfade(MeleeRIdle);
+                    }
+                    break;
+
                 default:
                     AnimateCrossfade(Idle);
                     break;

@@ -15,12 +15,14 @@ public class Melee : Weapon
         //Debug.Log("Melee");
         if (Input.GetButtonDown("Fire1"))
         {
+            Attacking = false;
             if (AttackTimer >= AttackRate)
             {
                 AttackTimer = 0;
                 Debug.Log("Swoop");
                 ac.PlaySound(audio_gunshot);
                 MeleeAtk(attackPoint, ac, player);
+                Attacking = true;
             }
         }
         AttackTimer += Time.deltaTime;
