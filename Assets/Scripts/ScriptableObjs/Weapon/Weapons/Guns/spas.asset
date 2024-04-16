@@ -35,7 +35,7 @@ MonoBehaviour:
   BurstCurrent: 0
   BurstInterval: 0.1
   ConeRayAmount: 5
-  Trail: {fileID: 0}
+  Trail: {fileID: 95398463906736958, guid: 9ea65f0d0b8efd14fa3637fad22963aa, type: 3}
   OnLastBulletFire_Event:
     m_PersistentCalls:
       m_Calls: []

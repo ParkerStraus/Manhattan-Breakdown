@@ -41,7 +41,7 @@ public class Gun : Weapon
         em = GameObject.Find("Main Camera").GetComponent<EffectsManager>();
         if(em = null)
         {
-            em = GameObject.Find("GameManager").GetComponent<EffectsManager>();
+            em = GameObject.Find("RoomManager").GetComponent<EffectsManager>();
         }
     }
 
@@ -230,6 +230,11 @@ public class Gun : Weapon
     {
         TrailRenderer TrailBase = Trail.GetComponent<TrailRenderer>();
         TrailRenderer trail = Instantiate(TrailBase, attackPoint.position, Quaternion.identity);
+        em = GameObject.Find("Main Camera").GetComponent<EffectsManager>();
+        if (em = null)
+        {
+            em = GameObject.Find("RoomManager").GetComponent<EffectsManager>();
+        }
 
         em.StartCoroutine(em.BulletTrailRoutine(trail, hit));
     }
@@ -237,6 +242,11 @@ public class Gun : Weapon
     {
         TrailRenderer TrailBase = Trail.GetComponent<TrailRenderer>();
         TrailRenderer trail = Instantiate(TrailBase, attackPoint.position, Quaternion.identity);
+        em = GameObject.Find("Main Camera").GetComponent<EffectsManager>();
+        if (em = null)
+        {
+            em = GameObject.Find("RoomManager").GetComponent<EffectsManager>();
+        }
 
         em.StartCoroutine(em.BulletTrailRoutine(trail, hit));
     }

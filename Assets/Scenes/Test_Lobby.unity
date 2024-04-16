@@ -2870,6 +2870,7 @@ GameObject:
   - component: {fileID: 1967688845}
   - component: {fileID: 1967688844}
   - component: {fileID: 1967688846}
+  - component: {fileID: 1967688847}
   m_Layer: 0
   m_Name: RoomManager
   m_TagString: Untagged
@@ -2935,6 +2936,20 @@ MonoBehaviour:
   sceneViewId: 999
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &1967688847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967688843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41d8532f6816c2347be523f36782a56f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PV: {fileID: 1967688846}
+  TrailRenderer: {fileID: 3479118579837492294, guid: 9ea65f0d0b8efd14fa3637fad22963aa, type: 3}
 --- !u!1 &2019010899
 GameObject:
   m_ObjectHideFlags: 0
