@@ -69,10 +69,10 @@ public class RoomManager : MonoBehaviourPunCallbacks
         playerManager.Add(pm);
         print("Added " + pm.name);
         SetUpPlayerScore();
-
         if (PhotonNetwork.IsMasterClient && playerManager.Count == PhotonNetwork.PlayerList.Length)
         {
             LoadArena();
+            PrepareForStart();
         }
     }
 
@@ -195,6 +195,74 @@ public class RoomManager : MonoBehaviourPunCallbacks
             }
         }
     }
+
+    #region Start
+
+    public void PrepareForStart()
+    {
+        if(PhotonNetwork.IsMasterClient)
+        {
+            StartCoroutine(StartTheGame());
+        }
+    }
+
+    public IEnumerator StartTheGame()
+    {
+        //Start Phase 1
+        PV.RPC("Phase1RPC", RpcTarget.All);
+        yield return new WaitForSeconds(5f);
+        PV.RPC("Phase2RPC", RpcTarget.All);
+
+
+        yield return new WaitForSeconds(1.5f);
+        //Start countdown
+        PV.RPC("CountdownRPC", RpcTarget.All, new object[] { "3", 0 });
+        yield return new WaitForSeconds(1);
+        PV.RPC("CountdownRPC", RpcTarget.All, new object[] { "2", 0 });
+        yield return new WaitForSeconds(1);
+        PV.RPC("CountdownRPC", RpcTarget.All, new object[] {"1", 0});
+        yield return new WaitForSeconds(1);
+        PV.RPC("Phase3RPC", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void Phase1RPC()
+    {
+
+        foreach (PlayerManager pm in playerManager)
+        {
+            pm.StartGame_phase1();
+        }
+    }
+
+    [PunRPC]
+    public void Phase2RPC()
+    {
+        foreach (PlayerManager pm in playerManager)
+        {
+            pm.StartGame_phase2();
+        }
+    }
+
+    [PunRPC]
+    public void CountdownRPC(string String, int i)
+    {
+        foreach (PlayerManager pm in playerManager)
+        {
+            pm.StringCountdown(String, i);
+        }
+    }
+
+    [PunRPC]
+    public void Phase3RPC()
+    {
+        foreach(PlayerManager pm in playerManager)
+        {
+            pm.StartGame_phase3();
+        }
+    }
+
+    #endregion
 
     public void LoadArena()
     {

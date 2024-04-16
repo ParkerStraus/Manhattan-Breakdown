@@ -71,6 +71,12 @@ MonoBehaviour:
   - LockStateRPC
   - OnDeathRPC
   - NextRoundNowLoadedRPC
+  - PrepareForStart
+  - PrepareForStartRPC
+  - CountdownRPC
+  - Phase1RPC
+  - Phase2RPC
+  - Phase3RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -23,6 +23,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
     public MainUI MainUI;
     public ScoreBoard _ScoreBoard;
     public FinalResults FinalScoreBoard;
+    public StartScreen StartScreen;
     public VHS VHS;
 
     [Header("Music/SoundStuff")]
@@ -47,6 +48,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
             //Lock Virtual Camera to Player
             aSource_extra = GameObject.Find("ExtraSoundEffects").GetComponent<AudioSource>();
             VHS = GameObject.Find("Main Camera").GetComponent<VHS>();
+            StartScreen = GameObject.Find("UI").GetComponent<StartScreen>();
         }
         
     }
@@ -82,7 +84,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
         if (PV.IsMine)
         {
             var pla = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), pos, Quaternion.identity);
-            
+
             pla.GetComponent<Player>().SetIGH(this);
             GameObject.Find("VirCam").GetComponent<VirCamStuff>().SetNewObject(pla);
             if (PhotonNetwork.IsMasterClient)
@@ -111,6 +113,74 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
     {
         return PlayerAmt;
     }
+
+    #region Start Game
+    
+    public void StartGame_phase1()
+    {
+        PV = GetComponent<PhotonView>();
+        if (!PV.IsMine) return;
+        musicHand.PlayRandomSong();
+        StartScreen.anim.SetTrigger("Start");
+        //Start Animation of players
+        musicHand.TriggerSnapshot(1, 0.01f);
+        Debug.Log("Now starting game");
+        //Load Level
+        CanThePlayerDoStuff = false;
+        //StartScreen.SetActive(true);
+        for (int i = 0; i < PlayerAmt; i++)
+        {
+            StartScreen.PlayerPortraits[i].SetActive(true);
+            StartScreen.PlayerPortraitsTitles[i].SetActive(true);
+        }
+    }
+
+
+    public void StartGame_phase2()
+    {
+        if (!PV.IsMine) return;
+        StartCoroutine(StartGame_phase2Routine());
+    }
+
+    public IEnumerator StartGame_phase2Routine()
+    {
+        StartScreen.anim.SetTrigger("Finish");
+        musicHand.TriggerSnapshot(0, 1f);
+        yield return new WaitForSeconds(0.5f);
+        musicHand.ShowSongInfo();
+        yield return new WaitForSeconds(2f + (27f/60f));
+        StartScreen.HideScreen();
+    }
+
+    public void StringCountdown(string String, int i)
+    {
+        if (PV.IsMine)
+        {
+            MainUI.CountDown(String);
+            aSource_extra.PlayOneShot(audioClips[i]);
+        }
+    }
+
+
+    public void StartGame_phase3()
+    {
+
+        if (!PV.IsMine) return;
+        StartCoroutine(CommenceGameStart());
+    }
+
+    public IEnumerator CommenceGameStart()
+    {
+        CanThePlayerDoStuff = true;
+        MainUI.CountDown("Fight");
+        aSource_extra.PlayOneShot(audioClips[1]);
+        yield return new WaitForSeconds(1);
+
+        //on end enable character control
+        MainUI.CountDown("");
+    }
+
+    #endregion
 
     #region Next Round
 

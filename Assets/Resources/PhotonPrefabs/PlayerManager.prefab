@@ -68,11 +68,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 
-  CanThePlayerDoStuff: 1
+  CanThePlayerDoStuff: 0
   CanIReturnToGame: 1
   MainUI: {fileID: 0}
   _ScoreBoard: {fileID: 0}
   FinalScoreBoard: {fileID: 0}
+  StartScreen: {fileID: 0}
   VHS: {fileID: 0}
   musicHand: {fileID: 0}
   musicSource: {fileID: 0}

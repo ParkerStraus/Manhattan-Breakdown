@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &21900864
 RectTransform:
   m_ObjectHideFlags: 0
@@ -183,7 +183,7 @@ MonoBehaviour:
   m_text: Player1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6dc91f665c0f33d439b69f47d2d5e3f5, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -6074559662935554786, guid: 6dc91f665c0f33d439b69f47d2d5e3f5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -246,7 +246,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &21900866
@@ -408,7 +408,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &60807230
 RectTransform:
   m_ObjectHideFlags: 0
@@ -817,6 +817,7 @@ GameObject:
   - component: {fileID: 198215828}
   - component: {fileID: 198215833}
   - component: {fileID: 198215834}
+  - component: {fileID: 198215835}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -1005,6 +1006,30 @@ MonoBehaviour:
   - {fileID: 194202857}
   - {fileID: 1989323779}
   - {fileID: 1287200308}
+--- !u!114 &198215835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198215827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15dc5386f0221ca41abd41615933ff71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 1999721693}
+  PlayerPortraits:
+  - {fileID: 60807229}
+  - {fileID: 1352714377}
+  - {fileID: 1560003870}
+  - {fileID: 568095301}
+  PlayerPortraitsTitles:
+  - {fileID: 21900863}
+  - {fileID: 304930515}
+  - {fileID: 1407208417}
+  - {fileID: 1410548043}
+  UI: {fileID: 1999721691}
 --- !u!1 &245621623
 GameObject:
   m_ObjectHideFlags: 0
@@ -1500,7 +1525,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &304930516
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1543,7 +1568,7 @@ MonoBehaviour:
   m_text: Player2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6dc91f665c0f33d439b69f47d2d5e3f5, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -6074559662935554786, guid: 6dc91f665c0f33d439b69f47d2d5e3f5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1606,7 +1631,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &304930518
@@ -2063,7 +2088,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &568095302
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3374,13 +3399,13 @@ MonoBehaviour:
   musicSource: {fileID: 932999062}
   musicStart: {fileID: 8300000, guid: 228eb4c3053919c43ae6fb7f77e1b0fe, type: 3}
   mixer: {fileID: 24100000, guid: d2f0736eec432d14da4dc2d55553669b, type: 2}
-  musicSelector: {fileID: 0}
+  musicSelector: {fileID: 11400000, guid: cce52b8d0ebb57f4382609194d2d2168, type: 2}
   Base: {fileID: 24500006, guid: d2f0736eec432d14da4dc2d55553669b, type: 2}
   MuffledMusic: {fileID: 2971919416066623603, guid: d2f0736eec432d14da4dc2d55553669b, type: 2}
-  musicInfoUiAnimator: {fileID: 0}
-  AlbumArt: {fileID: 0}
-  Title: {fileID: 0}
-  Artist: {fileID: 0}
+  musicInfoUiAnimator: {fileID: 1579924072}
+  AlbumArt: {fileID: 553856566}
+  Title: {fileID: 753907659}
+  Artist: {fileID: 1372374015}
 --- !u!81 &932999064
 AudioListener:
   m_ObjectHideFlags: 0
@@ -4813,7 +4838,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1352714378
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5097,7 +5122,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1407208418
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5140,7 +5165,7 @@ MonoBehaviour:
   m_text: Player3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6dc91f665c0f33d439b69f47d2d5e3f5, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -6074559662935554786, guid: 6dc91f665c0f33d439b69f47d2d5e3f5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5203,7 +5228,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1407208420
@@ -5231,7 +5256,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1410548044
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5274,7 +5299,7 @@ MonoBehaviour:
   m_text: Player4
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6dc91f665c0f33d439b69f47d2d5e3f5, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -6074559662935554786, guid: 6dc91f665c0f33d439b69f47d2d5e3f5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5337,7 +5362,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1410548046
@@ -5633,7 +5658,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1560003871
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7019,7 +7044,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1999721692
 RectTransform:
   m_ObjectHideFlags: 0
