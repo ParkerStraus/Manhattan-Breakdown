@@ -1808,6 +1808,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Freq_Default: 0
   Amp_Default: 0
+  OffsetCurrent: {x: 0, y: 0, z: 0}
+  OffsetInterp: 4
+  OffsetClamp: 2
 --- !u!114 &394074834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3285,7 +3288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PV: {fileID: 0}
-  TrailRenderer: {fileID: 0}
+  TrailRenderer: {fileID: 2063921159}
 --- !u!82 &932999062
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7272,6 +7275,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ea65f0d0b8efd14fa3637fad22963aa, type: 3}
+--- !u!96 &2063921159 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 3479118579837492294, guid: 9ea65f0d0b8efd14fa3637fad22963aa, type: 3}
+  m_PrefabInstance: {fileID: 2063921158}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2143343079
 GameObject:
   m_ObjectHideFlags: 0

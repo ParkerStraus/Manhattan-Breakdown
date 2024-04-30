@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be2251e973b34414c8f4a543cbacc694, type: 3}
   m_Name: revolver
   m_EditorClassIdentifier: 
+  Attacking: 0
   _poseType: 1
-  Index: 0
+  Index: 7
   Name: Smith & Wesson
   damage: 100
   AttackTimer: 0
@@ -35,7 +36,6 @@ MonoBehaviour:
   BurstCurrent: 0
   BurstInterval: 0.1
   ConeRayAmount: 0
-  Trail: {fileID: 0}
   OnLastBulletFire_Event:
     m_PersistentCalls:
       m_Calls: []

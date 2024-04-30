@@ -28,6 +28,8 @@ public class WeaponPickup : MonoBehaviourPunCallbacks
                 weapon = Instantiate(Resources.Load<WeaponList>("WeaponData/WeaponList")
                                          .GetWeapon(WeaponIndex));
 
+                Debug.Log("Now initializing random weapon: " +weapon.name);
+
                 weapon.Initialize();
                 if (this.weapon.GetType() == typeof(Gun)) Ammo = ((Gun)weapon).GetAmmoCount();
 
@@ -52,9 +54,12 @@ public class WeaponPickup : MonoBehaviourPunCallbacks
     [PunRPC]
     public void SetupRPC(int weaponIndex)
     {
+
         weapon = Instantiate(Resources.Load<WeaponList>("WeaponData/WeaponList")
                                      .GetWeapon(weaponIndex));
         weapon.Initialize();
+
+        Debug.Log("Now initializing weapon: " + weapon.name);
         if (this.weapon.GetType() == typeof(Gun)) Ammo = ((Gun)weapon).GetAmmoCount();
         sprite.sprite = weapon.GetWeaponSprite();
     }

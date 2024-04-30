@@ -11,6 +11,7 @@ public class PlayerAnimation : MonoBehaviourPunCallbacks
     [SerializeField] private PlayerData playerData;
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerAudio audio;
+    public int currentState;
     private PhotonView PV;
     int Idle = Animator.StringToHash("Idle");
     int Walk = Animator.StringToHash("Walk");
@@ -53,10 +54,11 @@ public class PlayerAnimation : MonoBehaviourPunCallbacks
     {
         playerData = player.GetPlayerData();
         //Debug.Log(playerData.poseType);
-        if ((Dead||!PV.IsMine) && !playerData.offline) return;
+        if ((Dead || !PV.IsMine) && !playerData.offline) return;
 
         if (playerData.Moving == true)
         {
+
             FootStepTimer += Time.deltaTime;
             if (FootStepTimer >= FootStepThreshold)
             {
@@ -69,53 +71,47 @@ public class PlayerAnimation : MonoBehaviourPunCallbacks
             FootStepTimer = 0;
         }
         if (Time.time < _lockedTill) return;
-        if(playerData.poseType == PoseType.None )
+        switch (playerData.poseType)
         {
-            if (playerData.attacking == true)
-            {
-                if (flipped == true)
-                    LockState(PunchL, 0.26666666666f);
-                else LockState(PunchR, 0.26666666666f);
-                flipped = !flipped;
-            }
-            if (playerData.Moving)
-            {
-                AnimateCrossfade(Walk);
-            }
-            else AnimateCrossfade(Idle);
-        }
-        else
-        {
-            switch(playerData.poseType)
-            {
-                case PoseType.Pistol:
-                    AnimateCrossfade(Gun_Pistol);
-                    break;
-                case PoseType.Rifle:
-                    AnimateCrossfade(Gun_Rifle);
-                    break;
-                case PoseType.TwoMelee:
+            case PoseType.None:
+                if (playerData.attacking == true)
+                {
+                    if (flipped == true)
+                        LockState(PunchL, 0.26666666666f);
+                    else LockState(PunchR, 0.26666666666f);
+                    flipped = !flipped;
+                }
+                if (playerData.Moving)
+                {
+                    AnimateCrossfade(Walk);
+                }
+                else AnimateCrossfade(Idle);
+                break;
+            case PoseType.Pistol:
+                AnimateCrossfade(Gun_Pistol);
+                break;
+            case PoseType.Rifle:
+                AnimateCrossfade(Gun_Rifle);
+                break;
+            case PoseType.TwoMelee:
 
-                    if (playerData.attacking == true)
-                    {
-                        if (flipped == true)
-                            LockState(MeleeL, 0.25f);
-                        else LockState(MeleeR, 0.25f);
-                        flipped = !flipped;
-                    }
-                    else
-                    {
-
-                        if (flipped == true)
-                            AnimateCrossfade(MeleeLIdle);
-                        else AnimateCrossfade(MeleeRIdle);
-                    }
+                if (playerData.attacking == true)
+                {
+                    if (flipped == true)
+                        LockState(MeleeL, 0.25f);
+                    else LockState(MeleeR, 0.25f);
+                    flipped = !flipped;
                     break;
+                }
 
-                default:
-                    AnimateCrossfade(Idle);
-                    break;
-            }
+                    if (flipped == true)
+                        AnimateCrossfade(MeleeLIdle);
+                    else AnimateCrossfade(MeleeRIdle);
+                break;
+
+            default:
+                AnimateCrossfade(Idle);
+                break;
         }
     }
 
@@ -133,7 +129,7 @@ public class PlayerAnimation : MonoBehaviourPunCallbacks
         {
             animator.CrossFade(animate, 0, 0);
         }
-        catch(UnassignedReferenceException e)
+        catch (UnassignedReferenceException e)
         {
             print("Animator not initialized yet");
         }

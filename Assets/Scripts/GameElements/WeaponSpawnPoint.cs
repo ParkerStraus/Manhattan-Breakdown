@@ -20,8 +20,8 @@ public class WeaponSpawnPoint : MonoBehaviour
             gun.GetComponent<WeaponPickup>().WeaponIndex = WeaponIndex;
             gun.GetComponent<WeaponPickup>().FirstTimeStart = true;
             gun.transform.parent = null;
-            Destroy(this.gameObject);
             this.GetComponent<SpriteRenderer>().enabled = false;
+            Destroy(this.gameObject);
         }
     }
 

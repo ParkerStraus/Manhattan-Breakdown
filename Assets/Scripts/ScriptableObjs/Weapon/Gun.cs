@@ -28,7 +28,6 @@ public class Gun : Weapon
     public int BurstCurrent = 0;
     public float BurstInterval;
     public int ConeRayAmount;
-    public GameObject Trail;
     public UnityEvent OnLastBulletFire_Event;
     public bool NextBulletReady;
     public UnityEvent OnNextBulletReady;
@@ -228,27 +227,23 @@ public class Gun : Weapon
     }
     public void Tracer(RaycastHit2D hit, UnityEngine.Transform attackPoint)
     {
-        TrailRenderer TrailBase = Trail.GetComponent<TrailRenderer>();
-        TrailRenderer trail = Instantiate(TrailBase, attackPoint.position, Quaternion.identity);
         em = GameObject.Find("Main Camera").GetComponent<EffectsManager>();
         if (em = null)
         {
             em = GameObject.Find("RoomManager").GetComponent<EffectsManager>();
         }
 
-        em.StartCoroutine(em.BulletTrailRoutine(trail, hit));
+        em.StartCoroutine(em.BulletTrailRoutine(attackPoint.position, hit));
     }
     public void Tracer(Vector2 hit, UnityEngine.Transform attackPoint)
     {
-        TrailRenderer TrailBase = Trail.GetComponent<TrailRenderer>();
-        TrailRenderer trail = Instantiate(TrailBase, attackPoint.position, Quaternion.identity);
         em = GameObject.Find("Main Camera").GetComponent<EffectsManager>();
         if (em = null)
         {
             em = GameObject.Find("RoomManager").GetComponent<EffectsManager>();
         }
 
-        em.StartCoroutine(em.BulletTrailRoutine(trail, hit));
+        em.StartCoroutine(em.BulletTrailRoutine(attackPoint.position, hit));
     }
 
 }

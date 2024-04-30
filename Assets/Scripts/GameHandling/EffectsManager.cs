@@ -21,12 +21,14 @@ public class EffectsManager : MonoBehaviourPunCallbacks
         
     }
 
-    public IEnumerator BulletTrailRoutine(TrailRenderer trail, RaycastHit2D hit)
+    public IEnumerator BulletTrailRoutine(Vector2 attackPoint, RaycastHit2D hit)
     {
         float time = 0;
-        Vector3 startPos = trail.transform.position;
+        var trail = Instantiate(TrailRenderer);
+        trail.transform.position = attackPoint;
+        Vector3 startPos = attackPoint;
 
-        while(time < 1)
+        while (time < 1)
         {
             trail.transform.position = Vector3.Lerp(startPos, hit.point, time);
             time += Time.deltaTime / trail.time;
@@ -35,12 +37,14 @@ public class EffectsManager : MonoBehaviourPunCallbacks
         }
 
         trail.transform.position = hit.point;
-        Destroy( trail.gameObject, trail.time );
+        Destroy(trail.gameObject, trail.time );
     }
-    public IEnumerator BulletTrailRoutine(TrailRenderer trail, Vector2 hit)
+    public IEnumerator BulletTrailRoutine(Vector2 attackPoint, Vector2 hit)
     {
         float time = 0;
-        Vector3 startPos = trail.transform.position;
+        var trail = Instantiate(TrailRenderer);
+        trail.transform.position = attackPoint;
+        Vector3 startPos = attackPoint;
 
         while (time < 1)
         {

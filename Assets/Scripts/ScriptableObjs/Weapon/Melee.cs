@@ -25,6 +25,10 @@ public class Melee : Weapon
                 Attacking = true;
             }
         }
+        else
+        {
+            Attacking=false;
+        }
         AttackTimer += Time.deltaTime;
         return 0;
     }

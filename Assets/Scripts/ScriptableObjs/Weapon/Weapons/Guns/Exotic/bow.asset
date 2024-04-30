@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be2251e973b34414c8f4a543cbacc694, type: 3}
   m_Name: bow
   m_EditorClassIdentifier: 
+  Attacking: 0
   _poseType: 2
-  Index: 0
+  Index: 3
   Name: Bow and Arrow
   damage: 200
   AttackTimer: 0
@@ -35,7 +36,6 @@ MonoBehaviour:
   BurstCurrent: 0
   BurstInterval: 0
   ConeRayAmount: 0
-  Trail: {fileID: 0}
   OnLastBulletFire_Event:
     m_PersistentCalls:
       m_Calls: []
