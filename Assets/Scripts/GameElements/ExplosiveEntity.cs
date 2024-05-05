@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
+using Photon.Pun;
 
-public class ExplosiveEntity : MonoBehaviour, IDamageable
+public class ExplosiveEntity : MonoBehaviourPunCallbacks, IDamageable
 {
     [SerializeField] private float Health;
     [SerializeField] private float damage;
@@ -13,10 +14,11 @@ public class ExplosiveEntity : MonoBehaviour, IDamageable
     public GameObject impactEffect;
     public float BlastRadius;
     private int rayAmount = 60;
+    private PhotonView PV;
     // Start is called before the first frame update
     void Start()
     {
-        
+        PV = GetComponent<PhotonView>();
     }
 
     // Update is called once per frame
@@ -28,14 +30,22 @@ public class ExplosiveEntity : MonoBehaviour, IDamageable
     public bool Damage(float damage)
     {
         Health -= damage;
-        if(Health <= 0 ) OnExplosion(); 
+        if(Health <= 0 && PhotonNetwork.IsMasterClient) OnExplosion();
+        PV.RPC("SetHealth", RpcTarget.All, Health);
         return false;
+    }
+
+
+    [PunRPC]
+    public void SetHealth(float Health)
+    {
+        this.Health = Health;
     }
 
     void OnExplosion()
     {
-        AudioSource.PlayClipAtPoint(explosion[(int)(Random.value * explosion.Length-1)],transform.position);
         //Create Blast
+        PV.RPC("ParticleEffects", RpcTarget.All);
         float raySegment = 360f / rayAmount;
         GetComponent<Collider2D>().enabled = false;
         for (int i = 0; i < rayAmount; i++)
@@ -53,10 +63,22 @@ public class ExplosiveEntity : MonoBehaviour, IDamageable
                 ray.collider.gameObject.GetComponent<IForceObject>().ApplyForce((ray.collider.transform.position - transform.position));
             }
         }
-        GameObject.Find("VirCam").GetComponent<VirCamStuff>().Shake(2f, 3f, 0.5f, 0.3f);
+        PV.RPC("Destroy", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void ParticleEffects()
+    {
+
+        AudioSource.PlayClipAtPoint(explosion[(int)(Random.value * explosion.Length - 1)], transform.position);
         GameObject exp = Instantiate(particles);
         exp.transform.position = transform.position;
-        Destroy(gameObject);
+        GameObject.Find("VirCam").GetComponent<VirCamStuff>().Shake(2f, 3f, 0.5f, 0.3f);
+    }
+    [PunRPC]
+    public void Destroy()
+    {
+        Destroy(this.gameObject);
     }
 
     public GameObject GetImpactEffect()
