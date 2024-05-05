@@ -26,14 +26,19 @@ public class VirCamStuff : MonoBehaviour
     {
         
         Vector2 aimPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        if (vircam.Follow.gameObject != null)
+        try
         {
+
+            if (vircam.Follow.gameObject == null) return;
             Vector2 offset = aimPos - (Vector2)Camera.main.transform.position;
             //Debug.Log(aimPos + ", " + Vector3.Magnitude(offset));
             Vector3 OffsetRealized = new Vector3(Mathf.Clamp(offset.x / 4, -OffsetClamp, OffsetClamp), Mathf.Clamp(offset.y / 4, -OffsetClamp, OffsetClamp), -5);
             OffsetCurrent = Vector3.Lerp(OffsetCurrent, OffsetRealized, OffsetInterp * Time.deltaTime);
             vircam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = OffsetCurrent;
-
+        }
+        catch
+        {
+            Debug.Log("No Follow object set");
         }
     }
 

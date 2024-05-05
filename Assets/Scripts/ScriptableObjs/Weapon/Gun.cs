@@ -37,16 +37,13 @@ public class Gun : Weapon
     {
         CurrentAmmo = MaxAmmo;
         AttackTimer = AttackRate;
-        em = GameObject.Find("Main Camera").GetComponent<EffectsManager>();
-        if(em = null)
-        {
-            em = GameObject.Find("RoomManager").GetComponent<EffectsManager>();
-        }
     }
 
     public override int UseWeapon(UnityEngine.Transform attackPoint, PlayerAudio ac, GameObject player)
     {
         this.ac = ac;
+        em = player.GetComponent<EffectsManager>();
+
         if(NextBulletReady = false && AttackTimer >= AttackRate)
         {
             NextBulletReady = true;
@@ -156,13 +153,13 @@ public class Gun : Weapon
                     }
                     CreateParticle(obj.GetImpactEffect(), hit);
                 }
-                Tracer(hit, attackPoint);
+                em.Tracer(hit, attackPoint);
                 Hitted = true;
                 break;
             }
             if(!Hitted)
             {
-                Tracer(Quaternion.Euler(0, 0, attackPoint.rotation.eulerAngles.z) * Vector3.right * 20 + attackPoint.position, attackPoint);
+                em.Tracer(Quaternion.Euler(0, 0, attackPoint.rotation.eulerAngles.z) * Vector3.right * 20 + attackPoint.position, attackPoint);
             }
             if (CurrentAmmo == 0)
             {
@@ -200,7 +197,7 @@ public class Gun : Weapon
                         }
                         CreateParticle(obj.GetImpactEffect(), hit);
                     }
-                    Tracer(hit, attackPoint);
+                    em.Tracer(hit, attackPoint);
                     break;
                 }
             }
@@ -224,26 +221,6 @@ public class Gun : Weapon
     public void OnLastBulletFire()
     {
         OnLastBulletFire_Event.Invoke();
-    }
-    public void Tracer(RaycastHit2D hit, UnityEngine.Transform attackPoint)
-    {
-        em = GameObject.Find("Main Camera").GetComponent<EffectsManager>();
-        if (em = null)
-        {
-            em = GameObject.Find("RoomManager").GetComponent<EffectsManager>();
-        }
-
-        em.StartCoroutine(em.BulletTrailRoutine(attackPoint.position, hit));
-    }
-    public void Tracer(Vector2 hit, UnityEngine.Transform attackPoint)
-    {
-        em = GameObject.Find("Main Camera").GetComponent<EffectsManager>();
-        if (em = null)
-        {
-            em = GameObject.Find("RoomManager").GetComponent<EffectsManager>();
-        }
-
-        em.StartCoroutine(em.BulletTrailRoutine(attackPoint.position, hit));
     }
 
 }

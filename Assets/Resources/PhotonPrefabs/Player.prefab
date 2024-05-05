@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2249178141015071034}
   - component: {fileID: -442989624983559690}
   - component: {fileID: 1054936185553615092}
+  - component: {fileID: 3920029272071983716}
   - component: {fileID: 3537109571706422909}
   - component: {fileID: 647319380409035431}
   - component: {fileID: 1896197471962708110}
@@ -193,6 +194,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3920029272071983716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960366418344800116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41d8532f6816c2347be523f36782a56f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PV: {fileID: 3535896171002120506}
+  TrailRenderer: {fileID: 3479118579837492294, guid: 9ea65f0d0b8efd14fa3637fad22963aa, type: 3}
 --- !u!114 &3537109571706422909
 MonoBehaviour:
   m_ObjectHideFlags: 0
