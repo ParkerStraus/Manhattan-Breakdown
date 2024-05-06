@@ -16,6 +16,11 @@ public interface IDamageable
         return null;
     }
 
+    void CreateImpact(RaycastHit2D hit)
+    {
+        return;
+    }
+
 }
 
 

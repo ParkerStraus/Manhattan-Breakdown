@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 6133642070357881072}
   - component: {fileID: 3535896171002120506}
   - component: {fileID: -8731799936485700374}
+  - component: {fileID: 2307239596220058451}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -458,6 +459,20 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
+--- !u!114 &2307239596220058451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960366418344800116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41d8532f6816c2347be523f36782a56f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PV: {fileID: 0}
+  TrailRenderer: {fileID: 0}
 --- !u!1 &3227488449485765035
 GameObject:
   m_ObjectHideFlags: 0

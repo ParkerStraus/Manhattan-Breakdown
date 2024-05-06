@@ -151,7 +151,8 @@ public class Gun : Weapon
                     {
                         KillConfirm(player);
                     }
-                    CreateParticle(obj.GetImpactEffect(), hit);
+                    //CreateParticle(obj.GetImpactEffect(), hit);
+                    obj.CreateImpact(hit);
                 }
                 em.Tracer(hit, attackPoint);
                 Hitted = true;
@@ -195,7 +196,8 @@ public class Gun : Weapon
                         {
                             KillConfirm(player);
                         }
-                        CreateParticle(obj.GetImpactEffect(), hit);
+                        obj.CreateImpact(hit);
+                        //CreateParticle(obj.GetImpactEffect(), hit);
                     }
                     em.Tracer(hit, attackPoint);
                     break;

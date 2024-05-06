@@ -24,10 +24,18 @@ public class EffectsManager : MonoBehaviourPunCallbacks
     public void Tracer(RaycastHit2D hit, UnityEngine.Transform attackPoint)
     {
         StartCoroutine(BulletTrailRoutine(attackPoint.position, hit.point));
+        PV.RPC("TracerRPC", RpcTarget.Others, new object[] { hit.point, attackPoint.position });
     }
     public void Tracer(Vector2 hit, UnityEngine.Transform attackPoint)
     {
         StartCoroutine(BulletTrailRoutine(attackPoint.position, hit));
+        PV.RPC("TracerRPC", RpcTarget.Others, new object[] { hit, attackPoint.position });
+    }
+
+    [PunRPC]
+    public void TracerRPC(Vector2 hit, Vector2 attackPoint)
+    {
+        StartCoroutine(BulletTrailRoutine(attackPoint, hit));
     }
 
     public IEnumerator BulletTrailRoutine(Vector2 attackPoint, Vector2 hit)

@@ -316,5 +316,17 @@ public class Player : IForceObject, IDamageable
     {
         return impactEffect;
     }
+
+    public void CreateImpact(RaycastHit2D hit)
+    {
+        PV.RPC("CreateImpactRPC", RpcTarget.All, new object[] { hit.point, Quaternion.LookRotation(hit.normal, Vector3.left) });
+    }
+
+    [PunRPC]
+
+    public void CreateImpactRPC(Vector2 pos, Quaternion rot)
+    {
+        Instantiate(GetImpactEffect(), pos, rot);
+    }
 }
 

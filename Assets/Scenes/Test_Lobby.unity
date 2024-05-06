@@ -2893,7 +2893,7 @@ MonoBehaviour:
   PV: {fileID: 0}
   CurrentArena: 
   LastArenas: []
-  arenaList: {fileID: 0}
+  arenaList: {fileID: 11400000, guid: cbb6c654234a2ff4092b23973d148a30, type: 2}
   points: ffffffffffffffffffffffffffffffff
   Spawnpoints: []
   playerManager: []
