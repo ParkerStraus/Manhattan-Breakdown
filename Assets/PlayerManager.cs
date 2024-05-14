@@ -14,6 +14,7 @@ using UnityEngine.Events;
 public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
 {
     PhotonView PV;
+    public string PlayerName;
     public int PlayerAmt { get; set; }
     public int[] score;
     public bool CanThePlayerDoStuff = true;

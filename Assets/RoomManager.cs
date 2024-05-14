@@ -57,8 +57,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public void BackToLobby()
     {
         if (PhotonNetwork.IsMasterClient) PhotonNetwork.CurrentRoom.IsVisible = true;
-        SceneManager.LoadScene("Lobby");
         PV.RPC("BackToLobbyRPC", RpcTarget.Others);
+        SceneManager.LoadScene("Lobby");
     }
 
     public void BackToLobbyRPC()
