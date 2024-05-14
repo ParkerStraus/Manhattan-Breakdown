@@ -38,7 +38,7 @@ public class EffectsManager : MonoBehaviourPunCallbacks
         StartCoroutine(BulletTrailRoutine(attackPoint, hit));
     }
 
-    public IEnumerator BulletTrailRoutine(Vector2 attackPoint, Vector2 hit)
+    public IEnumerator BulletTrailRoutine(Vector3 attackPoint, Vector3 hit)
     {
         float time = 0;
         var trail = Instantiate(TrailRenderer);
