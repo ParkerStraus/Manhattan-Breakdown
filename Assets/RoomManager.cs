@@ -47,6 +47,32 @@ public class RoomManager : MonoBehaviourPunCallbacks
         }
     }
 
+    public override void OnLeftRoom()
+    {
+        if (SceneManager.GetActiveScene().name == "Lobby") return;
+        PV.RPC("PlayerDisconnectedRPC", RpcTarget.Others);
+        SceneManager.LoadScene("Lobby");
+    }
+
+    public void BackToLobby()
+    {
+        if (PhotonNetwork.IsMasterClient) PhotonNetwork.CurrentRoom.IsVisible = true;
+        SceneManager.LoadScene("Lobby");
+        PV.RPC("BackToLobbyRPC", RpcTarget.Others);
+    }
+
+    public void BackToLobbyRPC()
+    {
+        if (PhotonNetwork.IsMasterClient) PhotonNetwork.CurrentRoom.IsVisible = true;
+        SceneManager.LoadScene("Lobby");
+    }
+
+    public void PlayerDisconnectedRPC()
+    {
+        PhotonNetwork.LeaveRoom();
+        SceneManager.LoadScene("Lobby");
+    }
+
     #endregion
 
     #region GameCentric Info

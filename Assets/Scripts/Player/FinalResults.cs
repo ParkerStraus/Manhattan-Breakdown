@@ -21,7 +21,8 @@ public class FinalResults : MonoBehaviour
         
     }
 
-    public void SetupScoreBoard(int[] scores)
+
+    public void SetupScoreBoard(string[] names, int[] scores)
     {
         scoreboard.SetActive(true);
         int[][] rankedScores = new int[scores.Length][];
@@ -42,7 +43,7 @@ public class FinalResults : MonoBehaviour
             }
             else
             {
-                Label[i].text = "Player " + rankedScores[i][0];
+                Label[i].text = names[rankedScores[i][0]];
                 Scores[i].text = (rankedScores[i][1]).ToString();
             }
         }

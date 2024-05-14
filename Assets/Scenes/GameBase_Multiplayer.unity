@@ -403,7 +403,7 @@ GameObject:
   - component: {fileID: 60807232}
   - component: {fileID: 60807231}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Image1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -817,7 +817,6 @@ GameObject:
   - component: {fileID: 198215828}
   - component: {fileID: 198215833}
   - component: {fileID: 198215834}
-  - component: {fileID: 198215835}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -1006,30 +1005,6 @@ MonoBehaviour:
   - {fileID: 194202857}
   - {fileID: 1989323779}
   - {fileID: 1287200308}
---- !u!114 &198215835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 198215827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15dc5386f0221ca41abd41615933ff71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anim: {fileID: 1999721693}
-  PlayerPortraits:
-  - {fileID: 60807229}
-  - {fileID: 1352714377}
-  - {fileID: 1560003870}
-  - {fileID: 568095301}
-  PlayerPortraitsTitles:
-  - {fileID: 21900863}
-  - {fileID: 304930515}
-  - {fileID: 1407208417}
-  - {fileID: 1410548043}
-  UI: {fileID: 1999721691}
 --- !u!1 &245621623
 GameObject:
   m_ObjectHideFlags: 0
@@ -1113,9 +1088,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 932999066}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GeneralScript, Assembly-CSharp
-        m_MethodName: GotoMenu
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7041,6 +7016,7 @@ GameObject:
   - component: {fileID: 1999721695}
   - component: {fileID: 1999721694}
   - component: {fileID: 1999721693}
+  - component: {fileID: 1999721696}
   m_Layer: 5
   m_Name: Intro
   m_TagString: Untagged
@@ -7062,12 +7038,12 @@ RectTransform:
   m_Children:
   - {fileID: 60807230}
   - {fileID: 21900864}
+  - {fileID: 568095302}
+  - {fileID: 1410548044}
   - {fileID: 1352714378}
   - {fileID: 304930516}
   - {fileID: 1560003871}
   - {fileID: 1407208418}
-  - {fileID: 568095302}
-  - {fileID: 1410548044}
   m_Father: {fileID: 198215832}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -7134,6 +7110,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1999721691}
   m_CullTransparentMesh: 1
+--- !u!114 &1999721696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999721691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15dc5386f0221ca41abd41615933ff71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 1999721693}
+  PlayerPortraits:
+  - {fileID: 60807229}
+  - {fileID: 1352714377}
+  - {fileID: 1560003870}
+  - {fileID: 568095301}
+  PlayerPortraitsTitles:
+  - {fileID: 21900863}
+  - {fileID: 304930515}
+  - {fileID: 1407208417}
+  - {fileID: 1410548043}
+  UI: {fileID: 1999721691}
 --- !u!1 &2043683009
 GameObject:
   m_ObjectHideFlags: 0

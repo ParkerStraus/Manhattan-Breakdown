@@ -32,6 +32,7 @@ public class ScoreBoard : MonoBehaviour
         }
         }
         catch { Debug.LogWarning("Main Camera not found"); }
+        
     }
 
     public void SetGH(IGameHandler gh)

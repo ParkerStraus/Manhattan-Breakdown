@@ -48,7 +48,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
             //Lock Virtual Camera to Player
             aSource_extra = GameObject.Find("ExtraSoundEffects").GetComponent<AudioSource>();
             VHS = GameObject.Find("Main Camera").GetComponent<VHS>();
-            StartScreen = GameObject.Find("UI").GetComponent<StartScreen>();
+            StartScreen = GameObject.Find("Intro").GetComponent<StartScreen>();
         }
         
     }
@@ -114,6 +114,16 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
         return PlayerAmt;
     }
 
+    public string[] GetPlayerNames()
+    {
+        List<string> names = new List<string>();
+        foreach(KeyValuePair<int, Photon.Realtime.Player> playerInfo in PhotonNetwork.CurrentRoom.Players)
+        {
+            names.Add(playerInfo.Value.NickName);
+        }
+        return names.ToArray();
+    }
+
     #region Start Game
     
     public void StartGame_phase1()
@@ -127,12 +137,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
         Debug.Log("Now starting game");
         //Load Level
         CanThePlayerDoStuff = false;
-        //StartScreen.SetActive(true);
-        for (int i = 0; i < PlayerAmt; i++)
-        {
-            StartScreen.PlayerPortraits[i].SetActive(true);
-            StartScreen.PlayerPortraitsTitles[i].SetActive(true);
-        }
+        StartScreen.StartGame();
     }
 
 
@@ -284,7 +289,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
 
         yield return new WaitForSeconds(3);
         //Set Final Scoreboard and display
-        FinalScoreBoard.SetupScoreBoard(scores: score);
+        FinalScoreBoard.SetupScoreBoard(names: GetPlayerNames(), scores: score);
 
     }
 

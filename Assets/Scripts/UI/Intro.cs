@@ -14,7 +14,7 @@ public class Intro : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.Space)) { IntroFinish(); }
     }
 
     public void IntroFinish()

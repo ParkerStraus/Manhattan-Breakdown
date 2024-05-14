@@ -238,7 +238,8 @@ public class GameHandler : MonoBehaviourPunCallbacks, IGameHandler
 
         yield return new WaitForSeconds(3);
         FinalScoreBoard.SetActive(true);
-        FinalScoreBoard.GetComponent<FinalResults>().SetupScoreBoard(scores: points);
+        string[] strings = { "1", "2", "3", "4" };
+        FinalScoreBoard.GetComponent<FinalResults>().SetupScoreBoard(names: strings,scores: points);
 
     }
 

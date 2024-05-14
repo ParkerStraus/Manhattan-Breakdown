@@ -29,9 +29,16 @@ public class GeneralScript : MonoBehaviour
         Application.Quit();
     }
 
-    public void GotoMenu()
+    public static void GotoMenu()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Menu");
+        PhotonNetwork.LeaveRoom();
+    }
+
+
+    public static void GotoLobby()
+    {
+        SceneManager.LoadScene("Lobby");
         PhotonNetwork.LeaveRoom();
     }
 

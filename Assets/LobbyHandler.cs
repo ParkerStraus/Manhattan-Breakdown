@@ -63,6 +63,7 @@ public class LobbyHandler : MonoBehaviourPunCallbacks
     public void OnStartGame()
     {
         Debug.Log("Going to game now");
+        PhotonNetwork.CurrentRoom.IsVisible = false;
         PhotonNetwork.LoadLevel(3);
     }
 

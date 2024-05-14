@@ -7,10 +7,11 @@ using UnityEngine;
 public class TestConnect : MonoBehaviourPunCallbacks
 {
     [SerializeField] private MasterManager _MasterManager;
+    public GameObject LoadingScreen;
     // Start is called before the first frame update
     void Start()
     {
-        print("Connected to server");
+        print("Waiting on connection");
         PhotonNetwork.NickName = MasterManager.GameSettings.Nickname;
         PhotonNetwork.GameVersion = MasterManager.GameSettings.GameVersion;
         PhotonNetwork.ConnectUsingSettings();
@@ -24,7 +25,7 @@ public class TestConnect : MonoBehaviourPunCallbacks
         print(PhotonNetwork.GameVersion);
 
         PhotonNetwork.JoinLobby();
-
+        LoadingScreen.SetActive(false);
         PhotonNetwork.AutomaticallySyncScene = true;
     }
 
