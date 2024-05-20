@@ -183,7 +183,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShadowOffset: {x: 0.050625, y: -0.09375}
-  StartOffset: {x: 0, y: 0}
   ShadowMaterial: {fileID: 2100000, guid: 9763b5aa29ef070459fabe65c717791c, type: 2}
 --- !u!114 &229970529053952630
 MonoBehaviour:

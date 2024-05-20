@@ -14,14 +14,13 @@ GameObject:
   - component: {fileID: -442989624983559690}
   - component: {fileID: 1054936185553615092}
   - component: {fileID: 3920029272071983716}
-  - component: {fileID: 3537109571706422909}
-  - component: {fileID: 647319380409035431}
-  - component: {fileID: 1896197471962708110}
-  - component: {fileID: 6739432593623325757}
   - component: {fileID: 6133642070357881072}
+  - component: {fileID: 3537109571706422909}
+  - component: {fileID: 1896197471962708110}
+  - component: {fileID: 647319380409035431}
+  - component: {fileID: 6739432593623325757}
   - component: {fileID: 3535896171002120506}
   - component: {fileID: -8731799936485700374}
-  - component: {fileID: 2307239596220058451}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -209,6 +208,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PV: {fileID: 3535896171002120506}
   TrailRenderer: {fileID: 3479118579837492294, guid: 9ea65f0d0b8efd14fa3637fad22963aa, type: 3}
+--- !u!114 &6133642070357881072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960366418344800116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 068265a9ab09bf945a400052e4c01c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShadowOffset: {x: 0.0675, y: -0.125}
+  ShadowMaterial: {fileID: 2100000, guid: 9763b5aa29ef070459fabe65c717791c, type: 2}
 --- !u!114 &3537109571706422909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,33 +243,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 56786597d809e864c8dcf72664dca0b6, type: 3}
   KillConfirm_snd: {fileID: 8300000, guid: e1044a30b3a88804c970f05afb3b6396, type: 3}
   Sounds: {fileID: 0}
---- !u!50 &647319380409035431
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1960366418344800116}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.95
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!82 &1896197471962708110
 AudioSource:
   m_ObjectHideFlags: 0
@@ -353,6 +339,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!50 &647319380409035431
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960366418344800116}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.95
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!58 &6739432593623325757
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -388,21 +401,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.35
---- !u!114 &6133642070357881072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1960366418344800116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 068265a9ab09bf945a400052e4c01c88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShadowOffset: {x: 0.0675, y: -0.125}
-  StartOffset: {x: 0, y: 0}
-  ShadowMaterial: {fileID: 2100000, guid: 9763b5aa29ef070459fabe65c717791c, type: 2}
 --- !u!114 &3535896171002120506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,20 +457,6 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
---- !u!114 &2307239596220058451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1960366418344800116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41d8532f6816c2347be523f36782a56f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PV: {fileID: 0}
-  TrailRenderer: {fileID: 0}
 --- !u!1 &3227488449485765035
 GameObject:
   m_ObjectHideFlags: 0

@@ -104,7 +104,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     private void SetUpPlayerScore()
     {
-        for(int i = 0; i < playerManager.Count; i++)
+        for (int i = 0; i < playerManager.Count; i++)
         {
             points[i] = 0;
         }
