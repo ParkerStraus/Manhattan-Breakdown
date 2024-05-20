@@ -15,7 +15,7 @@ MonoBehaviour:
   Attacking: 0
   _poseType: 1
   Index: 7
-  Name: Smith & Wesson
+  Name: Dirty .44
   damage: 100
   AttackTimer: 0
   AttackRate: 0.75

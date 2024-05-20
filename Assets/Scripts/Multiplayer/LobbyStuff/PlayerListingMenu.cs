@@ -30,26 +30,39 @@ public class PlayerListingMenu : MonoBehaviourPunCallbacks
 
     public void PlayerUpdate()
     {
-        int i = 0;
+        // Create a list to hold the players sorted by ActorNumber
+        List<Photon.Realtime.Player> sortedPlayers = new List<Photon.Realtime.Player>();
+
+        // Add active players to the list
         foreach (KeyValuePair<int, Photon.Realtime.Player> playerInfo in PhotonNetwork.CurrentRoom.Players)
         {
-            if (playerInfo.Value.IsInactive)
+            if (!playerInfo.Value.IsInactive)
             {
-                continue;
+                sortedPlayers.Add(playerInfo.Value);
             }
-            else
-            {
-                ProfilePic[i].enabled = true;
-                PlayerNames[i].text = playerInfo.Value.NickName;
-            }
+        }
+
+        // Sort the list by ActorNumber
+        sortedPlayers.Sort((player1, player2) => player1.ActorNumber.CompareTo(player2.ActorNumber));
+
+        // Display the player names in sorted order
+        int i = 0;
+        foreach (Photon.Realtime.Player player in sortedPlayers)
+        {
+            ProfilePic[i].enabled = true;
+            PlayerNames[i].text = player.NickName;
             i++;
         }
+
+        // Disable remaining slots if any
         while (i < 4)
         {
             ProfilePic[i].enabled = false;
             PlayerNames[i].text = "";
             i++;
         }
+
+
     }
 
 

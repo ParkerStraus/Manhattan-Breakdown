@@ -44,10 +44,18 @@ public class ScoreBoard : MonoBehaviour
     public void InitScoreBoard()
     {
         int[] score = _gh.GetScore();
-        for (int i = 0; i > _gh.GetPlayerAmt() - 1; i--)
+        string[] players = _gh.GetPlayerNames();
+        for (int i = 3; i > _gh.GetPlayerAmt() - 1; i--)
         {
             Label[i].text = "";
             Scores[i].text = "";
+        }
+
+
+        for (int i = 0; i > _gh.GetPlayerAmt() - 1; i++)
+        {
+            Label[i].text = players[i];
+            Scores[i].text = score[i].ToString();
         }
     }
 

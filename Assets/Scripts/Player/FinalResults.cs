@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using Photon.Realtime;
+using Photon.Pun;
+using Unity.VisualScripting;
 
-public class FinalResults : MonoBehaviour
+public class FinalResults : MonoBehaviourPunCallbacks
 {
     public GameObject scoreboard;
     [SerializeField] private TMP_Text[] Label;
     [SerializeField] private TMP_Text[] Scores;
+    public GameObject MasterStuff;
+    public GameObject NotMasterStuff;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +24,15 @@ public class FinalResults : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void ReturnToLobby()
+    {
+        FindObjectOfType<RoomManager>().BackToLobby();
+    }
+    public void RestartGame()
+    {
+        FindObjectOfType<RoomManager>().RestartGame();
     }
 
 
@@ -46,6 +60,16 @@ public class FinalResults : MonoBehaviour
                 Label[i].text = names[rankedScores[i][0]];
                 Scores[i].text = (rankedScores[i][1]).ToString();
             }
+        }
+        if (PhotonNetwork.IsMasterClient)
+        {
+            MasterStuff.SetActive(true);
+            NotMasterStuff.SetActive(false);
+        }
+        else
+        {
+            MasterStuff.SetActive(false);
+            NotMasterStuff.SetActive(true);
         }
     }
 }

@@ -24,7 +24,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
     public MainUI MainUI;
     public ScoreBoard _ScoreBoard;
     public FinalResults FinalScoreBoard;
-    public StartScreen StartScreen;
+    public GameObject StartScreen;
     public VHS VHS;
 
     [Header("Music/SoundStuff")]
@@ -49,7 +49,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
             //Lock Virtual Camera to Player
             aSource_extra = GameObject.Find("ExtraSoundEffects").GetComponent<AudioSource>();
             VHS = GameObject.Find("Main Camera").GetComponent<VHS>();
-            StartScreen = GameObject.Find("Intro").GetComponent<StartScreen>();
+            StartScreen = GameObject.Find("Intro");
         }
         
     }
@@ -118,27 +118,49 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
     public string[] GetPlayerNames()
     {
         List<string> names = new List<string>();
-        foreach(KeyValuePair<int, Photon.Realtime.Player> playerInfo in PhotonNetwork.CurrentRoom.Players)
+        List<Photon.Realtime.Player> sortedPlayers = new List<Photon.Realtime.Player>();
+
+        // Add active players to the list
+        foreach (KeyValuePair<int, Photon.Realtime.Player> playerInfo in PhotonNetwork.CurrentRoom.Players)
         {
-            names.Add(playerInfo.Value.NickName);
+            if (!playerInfo.Value.IsInactive)
+            {
+                sortedPlayers.Add(playerInfo.Value);
+            }
+        }
+
+        // Sort the list by ActorNumber
+        sortedPlayers.Sort((player1, player2) => player1.ActorNumber.CompareTo(player2.ActorNumber));
+
+        // Display the player names in sorted order
+        int i = 0;
+        foreach (Photon.Realtime.Player player in sortedPlayers)
+        {
+            names.Add(player.NickName);
         }
         return names.ToArray();
     }
 
     #region Start Game
     
+    public void StartGame_phase0()
+    {
+        StartScreen.gameObject.SetActive(true);
+        StartScreen.GetComponent<StartScreen>().anim.SetTrigger("Init");
+    }
+
     public void StartGame_phase1()
     {
         PV = GetComponent<PhotonView>();
         if (!PV.IsMine) return;
         musicHand.PlayRandomSong();
-        StartScreen.anim.SetTrigger("Start");
+        StartScreen.GetComponent<StartScreen>().anim.SetTrigger("Start");
         //Start Animation of players
         musicHand.TriggerSnapshot(1, 0.01f);
         Debug.Log("Now starting game");
         //Load Level
         CanThePlayerDoStuff = false;
-        StartScreen.StartGame();
+        StartScreen.GetComponent<StartScreen>().StartGame();
     }
 
 
@@ -150,12 +172,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
 
     public IEnumerator StartGame_phase2Routine()
     {
-        StartScreen.anim.SetTrigger("Finish");
+        StartScreen.GetComponent<StartScreen>().anim.SetTrigger("Finish");
         musicHand.TriggerSnapshot(0, 1f);
         yield return new WaitForSeconds(0.5f);
         musicHand.ShowSongInfo();
         yield return new WaitForSeconds(2f + (27f/60f));
-        StartScreen.HideScreen();
+        StartScreen.GetComponent<StartScreen>().HideScreen();
     }
 
     public void StringCountdown(string String, int i)

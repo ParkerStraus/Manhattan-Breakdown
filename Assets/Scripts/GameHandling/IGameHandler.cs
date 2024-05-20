@@ -38,4 +38,9 @@ public interface IGameHandler
     }
 
     int GetPlayerAmt() { return 0; }
+
+    string[] GetPlayerNames()
+    {
+        return null;
+    }
 }

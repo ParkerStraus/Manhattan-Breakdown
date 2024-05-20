@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class RoomManager : MonoBehaviourPunCallbacks
 {
-
     #region Connection Stuff
 
     public static RoomManager instance;
@@ -40,17 +39,15 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
-        if(scene.buildIndex == 3)
+        if (scene.buildIndex == 3)
         {
             PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
-            
         }
     }
 
     public override void OnLeftRoom()
     {
         if (SceneManager.GetActiveScene().name == "Lobby") return;
-        PV.RPC("PlayerDisconnectedRPC", RpcTarget.Others);
         SceneManager.LoadScene("Lobby");
     }
 
@@ -61,13 +58,34 @@ public class RoomManager : MonoBehaviourPunCallbacks
         SceneManager.LoadScene("Lobby");
     }
 
+    [PunRPC]
     public void BackToLobbyRPC()
     {
         if (PhotonNetwork.IsMasterClient) PhotonNetwork.CurrentRoom.IsVisible = true;
         SceneManager.LoadScene("Lobby");
     }
 
-    public void PlayerDisconnectedRPC()
+    #endregion
+
+    #region Player Disconnection Handling
+
+    public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
+    {
+        Debug.Log("Player " + otherPlayer.NickName + " has left the room.");
+        CheckRemainingPlayers();
+    }
+
+    private void CheckRemainingPlayers()
+    {
+        if (PhotonNetwork.CurrentRoom.PlayerCount <= 1)
+        {
+            Debug.Log("Only one player remaining or all players disconnected. Bringing everyone back to the lobby.");
+            photonView.RPC("ReturnToLobbyRPC", RpcTarget.All);
+        }
+    }
+
+    [PunRPC]
+    private void ReturnToLobbyRPC()
     {
         PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene("Lobby");
@@ -76,7 +94,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
     #endregion
 
     #region GameCentric Info
-
 
     [Header("Arena Stuff")]
     public string CurrentArena = null;
@@ -108,9 +125,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
         {
             points[i] = 0;
         }
-        foreach(PlayerManager pm in playerManager)
+        foreach (PlayerManager pm in playerManager)
         {
-
             pm.score = points;
         }
     }
@@ -118,12 +134,27 @@ public class RoomManager : MonoBehaviourPunCallbacks
     private void GetSpawns()
     {
         Spawnpoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
+        Shuffle(Spawnpoints);
+    }
+
+    private static System.Random rng = new System.Random();
+
+    public static void Shuffle<T>(T[] array)
+    {
+        int n = array.Length;
+        for (int i = n - 1; i > 0; i--)
+        {
+            int j = rng.Next(i + 1);
+            T temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
     }
 
     void SpawnPlayers()
     {
         int i = 0;
-        foreach(PlayerManager pm in playerManager)
+        foreach (PlayerManager pm in playerManager)
         {
             pm.SpawnPlayer(Spawnpoints[i].transform.position);
             playersAlive[i] = true;
@@ -134,8 +165,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public void PlayerDied(int ply)
     {
-        print("Player died: "+(ply-1));
-        PV.RPC("PlayerDiedRPC", RpcTarget.All, ply-1);
+        print("Player died: " + (ply - 1));
+        PV.RPC("PlayerDiedRPC", RpcTarget.All, ply - 1);
     }
 
     [PunRPC]
@@ -180,13 +211,12 @@ public class RoomManager : MonoBehaviourPunCallbacks
         }
     }
 
-
     [PunRPC]
     public void NextRoundRPC(int[] points)
     {
         this.points = points;
         print("Everyone is dead Next round");
-        for(int i = 0; i < playerManager.Count; i++)
+        for (int i = 0; i < playerManager.Count; i++)
         {
             SyncLock[i] = false;
         }
@@ -226,7 +256,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public void PrepareForStart()
     {
-        if(PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient)
         {
             StartCoroutine(StartTheGame());
         }
@@ -239,14 +269,13 @@ public class RoomManager : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(5f);
         PV.RPC("Phase2RPC", RpcTarget.All);
 
-
         yield return new WaitForSeconds(1.5f);
         //Start countdown
         PV.RPC("CountdownRPC", RpcTarget.All, new object[] { "3", 0 });
         yield return new WaitForSeconds(1);
         PV.RPC("CountdownRPC", RpcTarget.All, new object[] { "2", 0 });
         yield return new WaitForSeconds(1);
-        PV.RPC("CountdownRPC", RpcTarget.All, new object[] {"1", 0});
+        PV.RPC("CountdownRPC", RpcTarget.All, new object[] { "1", 0 });
         yield return new WaitForSeconds(1);
         PV.RPC("Phase3RPC", RpcTarget.All);
     }
@@ -254,7 +283,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void Phase1RPC()
     {
-
         foreach (PlayerManager pm in playerManager)
         {
             pm.StartGame_phase1();
@@ -282,7 +310,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void Phase3RPC()
     {
-        foreach(PlayerManager pm in playerManager)
+        foreach (PlayerManager pm in playerManager)
         {
             pm.StartGame_phase3();
         }
@@ -331,6 +359,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     }
 
+
     [PunRPC]
     public void GameComplete(int[] points)
     {
@@ -341,7 +370,32 @@ public class RoomManager : MonoBehaviourPunCallbacks
         }
 
     }
-    
+
+    public void RestartGame()
+    {
+        StartCoroutine(RestartGameRoutine());
+    }
+    [PunRPC]
+    public void RestartRPC()
+    {
+
+        foreach (PlayerManager pm in playerManager)
+        {
+            pm.StartGame_phase0();
+        }
+    }
+    public IEnumerator RestartGameRoutine()
+    {
+        //Fade to black
+        SetUpPlayerScore();
+        if (PhotonNetwork.IsMasterClient && playerManager.Count == PhotonNetwork.PlayerList.Length)
+        {
+            PV.RPC("RestartRPC", RpcTarget.All);
+            yield return new WaitForSeconds(2);
+            LoadArena();
+            PrepareForStart();
+        }
+    }
 
     #endregion
 
