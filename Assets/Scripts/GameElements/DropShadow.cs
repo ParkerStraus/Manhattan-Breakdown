@@ -28,6 +28,7 @@ public class DropShadow : MonoBehaviour
             // Update the sorting layer of the shadow to always lie behind the sprite
             shadowSpriteRenderer.sortingLayerName = spriteRenderer.sortingLayerName;
             shadowSpriteRenderer.sortingOrder = spriteRenderer.sortingOrder - 1;
+        shadowGameObject.layer = this.gameObject.layer;
         
     }
 
@@ -36,6 +37,7 @@ public class DropShadow : MonoBehaviour
         // Update the position and rotation of the sprite's shadow with moving sprite
         shadowGameObject.transform.localPosition = transform.position + (Vector3)ShadowOffset;
         shadowGameObject.transform.localRotation = transform.localRotation;
+        
 
         if (spriteRenderer != null && spriteRenderer.enabled)
         {

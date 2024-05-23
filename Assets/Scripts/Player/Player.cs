@@ -50,6 +50,7 @@ public class Player : IForceObject, IDamageable
     [SerializeField] private LayerMask itemMask;
     [SerializeField] private float pickupRadius;
     [SerializeField] private GameObject pickupPrefab;
+    [SerializeField] private FieldOfView FOV;
 
     [SerializeField] private PlayerData _playerData;
 
@@ -71,6 +72,15 @@ public class Player : IForceObject, IDamageable
         mainUI = GameObject.Find("MainUI").GetComponent<MainUI>();
         PV = GetComponent<PhotonView>();
         SendWeaponInfo();
+        FOV = GameObject.Find("FieldOfView").GetComponent<FieldOfView>();
+        if(PV.IsMine)
+        {
+            FOV.SetEnabledFOV(true);
+        }
+        else
+        {
+            FOV.SetEnabledFOV(false);
+        }
     }
 
     public void SetOffline()
@@ -103,7 +113,8 @@ public class Player : IForceObject, IDamageable
             MoveRealized = Vector2.Lerp(MoveRealized, Vector2.zero, MoveInterp * Time.fixedDeltaTime);
         }
         base.Update();
-
+        FOV.SetAimDirection(transform.rotation.eulerAngles);
+        FOV.SetOrigin(this.transform.position);
 
     }
 
