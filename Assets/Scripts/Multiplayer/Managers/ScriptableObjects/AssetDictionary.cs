@@ -16,7 +16,7 @@ public class AssetDictionary : ScriptableObject
         return items.IndexOf(value);
     }
 
-    public object GetValue(int  index)
+    public object GetAsset(int  index)
     {
         return items[index];
     }

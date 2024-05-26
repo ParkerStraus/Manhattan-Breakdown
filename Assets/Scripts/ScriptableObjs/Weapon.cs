@@ -45,9 +45,9 @@ public abstract class Weapon : ScriptableObject, IWeapon
     public PlayerAudio ac;
     public Sprite floorImage;
     public Sprite HeldImage;
-    public AudioClip audio_gunshot;
-    public AudioClip audio_click;
-    public AudioClip audio_impact;
+    public int audio_gunshot;
+    public int audio_click;
+    public int audio_impact;
     public GameObject Impact;
     public EffectsManager em;
 
@@ -84,10 +84,10 @@ public abstract class Weapon : ScriptableObject, IWeapon
         return HeldImage;
     }
 
-    public void PlaySound(AudioClip clip)
+    public void PlaySound(int clipIndex)
     {
 
-        ac.PlaySound(clip, 0.2f);
+        ac.PlaySound(clipIndex, 0.2f);
     }
 }
 

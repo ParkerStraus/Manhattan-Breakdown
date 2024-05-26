@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 1911
   m_EditorClassIdentifier: 
   Attacking: 0
-  _poseType: 1
+  _poseType: 0
   Index: 0
   Name: M1911
   damage: 75
@@ -23,9 +23,9 @@ MonoBehaviour:
   ac: {fileID: 0}
   floorImage: {fileID: 21300000, guid: a6244b27103f5eb4e9d9d77ad68fc9a6, type: 3}
   HeldImage: {fileID: 21300000, guid: f8c68c2728467d24cb64d9e3f5bac37c, type: 3}
-  audio_gunshot: {fileID: 8300000, guid: a442723dcc99b1441971a32dac118b41, type: 3}
-  audio_click: {fileID: 8300000, guid: 83bca8e348b3b484db1a873edd936bba, type: 3}
-  audio_impact: {fileID: 0}
+  audio_gunshot: 8
+  audio_click: 4
+  audio_impact: 0
   Impact: {fileID: 2085389234366473006, guid: 101ba8c7e6214d14e91e39f3fb5aac5c, type: 3}
   em: {fileID: 0}
   _firemode: 0

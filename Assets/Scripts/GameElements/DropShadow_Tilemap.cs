@@ -27,6 +27,7 @@ public class DropShadow_Tilemap : MonoBehaviour
         GameObject shadowTilemapObject = new GameObject("ShadowTilemap");
         shadowTilemapObject.transform.SetParent(transform);
         shadowTilemapObject.transform.localPosition = shadowOffset;
+        shadowTilemapObject.layer = gameObject.layer;
 
         // Add Tilemap and TilemapRenderer components to the new GameObject
         Tilemap shadowTilemap = shadowTilemapObject.AddComponent<Tilemap>();

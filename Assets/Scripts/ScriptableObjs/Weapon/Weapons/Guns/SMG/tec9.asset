@@ -23,12 +23,12 @@ MonoBehaviour:
   ac: {fileID: 0}
   floorImage: {fileID: 21300000, guid: f01422a22fb88164fb0f8430a5189d90, type: 3}
   HeldImage: {fileID: 21300000, guid: f5c2211f245c5164c9b4e7bfb3c0fc1e, type: 3}
-  audio_gunshot: {fileID: 8300000, guid: 6bb6b258a6473d24ba10a83568412ce0, type: 3}
-  audio_click: {fileID: 0}
-  audio_impact: {fileID: 0}
+  audio_gunshot: 18
+  audio_click: 4
+  audio_impact: 0
   Impact: {fileID: 2085389234366473006, guid: 101ba8c7e6214d14e91e39f3fb5aac5c, type: 3}
   em: {fileID: 0}
-  _firemode: 2
+  _firemode: 0
   MaxAmmo: 12
   CurrentAmmo: 0
   ConeRadius: 0

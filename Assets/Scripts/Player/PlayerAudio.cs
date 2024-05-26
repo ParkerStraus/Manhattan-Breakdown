@@ -20,29 +20,53 @@ public class PlayerAudio : MonoBehaviourPunCallbacks
         PV = GetComponent<PhotonView>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
-    public void PlaySound(AudioClip sound)
+    public void PlaySoundClient_AudioClip(AudioClip sound)
     {
-        //Debug.Log("Now Playing sound");
         ac.pitch = 1;
         ac.PlayOneShot(sound);
-        int i = Sounds.GetIndex(sound);
-        //PV.RPC("PlaySoundRPC", RpcTarget.Others, new object[]{ i, 1 });
     }
 
-
-    public void PlaySound(AudioClip sound, float pitchRange)
+    public void PlaySoundClient(int soundIndex)
     {
-        //Debug.Log("Now Playing sound");
-        ac.pitch = 1 + Random.Range(-pitchRange, pitchRange);
+        ac.pitch = 1;
+        AudioClip sound = (AudioClip)Sounds.GetAsset(soundIndex);
         ac.PlayOneShot(sound);
-        int i = Sounds.GetIndex(sound);
-        //PV.RPC("PlaySoundRPC", RpcTarget.Others, new object[] { i, ac.pitch });
+    }
+
+    public void PlaySoundClient(int soundIndex, float pitchRange)
+    {
+        ac.pitch = 1 + Random.Range(-pitchRange, pitchRange);
+        AudioClip sound = (AudioClip)Sounds.GetAsset(soundIndex);
+        ac.PlayOneShot(sound);
+    }
+
+    public void PlaySound(int soundIndex)
+    {
+        ac.pitch = 1;
+        AudioClip sound = (AudioClip)Sounds.GetAsset(soundIndex);
+        ac.PlayOneShot(sound);
+        PV.RPC("PlaySoundRPC", RpcTarget.Others, new object[] { soundIndex, ac.pitch });
+    }
+
+    public void PlaySound(int soundIndex, float pitchRange)
+    {
+        ac.pitch = 1 + Random.Range(-pitchRange, pitchRange);
+        AudioClip sound = (AudioClip)Sounds.GetAsset(soundIndex);
+        ac.PlayOneShot(sound);
+        PV.RPC("PlaySoundRPC", RpcTarget.Others, new object[] { soundIndex, ac.pitch });
+    }
+
+    public void PlaySound_Disconnected(int soundIndex)
+    {
+        AudioSource.PlayClipAtPoint((AudioClip)Sounds.GetAsset(soundIndex), transform.position);
+        PV.RPC("PlaySound_DisconnectedRPC", RpcTarget.Others, soundIndex);
+    }
+
+    [PunRPC]
+    public void PlaySound_DisconnectedRPC(int soundIndex)
+    {
+        AudioSource.PlayClipAtPoint((AudioClip)Sounds.GetAsset(soundIndex), transform.position);
     }
 
     [PunRPC]
@@ -50,17 +74,12 @@ public class PlayerAudio : MonoBehaviourPunCallbacks
     {
         Debug.Log("Now Playing sound remotely");
         ac.pitch = pitch;
-        ac.PlayOneShot((AudioClip)Sounds.GetValue(soundId));
+        ac.PlayOneShot((AudioClip)Sounds.GetAsset(soundId));
     }
 
     public void Footstep()
     {
 
-        PlaySound(footsteps[Random.Range(0,(int)footsteps.Length-1)]);
-    }
-
-    public void KillConfirmed()
-    {
-        PlaySound(KillConfirm_snd);
+        PlaySoundClient_AudioClip(footsteps[Random.Range(0,(int)footsteps.Length-1)]);
     }
 }

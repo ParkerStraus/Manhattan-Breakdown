@@ -84,6 +84,8 @@ MonoBehaviour:
   - RestartRPC
   - BackToLobbyRPC
   - ReturnToLobbyRPC
+  - DieRPC
+  - PlaySound_DisconnectedRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -120,7 +120,7 @@ public class Gun : Weapon
         }
         else
         {
-            if (Input.GetButtonDown("Fire1")) ac.PlaySound(audio_click);
+            if (Input.GetButtonDown("Fire1")) ac.PlaySoundClient(audio_click);
         }
 
         AttackTimer += Time.deltaTime;

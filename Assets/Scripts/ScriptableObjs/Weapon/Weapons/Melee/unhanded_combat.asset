@@ -12,16 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bf21205b8ecf5d4dbf18ca633c9b4e7, type: 3}
   m_Name: unhanded_combat
   m_EditorClassIdentifier: 
+  Attacking: 0
   _poseType: 3
+  Index: 0
   Name: 
   damage: 50
-  AttackTimer: 0
+  AttackTimer: 3.3156624
   AttackRate: 0.36231884
   AttackSize: 0.9
+  ac: {fileID: 0}
   floorImage: {fileID: 0}
   HeldImage: {fileID: 0}
-  audio_gunshot: {fileID: 8300000, guid: 3e2c0108b7f01644fabf612d6a89ce93, type: 3}
-  audio_click: {fileID: 8300000, guid: 3e2c0108b7f01644fabf612d6a89ce93, type: 3}
-  audio_impact: {fileID: 8300000, guid: 9216fd108095fc043903259c2f8e8bbc, type: 3}
+  audio_gunshot: 5
+  audio_click: 0
+  audio_impact: 6
   Impact: {fileID: 0}
   em: {fileID: 0}
