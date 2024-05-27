@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: m16
   m_EditorClassIdentifier: 
   Attacking: 0
-  _poseType: 0
+  _poseType: 2
   Index: 4
   Name: M16
   damage: 50
@@ -22,13 +22,14 @@ MonoBehaviour:
   AttackSize: 0
   ac: {fileID: 0}
   floorImage: {fileID: 21300000, guid: d56d97e2487f80d4a82d90b073555b4c, type: 3}
-  HeldImage: {fileID: 21300000, guid: c335fa69a0c9a0447a98a5eccff840f4, type: 3}
+  HeldImages:
+  - {fileID: 21300000, guid: c335fa69a0c9a0447a98a5eccff840f4, type: 3}
   audio_gunshot: 12
   audio_click: 4
   audio_impact: 0
   Impact: {fileID: 2085389234366473006, guid: 101ba8c7e6214d14e91e39f3fb5aac5c, type: 3}
   em: {fileID: 0}
-  _firemode: 0
+  _firemode: 1
   MaxAmmo: 20
   CurrentAmmo: 0
   ConeRadius: 0

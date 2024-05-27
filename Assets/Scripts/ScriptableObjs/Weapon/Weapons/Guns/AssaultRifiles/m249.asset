@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: m249
   m_EditorClassIdentifier: 
   Attacking: 0
-  _poseType: 0
+  _poseType: 2
   Index: 5
   Name: M249 SAW
   damage: 50
@@ -22,7 +22,8 @@ MonoBehaviour:
   AttackSize: 0
   ac: {fileID: 0}
   floorImage: {fileID: 21300000, guid: 84cd24499720c6445884a78972b87bcd, type: 3}
-  HeldImage: {fileID: 21300000, guid: 4e41d6f9270e79443b30732b05a2d665, type: 3}
+  HeldImages:
+  - {fileID: 21300000, guid: 4e41d6f9270e79443b30732b05a2d665, type: 3}
   audio_gunshot: 13
   audio_click: 4
   audio_impact: 0

@@ -21,8 +21,9 @@ MonoBehaviour:
   AttackRate: 0.15
   AttackSize: 0
   ac: {fileID: 0}
-  floorImage: {fileID: 21300000, guid: a6244b27103f5eb4e9d9d77ad68fc9a6, type: 3}
-  HeldImage: {fileID: 21300000, guid: f8c68c2728467d24cb64d9e3f5bac37c, type: 3}
+  floorImage: {fileID: 21300000, guid: 309432f5e94fe9243a36af5f18fa5232, type: 3}
+  HeldImages:
+  - {fileID: 21300000, guid: e600c4d2db61a514fad4f65d80f62820, type: 3}
   audio_gunshot: 22
   audio_click: 4
   audio_impact: 0

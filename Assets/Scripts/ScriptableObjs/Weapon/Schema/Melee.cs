@@ -58,7 +58,7 @@ public class Melee : Weapon
 
     public override string GetAmmoString()
     {
-        return "";
+        return "-1";
     }
 
     public override void Initialize()

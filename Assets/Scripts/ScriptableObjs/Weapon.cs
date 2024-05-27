@@ -44,7 +44,7 @@ public abstract class Weapon : ScriptableObject, IWeapon
     [Header("Aesthetic stuff here")]
     public PlayerAudio ac;
     public Sprite floorImage;
-    public Sprite HeldImage;
+    public Sprite[] HeldImages;
     public int audio_gunshot;
     public int audio_click;
     public int audio_impact;
@@ -79,9 +79,9 @@ public abstract class Weapon : ScriptableObject, IWeapon
         return floorImage;
     }
 
-    public Sprite GetWeaponSprite_Held()
+    public Sprite[] GetWeaponSprite_Held()
     {
-        return HeldImage;
+        return HeldImages;
     }
 
     public void PlaySound(int clipIndex)

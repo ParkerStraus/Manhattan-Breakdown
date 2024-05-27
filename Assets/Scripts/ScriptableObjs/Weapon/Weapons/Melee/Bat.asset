@@ -22,7 +22,11 @@ MonoBehaviour:
   AttackSize: 0
   ac: {fileID: 0}
   floorImage: {fileID: 21300000, guid: 79d3d141db9601e41a8b4d288a68209d, type: 3}
-  HeldImage: {fileID: 21300000, guid: 79d3d141db9601e41a8b4d288a68209d, type: 3}
+  HeldImages:
+  - {fileID: 21300000, guid: 19c04040aba9f514d9e95d7b4b3879f7, type: 3}
+  - {fileID: 21300000, guid: 307c4ab987f8fdb4eb07ccd2f7b73f26, type: 3}
+  - {fileID: 21300000, guid: fb57f3f261cf81b419b937ab152d8cd4, type: 3}
+  - {fileID: 21300000, guid: f0aba64f66b362f4e806d0339821cf93, type: 3}
   audio_gunshot: 5
   audio_click: 0
   audio_impact: 6

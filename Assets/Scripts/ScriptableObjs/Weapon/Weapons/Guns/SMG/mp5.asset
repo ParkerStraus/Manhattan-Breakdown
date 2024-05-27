@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: mp5
   m_EditorClassIdentifier: 
   Attacking: 0
-  _poseType: 0
+  _poseType: 2
   Index: 6
   Name: MP5
   damage: 50
@@ -22,13 +22,14 @@ MonoBehaviour:
   AttackSize: 0
   ac: {fileID: 0}
   floorImage: {fileID: 21300000, guid: 26ae798abe3492e47b17acb1bd7c141b, type: 3}
-  HeldImage: {fileID: 21300000, guid: 27f35c8627d63a8479eeada3a2408ae7, type: 3}
+  HeldImages:
+  - {fileID: 21300000, guid: 27f35c8627d63a8479eeada3a2408ae7, type: 3}
   audio_gunshot: 14
   audio_click: 4
   audio_impact: 0
   Impact: {fileID: 2085389234366473006, guid: 101ba8c7e6214d14e91e39f3fb5aac5c, type: 3}
   em: {fileID: 0}
-  _firemode: 0
+  _firemode: 2
   MaxAmmo: 30
   CurrentAmmo: 0
   ConeRadius: 0

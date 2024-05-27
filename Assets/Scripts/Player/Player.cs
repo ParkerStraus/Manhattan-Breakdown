@@ -44,6 +44,9 @@ public class Player : IForceObject, IDamageable
     [SerializeField] private bool Dead = false;
     [SerializeField] private float Health = 100;
     [SerializeField] private Weapon weapon = null;
+    [SerializeField] private Sprite[] weaponSprites;
+    public int WeaponDraw_Index;
+    public bool WeaponDraw_Flipped;
     [SerializeField] private SpriteRenderer WeaponDraw;
     [SerializeField] private Weapon unhandedWeapon;
     [SerializeField] private Transform attackPoint;
@@ -168,7 +171,8 @@ public class Player : IForceObject, IDamageable
 
                 }
                 //Debug.Log(_playerData.poseType);
-                WeaponDraw.sprite = weapon.GetWeaponSprite_Held();
+                weaponSprites = weapon.GetWeaponSprite_Held();
+                WeaponDraw.sprite = weaponSprites[WeaponDraw_Index];
                 PV.RPC("SetWeaponSpriteRPC", RpcTarget.Others, weapon.Index);
             }
             else
@@ -245,8 +249,9 @@ public class Player : IForceObject, IDamageable
         }
         else
         {
-            WeaponDraw.sprite = Resources.Load<WeaponList>("WeaponData/WeaponList")
+            weaponSprites = Resources.Load<WeaponList>("WeaponData/WeaponList")
                                              .GetWeapon(weapon).GetWeaponSprite_Held();
+            WeaponDraw.sprite = weaponSprites[WeaponDraw_Index];
         }
     }
 
