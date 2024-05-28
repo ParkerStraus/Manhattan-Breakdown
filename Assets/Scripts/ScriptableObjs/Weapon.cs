@@ -48,6 +48,7 @@ public abstract class Weapon : ScriptableObject, IWeapon
     public int audio_gunshot;
     public int audio_click;
     public int audio_impact;
+    public int audio_equip;
     public GameObject Impact;
     public EffectsManager em;
 
