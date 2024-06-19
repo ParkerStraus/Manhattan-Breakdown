@@ -14,7 +14,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        if (instance)
+        if (instance != null)
         {
             Destroy(gameObject);
             return;
@@ -84,7 +84,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    private void ReturnToLobbyRPC()
+    public void ReturnToLobbyRPC()
     {
         PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene("Lobby");
