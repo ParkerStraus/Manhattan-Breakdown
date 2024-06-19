@@ -270,7 +270,10 @@ public class Player : IForceObject, IDamageable
             }
             else
             {
-                
+
+                Dead = true;
+                WeaponDraw.sprite = null;
+                anim.OnDeath();
                 PV.RPC("Die", RpcTarget.All);
                 return true;
             }
@@ -291,11 +294,9 @@ public class Player : IForceObject, IDamageable
     {
         Dead = true;
         WeaponDraw.sprite = null;
-        PV.RPC("SetWeaponSpriteRPC", RpcTarget.Others, -1);
 
         if (PV.IsMine)
         {
-            anim.OnDeath();
             Debug.Log("dead now");
             gh.OnKill(0);
         }
