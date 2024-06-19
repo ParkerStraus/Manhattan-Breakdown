@@ -37,7 +37,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
     void Start()
     {
         PlayerAmt = PhotonNetwork.PlayerList.Length;
-        RoomManager.instance.RegisterPlayerManager(this);
+        OnlineGameCoordinator.instance.RegisterPlayerManager(this);
         PV = GetComponent<PhotonView>();
         if (PV.IsMine)
         {
@@ -71,7 +71,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
         if(PV.IsMine)
         {
             Debug.Log("Person has died sending to Photon");
-            RoomManager.instance.PlayerDied(PhotonNetwork.LocalPlayer.ActorNumber);
+            OnlineGameCoordinator.instance.PlayerDied(PhotonNetwork.LocalPlayer.ActorNumber);
         }
         else{
             Debug.Log("Other Person has died");
@@ -250,7 +250,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
             Destroy(guns[i].gameObject);
         }
 
-        RoomManager.instance.PlayerNowInTransition(PhotonNetwork.LocalPlayer.ActorNumber - 1);
+        OnlineGameCoordinator.instance.PlayerNowInTransition(PhotonNetwork.LocalPlayer.ActorNumber - 1);
         //Send message to Room Manager to start loading new level
         yield return new WaitForSeconds(0.9f);
         _ScoreBoard.UpdateScoreboard();

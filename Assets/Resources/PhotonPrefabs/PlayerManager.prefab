@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5899352690265250476}
   - component: {fileID: 6013597167279126968}
   - component: {fileID: 8984236865380765538}
+  - component: {fileID: 6235812110718687741}
   m_Layer: 0
   m_Name: PlayerManager
   m_TagString: Untagged
@@ -83,3 +84,17 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 94d87fde0b8162c469d119f2cb56018d, type: 3}
   - {fileID: 8300000, guid: a5bfdaaf420183847ae2a2ac9e76b418, type: 3}
   - {fileID: 8300000, guid: 886147d53ff22a34b95260873b8e8da1, type: 3}
+--- !u!114 &6235812110718687741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7248093356349443153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41d8532f6816c2347be523f36782a56f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PV: {fileID: 6013597167279126968}
+  TrailRenderer: {fileID: 3479118579837492294, guid: 9ea65f0d0b8efd14fa3637fad22963aa, type: 3}

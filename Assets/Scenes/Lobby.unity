@@ -3719,8 +3719,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1967688845}
   - component: {fileID: 1967688844}
-  - component: {fileID: 1967688846}
   - component: {fileID: 1967688847}
+  - component: {fileID: 1967688846}
   m_Layer: 0
   m_Name: RoomManager
   m_TagString: Untagged
@@ -3741,14 +3741,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PV: {fileID: 1967688846}
-  CurrentArena: 
-  LastArenas: []
-  arenaList: {fileID: 11400000, guid: cbb6c654234a2ff4092b23973d148a30, type: 2}
-  points: ffffffffffffffffffffffffffffffff
-  Spawnpoints: []
-  playerManager: []
-  playersAlive: 00000000
-  SyncLock: 01010101
 --- !u!4 &1967688845
 Transform:
   m_ObjectHideFlags: 0
@@ -3795,11 +3787,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1967688843}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41d8532f6816c2347be523f36782a56f, type: 3}
+  m_Script: {fileID: 11500000, guid: a3a01075c759e6f418e840e2132e0ede, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PV: {fileID: 1967688846}
-  TrailRenderer: {fileID: 3479118579837492294, guid: 9ea65f0d0b8efd14fa3637fad22963aa, type: 3}
+  CurrentArena: 
+  LastArenas: []
+  arenaList: {fileID: 11400000, guid: cbb6c654234a2ff4092b23973d148a30, type: 2}
+  points: ffffffffffffffffffffffffffffffff
+  Spawnpoints: []
+  playerManager: []
+  playersAlive: 00000000
+  SyncLock: 01010101
 --- !u!1 &2017527197
 GameObject:
   m_ObjectHideFlags: 0

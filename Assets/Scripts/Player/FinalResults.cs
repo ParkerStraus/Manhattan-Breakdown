@@ -32,7 +32,7 @@ public class FinalResults : MonoBehaviourPunCallbacks
     }
     public void RestartGame()
     {
-        FindObjectOfType<RoomManager>().RestartGame();
+        FindObjectOfType<OnlineGameCoordinator>().RestartGame();
     }
 
 
