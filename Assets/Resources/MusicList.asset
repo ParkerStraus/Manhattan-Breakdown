@@ -32,4 +32,14 @@ MonoBehaviour:
     music_loop: {fileID: 8300000, guid: 47eabe3acba2917488715ffbf912e2a9, type: 3}
     Title: FreeFall
     Artist: Power Glove
+    AlbumArt: {fileID: 0}
+  - music_intro: {fileID: 8300000, guid: 49e436235872dcf40af3652190fabdf3, type: 3}
+    music_loop: {fileID: 8300000, guid: a13ebf4c1feb12e4495e375cab239f8d, type: 3}
+    Title: Studio 45
+    Artist: Parker Straus
+    AlbumArt: {fileID: 0}
+  - music_intro: {fileID: 8300000, guid: ea07870ef6c8fe944b5b168606576813, type: 3}
+    music_loop: {fileID: 8300000, guid: d6b8795265afa9143b212043ea2c1b8c, type: 3}
+    Title: Flat Iron Massacre
+    Artist: Parker Straus
     AlbumArt: {fileID: 21300000, guid: c048978148ab1074bb6c280941df45a7, type: 3}
