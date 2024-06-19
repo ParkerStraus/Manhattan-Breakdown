@@ -1340,6 +1340,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mixer: {fileID: 24100000, guid: d2f0736eec432d14da4dc2d55553669b, type: 2}
   DisplayName: {fileID: 6824122211253267635}
+  MusicBar: {fileID: 6390491222536113327}
+  SoundBar: {fileID: 3744179288184366649}
 --- !u!1 &5055866166975685101
 GameObject:
   m_ObjectHideFlags: 0

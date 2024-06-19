@@ -27,6 +27,8 @@ public class MusicHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        mixer.SetFloat("MusicMaster", Mathf.Log10(Mathf.Lerp(0.001f, 1, PlayerPrefs.GetFloat("Set_Music", 1))));
+        mixer.SetFloat("SoundMaster", Mathf.Log10(Mathf.Lerp(0.001f, 1, PlayerPrefs.GetFloat("Set_Sound", 1))));
         musicSelector = Resources.Load<MusicSelector>("MusicList");
         if (StartMusicNow)
         {
