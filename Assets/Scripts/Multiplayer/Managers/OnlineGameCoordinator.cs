@@ -23,6 +23,7 @@ public class OnlineGameCoordinator : MonoBehaviourPunCallbacks
 
     public void Awake()
     {
+        playerManager.Clear();
         arenaList = Resources.Load<ArenaList>("ArenaList");
         instance = this;
     }

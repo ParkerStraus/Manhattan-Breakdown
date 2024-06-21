@@ -24,11 +24,13 @@ public class Options : MonoBehaviour
     {
         PlayerPrefs.SetFloat("Set_Music", value);
         mixer.SetFloat("MusicMaster", Mathf.Log10(Mathf.Lerp(0.001f,1,value)) * 20);
+        print(value);
     }
     public void SetSound(float value)
     {
         PlayerPrefs.SetFloat("Set_Sound", value);
         mixer.SetFloat("SoundMaster", Mathf.Log10(Mathf.Lerp(0.001f, 1, value)) * 20);
+        print(value);
     }
 
     

@@ -17,12 +17,33 @@ public class LobbyHandler : MonoBehaviourPunCallbacks
     [SerializeField]
     private TMP_Text RoomTitle;
 
+    public void Awake()
+    {
+        if (PhotonNetwork.InRoom)
+        {
+            SetInRoom(true);
+        }
+    }
+
     void SetInRoom(bool inRoom)
     {
         if(inRoom)
         {
             CreateOrJoinLobby.SetActive(false);
             CurrentRoomLobby.SetActive(true);
+
+            RoomTitle.text = PhotonNetwork.CurrentRoom.Name;
+            print(PhotonNetwork.PlayerList);
+
+            //Disable start game if not host
+            if (PhotonNetwork.IsMasterClient)
+            {
+                StartGameButton.SetActive(true);
+            }
+            else
+            {
+                StartGameButton.SetActive(false);
+            }
         }
         else
         {
@@ -34,18 +55,6 @@ public class LobbyHandler : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         SetInRoom(true);
-        RoomTitle.text = PhotonNetwork.CurrentRoom.Name;
-            print(PhotonNetwork.PlayerList);
-
-        //Disable start game if not host
-        if (PhotonNetwork.IsMasterClient)
-        {
-            StartGameButton.SetActive(true);
-        }
-        else
-        {
-            StartGameButton.SetActive(false);
-        }
         base.OnJoinedRoom();
     }
 

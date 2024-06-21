@@ -28,11 +28,16 @@ public class FinalResults : MonoBehaviourPunCallbacks
 
     public void ReturnToLobby()
     {
-        FindObjectOfType<RoomManager>().BackToLobby();
+        RoomManager.instance.BackToLobby();
     }
     public void RestartGame()
     {
         FindObjectOfType<OnlineGameCoordinator>().RestartGame();
+    }
+
+    public void ExitToLobby()
+    {
+
     }
 
 

@@ -7,6 +7,7 @@ using UnityEngine;
 public class TestConnect : MonoBehaviourPunCallbacks
 {
     [SerializeField] private MasterManager _MasterManager;
+    public static bool Connected = false;
     public GameObject LoadingScreen;
     // Start is called before the first frame update
     void Start()
@@ -15,6 +16,10 @@ public class TestConnect : MonoBehaviourPunCallbacks
         PhotonNetwork.NickName = MasterManager.GameSettings.Nickname;
         PhotonNetwork.GameVersion = MasterManager.GameSettings.GameVersion;
         PhotonNetwork.ConnectUsingSettings();
+        if (Connected)
+        {
+            LoadingScreen.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -23,7 +28,7 @@ public class TestConnect : MonoBehaviourPunCallbacks
         print("Connected to server");
         print (PhotonNetwork.LocalPlayer.NickName);
         print(PhotonNetwork.GameVersion);
-
+        Connected = true;
         PhotonNetwork.JoinLobby();
         LoadingScreen.SetActive(false);
         PhotonNetwork.AutomaticallySyncScene = true;
@@ -31,6 +36,7 @@ public class TestConnect : MonoBehaviourPunCallbacks
 
     public override void OnDisconnected(DisconnectCause cause)
     {
+        Connected = false;
         print("Disconnedcted from server for reason" + cause.ToString());
         
     }

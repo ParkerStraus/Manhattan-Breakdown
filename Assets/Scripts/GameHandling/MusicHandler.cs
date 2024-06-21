@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class MusicHandler : MonoBehaviour
@@ -27,14 +28,21 @@ public class MusicHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mixer.SetFloat("MusicMaster", Mathf.Log10(Mathf.Lerp(0.001f, 1, PlayerPrefs.GetFloat("Set_Music", 1))));
-        mixer.SetFloat("SoundMaster", Mathf.Log10(Mathf.Lerp(0.001f, 1, PlayerPrefs.GetFloat("Set_Sound", 1))));
+        float music = PlayerPrefs.GetFloat("Set_Music", 1f);
+        float sound = PlayerPrefs.GetFloat("Set_Sound", 1f);
+        print("Sound settings: " + music + " " + sound);
+        mixer.SetFloat("MusicMaster", Mathf.Log10(Mathf.Lerp(0.001f, 1, music)) * 20);
+        mixer.SetFloat("SoundMaster", Mathf.Log10(Mathf.Lerp(0.001f, 1, sound)) * 20);
+        if (ResetFilters) TriggerSnapshot(0, 0.0f);
         musicSelector = Resources.Load<MusicSelector>("MusicList");
         if (StartMusicNow)
         {
             StartMusic();
         }
-        if (ResetFilters) TriggerSnapshot(0, 0.0f);
+    }
+
+    private void ResetFilter()
+    {
     }
 
     // Update is called once per frame

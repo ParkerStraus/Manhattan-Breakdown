@@ -49,9 +49,9 @@ public class PauseMenu : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    void ExitGame()
+    public void ExitGame()
     {
-
+        RoomManager.instance.BackToLobby();
     }
 
     public void ExitToDesktop()

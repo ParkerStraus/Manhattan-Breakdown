@@ -10,18 +10,16 @@ public class RoomManager : MonoBehaviourPunCallbacks
     #region Connection Stuff
 
     public static RoomManager instance;
-    public PhotonView PV;
 
     private void Awake()
     {
-        if (instance != null)
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
             return;
         }
-        DontDestroyOnLoad(gameObject);
-        PV = GetComponent<PhotonView>();
         instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     public override void OnEnable()
@@ -53,7 +51,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public void BackToLobby()
     {
         if (PhotonNetwork.IsMasterClient) PhotonNetwork.CurrentRoom.IsVisible = true;
-        PV.RPC("BackToLobbyRPC", RpcTarget.Others);
+        photonView.RPC("BackToLobbyRPC", RpcTarget.Others);
         SceneManager.LoadScene("Lobby");
     }
 
@@ -79,18 +77,17 @@ public class RoomManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.CurrentRoom.PlayerCount <= 1)
         {
             Debug.Log("Only one player remaining or all players disconnected. Bringing everyone back to the lobby.");
-            photonView.RPC("ReturnToLobbyRPC", RpcTarget.All);
+            photonView.RPC("DisconnectToLobbyRPC", RpcTarget.All);
         }
     }
 
     [PunRPC]
-    public void ReturnToLobbyRPC()
+    public void DisconnectToLobbyRPC()
     {
+        if (SceneManager.GetActiveScene().name == "Lobby") return;
         PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene("Lobby");
     }
 
     #endregion
-
-
 }
