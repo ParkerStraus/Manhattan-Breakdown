@@ -66,15 +66,6 @@ public class FinalResults : MonoBehaviourPunCallbacks
                 Scores[i].text = (rankedScores[i][1]).ToString();
             }
         }
-        if (PhotonNetwork.IsMasterClient)
-        {
-            MasterStuff.SetActive(true);
-            NotMasterStuff.SetActive(false);
-        }
-        else
-        {
-            MasterStuff.SetActive(false);
-            NotMasterStuff.SetActive(true);
-        }
+        MasterStuff.SetActive(true);
     }
 }

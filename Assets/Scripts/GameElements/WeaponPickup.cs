@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Photon.Pun;
 
-public class WeaponPickup : MonoBehaviourPunCallbacks
+public class WeaponPickup : GameElement
 {
     private PhotonView PV;
 

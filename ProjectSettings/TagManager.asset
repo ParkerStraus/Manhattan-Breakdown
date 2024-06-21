@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SpawnPoint
   - Particles
+  - PlayerManager
   layers:
   - Default
   - TransparentFX

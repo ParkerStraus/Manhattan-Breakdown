@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public abstract class IForceObject : MonoBehaviourPunCallbacks
+public abstract class IForceObject : GameElement
 {
     [SerializeField] protected Vector2 MoveForce;
     [SerializeField] protected float InertTime;

@@ -45,6 +45,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         if (SceneManager.GetActiveScene().name == "Lobby") return;
+        DeleteAllOBj();
         SceneManager.LoadScene("Lobby");
     }
 
@@ -52,6 +53,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient) PhotonNetwork.CurrentRoom.IsVisible = true;
         photonView.RPC("BackToLobbyRPC", RpcTarget.Others);
+        DeleteAllOBj();
         SceneManager.LoadScene("Lobby");
     }
 
@@ -59,6 +61,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public void BackToLobbyRPC()
     {
         if (PhotonNetwork.IsMasterClient) PhotonNetwork.CurrentRoom.IsVisible = true;
+        DeleteAllOBj();
         SceneManager.LoadScene("Lobby");
     }
 
@@ -86,7 +89,22 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         if (SceneManager.GetActiveScene().name == "Lobby") return;
         PhotonNetwork.LeaveRoom();
+        DeleteAllOBj();
         SceneManager.LoadScene("Lobby");
+    }
+
+    public void DeleteAllOBj()
+    {
+        GameElement[] elements = GameObject.FindObjectsOfType<GameElement>();
+        PlayerManager[] pm = GameObject.FindObjectsOfType<PlayerManager>();
+        foreach(GameElement p in elements)
+        {
+            Destroy(p.gameObject);
+        }
+        foreach(PlayerManager player in pm)
+        {
+            Destroy(player.gameObject);
+        }
     }
 
     #endregion

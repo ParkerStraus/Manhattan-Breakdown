@@ -237,17 +237,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
         yield return new WaitForSeconds(0.1f);
 
         //Delete Leftover Players
-        Player[] players = GameObject.FindObjectsOfType<Player>();
-        for (int i = 0; i < players.Length; i++)
+        GameElement[] objs = GameObject.FindObjectsOfType<GameElement>();
+        for (int i = 0; i < objs.Length; i++)
         {
-            Destroy(players[i].gameObject);
-        }
-
-        //Delete leftover Gun Objects
-        WeaponPickup[] guns = GameObject.FindObjectsOfType<WeaponPickup>();
-        for (int i = 0; i < guns.Length; i++)
-        {
-            Destroy(guns[i].gameObject);
+            objs[i].DestroyObject();
         }
 
         OnlineGameCoordinator.instance.PlayerNowInTransition(PhotonNetwork.LocalPlayer.ActorNumber - 1);

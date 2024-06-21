@@ -4,7 +4,7 @@ using Unity.Burst.CompilerServices;
 using UnityEngine;
 using Photon.Pun;
 
-public class ExplosiveEntity : MonoBehaviourPunCallbacks, IDamageable
+public class ExplosiveEntity : GameElement, IDamageable
 {
     [SerializeField] private float Health;
     [SerializeField] private float damage;
