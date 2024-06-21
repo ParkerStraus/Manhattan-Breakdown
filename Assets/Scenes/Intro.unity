@@ -701,12 +701,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PV: {fileID: 1967688846}
-  CurrentArena: 
+  CurrentArena: sdfg
   LastArenas: []
   arenaList: {fileID: 11400000, guid: cbb6c654234a2ff4092b23973d148a30, type: 2}
   points: ffffffffffffffffffffffffffffffff
   Spawnpoints: []
-  playerManager: []
+  playerManager:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   playersAlive: 00000000
   SyncLock: 01010101
 --- !u!1 &2053675045

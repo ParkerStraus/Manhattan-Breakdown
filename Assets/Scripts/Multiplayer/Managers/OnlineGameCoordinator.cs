@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
+using System;
 
 public class OnlineGameCoordinator : MonoBehaviourPunCallbacks
 {
@@ -17,15 +18,25 @@ public class OnlineGameCoordinator : MonoBehaviourPunCallbacks
 
     //Game
     [SerializeField] private GameObject[] Spawnpoints;
-    [SerializeField] private List<PlayerManager> playerManager = new List<PlayerManager>();
+    [SerializeField] private List<PlayerManager> playerManager = new List<PlayerManager> ();
     [SerializeField] private bool[] playersAlive = new bool[] { false, false, false, false };
     [SerializeField] private bool[] SyncLock = { true, true, true, true };
 
     public void Awake()
     {
-        playerManager.Clear();
         arenaList = Resources.Load<ArenaList>("ArenaList");
         instance = this;
+    }
+
+    public void GamePrep()
+    {
+        print("Game Started anew");
+        UnloadArena();
+        playerManager = new List<PlayerManager>();
+        for (int i = 0; i < points.Length; i++)
+        {
+            points[i] = -1;
+        }
     }
 
     public void RegisterPlayerManager(PlayerManager pm)
@@ -278,6 +289,19 @@ public class OnlineGameCoordinator : MonoBehaviourPunCallbacks
             SpawnPlayers();
         }
 
+    }
+
+    public void UnloadArena()
+    {
+        if (CurrentArena != "")
+        {
+            try { SceneManager.UnloadScene(CurrentArena); }
+            catch(Exception e)
+            {
+                Debug.Log(e);
+            }
+            CurrentArena = "";
+        }
     }
 
 
