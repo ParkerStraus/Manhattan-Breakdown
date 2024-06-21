@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class MusicHandler : MonoBehaviour
 {
+    public static MusicHandler Instance;
     public bool StartMusicNow;
     public bool ResetFilters;
     public AudioSource musicSource;
@@ -28,6 +29,7 @@ public class MusicHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Instance = this;
         float music = PlayerPrefs.GetFloat("Set_Music", 1f);
         float sound = PlayerPrefs.GetFloat("Set_Sound", 1f);
         print("Sound settings: " + music + " " + sound);

@@ -6,6 +6,7 @@ using Photon.Pun;
 
 public class PlayerAudio : MonoBehaviourPunCallbacks
 {
+    public static PlayerAudio localInstance;
     public PhotonView PV;
     public AudioSource ac;
     public AudioClip[] footsteps;
@@ -15,6 +16,7 @@ public class PlayerAudio : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+        if(photonView.IsMine) localInstance = this;
         ac = GetComponent<AudioSource>();
         Sounds = Resources.Load<AssetDictionary>("PlayerSounds");
         PV = GetComponent<PhotonView>();

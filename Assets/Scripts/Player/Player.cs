@@ -23,6 +23,7 @@ public class Player : IForceObject, IDamageable
 {
 
     [Header("Game Components")]
+    public static Player localInstance;
     [SerializeField] public IGameHandler gh;
     [SerializeField] private PlayerAudio pAud;
     [SerializeField] private PlayerAnimation anim;
@@ -78,6 +79,7 @@ public class Player : IForceObject, IDamageable
         FOV = GameObject.Find("FieldOfView").GetComponent<FieldOfView>();
         if(PV.IsMine)
         {
+            localInstance = this;
             FOV.SetEnabledFOV(true);
         }
         else

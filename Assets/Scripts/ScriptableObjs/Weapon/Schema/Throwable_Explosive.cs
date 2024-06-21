@@ -24,7 +24,6 @@ public class Throwable_Explosive : Throwable
     public override void Initialize()
     {
         CookTimer_Current = CookTimer;
-        em = GameObject.Find("Main Camera").GetComponent<EffectsManager>();
     }
 
     public bool Use_Grenade(UnityEngine.Transform attackPoint, PlayerAudio ac, GameObject player)

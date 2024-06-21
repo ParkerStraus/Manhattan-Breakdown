@@ -3745,7 +3745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartMusicNow: 0
-  ResetFilters: 1
+  ResetFilters: 0
   musicSource: {fileID: 932999062}
   musicStart: {fileID: 8300000, guid: 228eb4c3053919c43ae6fb7f77e1b0fe, type: 3}
   mixer: {fileID: 24100000, guid: d2f0736eec432d14da4dc2d55553669b, type: 2}

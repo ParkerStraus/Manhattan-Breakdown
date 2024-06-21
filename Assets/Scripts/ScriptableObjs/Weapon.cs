@@ -42,7 +42,6 @@ public abstract class Weapon : ScriptableObject, IWeapon
 
 
     [Header("Aesthetic stuff here")]
-    public PlayerAudio ac;
     public Sprite floorImage;
     public Sprite[] HeldImages;
     public int audio_gunshot;
@@ -50,7 +49,6 @@ public abstract class Weapon : ScriptableObject, IWeapon
     public int audio_impact;
     public int audio_equip;
     public GameObject Impact;
-    public EffectsManager em;
 
     public abstract void Initialize();
 
@@ -58,7 +56,7 @@ public abstract class Weapon : ScriptableObject, IWeapon
 
     public void KillConfirm(GameObject player)
     {
-        player.SendMessage("KillConfirmed");
+        PlayerAudio.localInstance.PlaySoundClient_AudioClip(PlayerAudio.localInstance.KillConfirm_snd);
     }
 
     public void CreateParticle(GameObject particles, RaycastHit2D point)
@@ -88,7 +86,7 @@ public abstract class Weapon : ScriptableObject, IWeapon
     public void PlaySound(int clipIndex)
     {
 
-        ac.PlaySound(clipIndex, 0.2f);
+        PlayerAudio.localInstance.PlaySound(clipIndex, 0.2f);
     }
 }
 

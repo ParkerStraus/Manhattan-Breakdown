@@ -7,11 +7,13 @@ using UnityEngine.Diagnostics;
 
 public class EffectsManager : MonoBehaviourPunCallbacks
 {
+    public static EffectsManager instance;
     public PhotonView PV;
     public TrailRenderer TrailRenderer;
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
         PV = GetComponent<PhotonView>();
     }
 

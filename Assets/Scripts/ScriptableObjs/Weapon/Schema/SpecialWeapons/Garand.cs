@@ -13,8 +13,6 @@ public class Garand : Gun
 
     public override int UseWeapon(UnityEngine.Transform attackPoint, PlayerAudio ac, GameObject player)
     {
-        this.ac = ac;
-        em = player.GetComponent<EffectsManager>();
 
         if(NextBulletReady = false && AttackTimer >= AttackRate)
         {
@@ -46,7 +44,7 @@ public class Garand : Gun
 
     public void GarandPing(UnityEngine.Transform attackPoint)
     {
-        ac.PlaySound_Disconnected(Audio_Ping);
+        PlayerAudio.localInstance.PlaySound_Disconnected(Audio_Ping);
     }
 
 

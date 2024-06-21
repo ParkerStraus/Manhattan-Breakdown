@@ -41,8 +41,6 @@ public class Gun : Weapon
 
     public override int UseWeapon(UnityEngine.Transform attackPoint, PlayerAudio ac, GameObject player)
     {
-        this.ac = ac;
-        em = player.GetComponent<EffectsManager>();
 
         if(NextBulletReady = false && AttackTimer >= AttackRate)
         {
@@ -131,7 +129,7 @@ public class Gun : Weapon
         if (CurrentAmmo > 0)
         {
             CurrentAmmo--;
-            ac.PlaySound(audio_gunshot, 0.2f);
+            PlayerAudio.localInstance.PlaySound(audio_gunshot, 0.2f);
             GameObject.Find("VirCam").GetComponent<VirCamStuff>().Shake(0.9f, 1.5f, 0.2f, 0f);
             //Debug.Log(attackPoint.rotation.eulerAngles.z);
             Debug.DrawRay(attackPoint.position,
@@ -154,13 +152,13 @@ public class Gun : Weapon
                     //CreateParticle(obj.GetImpactEffect(), hit);
                     obj.CreateImpact(hit);
                 }
-                em.Tracer(hit, attackPoint);
+                EffectsManager.instance.Tracer(hit, attackPoint);
                 Hitted = true;
                 break;
             }
             if(!Hitted)
             {
-                em.Tracer(Quaternion.Euler(0, 0, attackPoint.rotation.eulerAngles.z) * Vector3.right * 20 + attackPoint.position, attackPoint);
+                EffectsManager.instance.Tracer(Quaternion.Euler(0, 0, attackPoint.rotation.eulerAngles.z) * Vector3.right * 20 + attackPoint.position, attackPoint);
             }
             if (CurrentAmmo == 0)
             {
@@ -174,7 +172,7 @@ public class Gun : Weapon
         if (CurrentAmmo > 0)
         {
             CurrentAmmo--;
-            ac.PlaySound(audio_gunshot, 0.2f);
+            PlayerAudio.localInstance.PlaySound(audio_gunshot, 0.2f);
             GameObject.Find("VirCam").GetComponent<VirCamStuff>().Shake(0.9f, 1.5f, 0.2f, 0f);
             //Debug.Log(attackPoint.rotation.eulerAngles.z);
             Debug.DrawRay(attackPoint.position,
@@ -199,7 +197,7 @@ public class Gun : Weapon
                         obj.CreateImpact(hit);
                         //CreateParticle(obj.GetImpactEffect(), hit);
                     }
-                    em.Tracer(hit, attackPoint);
+                    EffectsManager.instance.Tracer(hit, attackPoint);
                     break;
                 }
             }

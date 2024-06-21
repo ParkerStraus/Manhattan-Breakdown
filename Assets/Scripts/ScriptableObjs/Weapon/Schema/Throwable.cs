@@ -24,7 +24,6 @@ public class Throwable : Weapon
     }
     public override void Initialize()
     {
-        em = GameObject.Find("Main Camera").GetComponent<EffectsManager>();
     }
 
     public override string GetAmmoString()

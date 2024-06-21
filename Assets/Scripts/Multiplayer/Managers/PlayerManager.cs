@@ -153,10 +153,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
     {
         PV = GetComponent<PhotonView>();
         if (!PV.IsMine) return;
-        musicHand.PlayRandomSong();
+        MusicHandler.Instance.PlayRandomSong();
         StartScreen.GetComponent<StartScreen>().anim.SetTrigger("Start");
         //Start Animation of players
-        musicHand.TriggerSnapshot(1, 0.01f);
+        MusicHandler.Instance.TriggerSnapshot(1, 0.01f);
         Debug.Log("Now starting game");
         //Load Level
         CanThePlayerDoStuff = false;
@@ -173,9 +173,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
     public IEnumerator StartGame_phase2Routine()
     {
         StartScreen.GetComponent<StartScreen>().anim.SetTrigger("Finish");
-        musicHand.TriggerSnapshot(0, 1f);
+        MusicHandler.Instance.TriggerSnapshot(0, 1f);
         yield return new WaitForSeconds(0.5f);
-        musicHand.ShowSongInfo();
+        MusicHandler.Instance.ShowSongInfo();
         yield return new WaitForSeconds(2f + (27f/60f));
         StartScreen.GetComponent<StartScreen>().HideScreen();
     }
@@ -226,7 +226,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
     public IEnumerator NextRoundStuff()
     {
         Debug.Log("Next Round Starting");
-        musicHand.TriggerSnapshot(1, 0.5f);
+        MusicHandler.Instance.TriggerSnapshot(1, 0.5f);
 
         yield return new WaitForSeconds(1);
         UpdateMainUI(2, null);
@@ -249,7 +249,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
         _ScoreBoard.UpdateScoreboard();
 
         yield return new WaitForSeconds(2f);
-        musicHand.TriggerSnapshot(0, 0.5f);
+        MusicHandler.Instance.TriggerSnapshot(0, 0.5f);
         while (true)
         {
             if (CanIReturnToGame)
@@ -301,7 +301,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
         //Disable move for player
         CanThePlayerDoStuff = false;
         //Fade out music
-        musicHand.TriggerSnapshot(1, 2f);
+        MusicHandler.Instance.TriggerSnapshot(1, 2f);
 
         yield return new WaitForSeconds(3);
         //Set Final Scoreboard and display
