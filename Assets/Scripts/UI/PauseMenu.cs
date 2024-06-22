@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class PauseMenu : MonoBehaviour
 {
-
+    public static PauseMenu instance;
     [SerializeField] bool Paused = false;
     public GameObject UI;
     public UnityEvent OnPause;
@@ -14,7 +14,7 @@ public class PauseMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        instance = this;
     }
 
     // Update is called once per frame

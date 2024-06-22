@@ -115,9 +115,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   pAud: {fileID: 3537109571706422909}
   anim: {fileID: -442989624983559690}
-  pauseMenu: {fileID: 0}
   PV: {fileID: 0}
-  mainUI: {fileID: 0}
   offline: 0
   Position:
     m_InternalValue: {x: 0, y: 0}
@@ -142,7 +140,6 @@ MonoBehaviour:
     m_Bits: 256
   pickupRadius: 1
   pickupPrefab: {fileID: 1726320929415071596, guid: c32e38efab784d44d9c352d94aac5409, type: 3}
-  FOV: {fileID: 0}
   impactEffect: {fileID: 2085389234366473006, guid: c1f4380d80f237c4bb581a54ca90b5ef, type: 3}
 --- !u!114 &-442989624983559690
 MonoBehaviour:

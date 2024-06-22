@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FieldOfView : MonoBehaviour {
+    public static FieldOfView Instance;
 
     [SerializeField] private LayerMask layerMask;
     private Mesh mesh;
@@ -29,6 +30,7 @@ public class FieldOfView : MonoBehaviour {
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
         origin = Vector3.zero;
+        Instance = this;
     }
 
     private void LateUpdate() {

@@ -22,10 +22,10 @@ public class Garand : Gun
         //Debug.Log("Gun");
                     //Debug.Log("Now accessing Semi Auto guns");
                     if (Input.GetButtonDown("Fire1") && CurrentAmmo > 0)
-                    {
-                        if (CurrentAmmo == 1) GarandPing(attackPoint);
+        {
                         if (AttackTimer >= AttackRate)
                         {
+                            if (CurrentAmmo == 1) GarandPing(attackPoint);
                             AttackTimer = 0;
                             //Debug.Log("Bang");
                             GunShot(attackPoint, player);

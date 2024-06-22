@@ -7,6 +7,7 @@ using TMPro;
 
 public class LobbyHandler : MonoBehaviourPunCallbacks
 {
+    public static LobbyHandler Instance;
     [SerializeField]
     private GameObject CreateOrJoinLobby;
     [SerializeField]
@@ -19,13 +20,14 @@ public class LobbyHandler : MonoBehaviourPunCallbacks
 
     public void Awake()
     {
+        Instance = this;
         if (PhotonNetwork.InRoom)
         {
             SetInRoom(true);
         }
     }
 
-    void SetInRoom(bool inRoom)
+    public void SetInRoom(bool inRoom)
     {
         if(inRoom)
         {
@@ -50,6 +52,11 @@ public class LobbyHandler : MonoBehaviourPunCallbacks
             CreateOrJoinLobby.SetActive(true);
             CurrentRoomLobby.SetActive(false);
         }
+    }
+
+    public void EnableStartButton(bool enable)
+    {
+        StartGameButton.SetActive(enable);
     }
 
     public override void OnJoinedRoom()

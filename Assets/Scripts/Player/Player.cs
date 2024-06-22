@@ -27,9 +27,7 @@ public class Player : IForceObject, IDamageable
     [SerializeField] public IGameHandler gh;
     [SerializeField] private PlayerAudio pAud;
     [SerializeField] private PlayerAnimation anim;
-    [SerializeField] private PauseMenu pauseMenu;
     [SerializeField] private PhotonView PV;
-    [SerializeField] private MainUI mainUI;
     [SerializeField] private bool offline = false;
 
     [Header("Movement")]
@@ -54,7 +52,6 @@ public class Player : IForceObject, IDamageable
     [SerializeField] private LayerMask itemMask;
     [SerializeField] private float pickupRadius;
     [SerializeField] private GameObject pickupPrefab;
-    [SerializeField] private FieldOfView FOV;
 
     [SerializeField] private PlayerData _playerData;
 
@@ -72,19 +69,16 @@ public class Player : IForceObject, IDamageable
         }
         pAud = GetComponent<PlayerAudio>();
         anim = GetComponent<PlayerAnimation>();
-        pauseMenu = GameObject.Find("UI").GetComponent<PauseMenu>();
-        mainUI = GameObject.Find("MainUI").GetComponent<MainUI>();
         PV = GetComponent<PhotonView>();
         SendWeaponInfo();
-        FOV = GameObject.Find("FieldOfView").GetComponent<FieldOfView>();
         if(PV.IsMine)
         {
             localInstance = this;
-            FOV.SetEnabledFOV(true);
+            FieldOfView.Instance.SetEnabledFOV(true);
         }
         else
         {
-            FOV.SetEnabledFOV(false);
+            FieldOfView.Instance.SetEnabledFOV(false);
         }
     }
 
@@ -107,7 +101,7 @@ public class Player : IForceObject, IDamageable
         {
             return;
         }
-        if ((!pauseMenu.IsPaused())  && !Dead)
+        if ((!PauseMenu.instance.IsPaused())  && !Dead)
         {
             HandleMovement();
             HandleCombat();
@@ -118,8 +112,8 @@ public class Player : IForceObject, IDamageable
             MoveRealized = Vector2.Lerp(MoveRealized, Vector2.zero, MoveInterp * Time.fixedDeltaTime);
         }
         base.Update();
-        FOV.SetAimDirection(transform.rotation.eulerAngles);
-        FOV.SetOrigin(this.transform.position);
+        FieldOfView.Instance.SetAimDirection(transform.rotation.eulerAngles);
+        FieldOfView.Instance.SetOrigin(this.transform.position);
 
     }
 
@@ -328,7 +322,7 @@ public class Player : IForceObject, IDamageable
 
         }
         //Debug.Log(UIOverride);
-        mainUI.UpdateMainUI(UIOverride, value);
+        MainUI.Instance.UpdateMainUI(UIOverride, value);
     }
 
     public GameObject GetImpactEffect()

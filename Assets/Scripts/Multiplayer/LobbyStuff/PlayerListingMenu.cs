@@ -28,6 +28,19 @@ public class PlayerListingMenu : MonoBehaviourPunCallbacks
         PlayerUpdate();
     }
 
+    public override void OnMasterClientSwitched(Photon.Realtime.Player newMasterClient)
+    {
+        if (newMasterClient == PhotonNetwork.LocalPlayer)
+        {
+            LobbyHandler.Instance.EnableStartButton(true);
+        }
+        else
+        {
+
+            LobbyHandler.Instance.EnableStartButton(false);
+        }
+    }
+
     public void PlayerUpdate()
     {
         // Create a list to hold the players sorted by ActorNumber
@@ -61,7 +74,6 @@ public class PlayerListingMenu : MonoBehaviourPunCallbacks
             PlayerNames[i].text = "";
             i++;
         }
-
 
     }
 

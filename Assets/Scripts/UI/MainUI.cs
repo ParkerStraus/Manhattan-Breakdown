@@ -6,6 +6,7 @@ using UnityEngine.Rendering.Universal;
 
 public class MainUI : MonoBehaviour
 {
+    public static MainUI Instance;
     [SerializeField] private TMP_Text Title;
     [SerializeField] private TMP_Text Ammo;
     [SerializeField] private TMP_Text CountDown_Text;
@@ -15,7 +16,7 @@ public class MainUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Instance = this;
     }
 
     // Update is called once per frame
