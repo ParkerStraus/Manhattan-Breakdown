@@ -9,11 +9,11 @@ public class Throwable_Explosive : Throwable
     public bool Cooked;
     public float CookTimer;
     public float CookTimer_Current;
-    public override int UseWeapon(UnityEngine.Transform attackPoint, PlayerAudio ac, GameObject player)
+    public override int UseWeapon(UnityEngine.Transform attackPoint, GameObject player)
     {
         Debug.Log("Throwable");
 
-        bool Expended = Use_Grenade(attackPoint, ac, player);
+        bool Expended = Use_Grenade(attackPoint, player);
                 if (Expended)
                 {
                     return -1;
@@ -26,7 +26,7 @@ public class Throwable_Explosive : Throwable
         CookTimer_Current = CookTimer;
     }
 
-    public bool Use_Grenade(UnityEngine.Transform attackPoint, PlayerAudio ac, GameObject player)
+    public bool Use_Grenade(UnityEngine.Transform attackPoint, GameObject player)
     {
         if (Cooked)
         {
@@ -40,7 +40,7 @@ public class Throwable_Explosive : Throwable
             CookTimer_Current -= Time.deltaTime;
             if (CookTimer_Current <= 0)
             {
-                ac.PlaySound(audio_click, 0.2f);
+                PlayerAudio.localInstance.PlaySound(audio_click, 0.2f);
                 GameObject gre = Instantiate(ThrowableObject, attackPoint);
                 gre.GetComponent<GrenadeObj>().PrepareGrenade(damage, CookTimer_Current, player.transform.right * ThrowSpeed, SlowDownSpeed, InertTime);
                 gre.transform.parent = null;

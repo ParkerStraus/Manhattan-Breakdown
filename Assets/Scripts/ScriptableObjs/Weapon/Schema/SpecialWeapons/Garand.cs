@@ -11,7 +11,7 @@ public class Garand : Gun
     public int Audio_Ping;
     public GameObject ClipOBJ;
 
-    public override int UseWeapon(UnityEngine.Transform attackPoint, PlayerAudio ac, GameObject player)
+    public override int UseWeapon(UnityEngine.Transform attackPoint, GameObject player)
     {
 
         if(NextBulletReady = false && AttackTimer >= AttackRate)
@@ -28,14 +28,14 @@ public class Garand : Gun
                         {
                             AttackTimer = 0;
                             //Debug.Log("Bang");
-                            GunShot(attackPoint, ac, player);
+                            GunShot(attackPoint, player);
                             player.GetComponent<Player>().SendWeaponInfo();
                             NextBulletReady = false;
                         }
                     }
         else
         {
-            if (Input.GetButtonDown("Fire1")) ac.PlaySound(audio_click);
+            if (Input.GetButtonDown("Fire1")) PlayerAudio.localInstance.PlaySound(audio_click);
         }
 
         AttackTimer += Time.deltaTime;

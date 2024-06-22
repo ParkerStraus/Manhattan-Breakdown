@@ -20,7 +20,7 @@ public enum PoseType
 public interface IWeapon
 {
     void Initialize();
-    int UseWeapon(UnityEngine.Transform attackPoint, PlayerAudio ac, GameObject player);
+    int UseWeapon(UnityEngine.Transform attackPoint, GameObject player);
     // Other common methods...
 }
 
@@ -52,7 +52,7 @@ public abstract class Weapon : ScriptableObject, IWeapon
 
     public abstract void Initialize();
 
-    public abstract int UseWeapon(UnityEngine.Transform attackPoint, PlayerAudio ac, GameObject player);
+    public abstract int UseWeapon(UnityEngine.Transform attackPoint, GameObject player);
 
     public void KillConfirm(GameObject player)
     {

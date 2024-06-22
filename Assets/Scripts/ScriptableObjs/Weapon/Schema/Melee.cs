@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Weapon", menuName = "Weapon/Melee")]
 public class Melee : Weapon
 {
-    public override int UseWeapon(UnityEngine.Transform attackPoint, PlayerAudio ac, GameObject player)
+    public override int UseWeapon(UnityEngine.Transform attackPoint, GameObject player)
     {
         //Debug.Log(_firemode);
         //Swing Melee at enemies
@@ -20,8 +20,8 @@ public class Melee : Weapon
             {
                 AttackTimer = 0;
                 Debug.Log("Swoop");
-                ac.PlaySound(audio_gunshot);
-                MeleeAtk(attackPoint, ac, player);
+                PlayerAudio.localInstance.PlaySound(audio_gunshot);
+                MeleeAtk(attackPoint, player);
                 Attacking = true;
             }
         }
@@ -33,7 +33,7 @@ public class Melee : Weapon
         return 0;
     }
 
-    private void MeleeAtk(UnityEngine.Transform attackPoint, PlayerAudio ac, GameObject player)
+    private void MeleeAtk(UnityEngine.Transform attackPoint, GameObject player)
     {
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, 0.5f, ~(LayerMask.GetMask("Items")));
 
@@ -44,7 +44,7 @@ public class Melee : Weapon
                 if (hit.gameObject.GetComponent<IDamageable>() != null)
                 {
                     Debug.Log("Hit");
-                    ac.PlaySound(audio_impact);
+                    PlayerAudio.localInstance.PlaySound(audio_impact);
                     GameObject.Find("VirCam").GetComponent<VirCamStuff>().Shake(0.9f, 1.5f, 0.2f, 0f);
                     if (hit.gameObject.GetComponent<IDamageable>().Damage(damage))
                     {

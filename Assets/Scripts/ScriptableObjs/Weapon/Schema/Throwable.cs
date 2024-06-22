@@ -9,7 +9,7 @@ public class Throwable : Weapon
     public float SlowDownSpeed;
     public float InertTime;
     public GameObject ThrowableObject;
-    public override int UseWeapon(UnityEngine.Transform attackPoint, PlayerAudio ac, GameObject player)
+    public override int UseWeapon(UnityEngine.Transform attackPoint, GameObject player)
     {
         Debug.Log("Throwable");
 

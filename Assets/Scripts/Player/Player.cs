@@ -161,7 +161,7 @@ public class Player : IForceObject, IDamageable
             int result = 0;
             if (weapon != null)
             {
-                result = ((IWeapon)weapon).UseWeapon(attackPoint, pAud, this.gameObject);
+                result = ((IWeapon)weapon).UseWeapon(attackPoint, this.gameObject);
                 _playerData.poseType = weapon._poseType;
                 if (weapon.Attacking)
                 {
@@ -179,7 +179,7 @@ public class Player : IForceObject, IDamageable
             }
             else
             {
-                ((IWeapon)unhandedWeapon).UseWeapon(attackPoint, pAud, this.gameObject);
+                ((IWeapon)unhandedWeapon).UseWeapon(attackPoint, this.gameObject);
                 if (Input.GetButtonDown("Fire1"))
                 {
                     _playerData.attacking = true;

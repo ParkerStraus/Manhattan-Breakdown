@@ -9,16 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be2251e973b34414c8f4a543cbacc694, type: 3}
-  m_Name: spas
+  m_Script: {fileID: 11500000, guid: e0cced5aa36020f41b8db73b3d5df9d9, type: 3}
+  m_Name: pumpshotgun
   m_EditorClassIdentifier: 
   Attacking: 0
   _poseType: 2
-  Index: 10
-  Name: SPAS-12
+  Index: 16
+  Name: Wilhelm 8-Gauge Pump
   damage: 200
   AttackTimer: 0
-  AttackRate: 0.75
+  AttackRate: 0.5
   AttackSize: 0
   floorImage: {fileID: 21300000, guid: acdc9d5613c90594393f0d1c0b2901c3, type: 3}
   HeldImages:
@@ -28,30 +28,19 @@ MonoBehaviour:
   audio_impact: 0
   audio_equip: 0
   Impact: {fileID: 2085389234366473006, guid: 101ba8c7e6214d14e91e39f3fb5aac5c, type: 3}
-  _firemode: 3
-  MaxAmmo: 6
-  CurrentAmmo: 0
-  ConeRadius: 30
-  BurstAmount: 8
+  _firemode: 0
+  MaxAmmo: 10
+  CurrentAmmo: 10
+  ConeRadius: 40
+  BurstAmount: 0
   BurstCurrent: 0
-  BurstInterval: 0.1
-  ConeRayAmount: 5
+  BurstInterval: 0
+  ConeRayAmount: 8
   OnLastBulletFire_Event:
     m_PersistentCalls:
       m_Calls: []
-  NextBulletReady: 1
+  NextBulletReady: 0
   OnNextBulletReady:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+  SoundRack: 25

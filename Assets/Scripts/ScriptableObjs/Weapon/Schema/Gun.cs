@@ -39,7 +39,7 @@ public class Gun : Weapon
         AttackTimer = AttackRate;
     }
 
-    public override int UseWeapon(UnityEngine.Transform attackPoint, PlayerAudio ac, GameObject player)
+    public override int UseWeapon(UnityEngine.Transform attackPoint, GameObject player)
     {
 
         if(NextBulletReady = false && AttackTimer >= AttackRate)
@@ -60,7 +60,7 @@ public class Gun : Weapon
                         {
                             AttackTimer = 0;
                             //Debug.Log("Bang");
-                            GunShot(attackPoint, ac, player);
+                            GunShot(attackPoint, player);
                             player.GetComponent<Player>().SendWeaponInfo();
                             NextBulletReady = false;
                         }
@@ -74,7 +74,7 @@ public class Gun : Weapon
                         {
                             AttackTimer = 0;
                             //Debug.Log("Tacka");
-                            GunShot(attackPoint, ac, player);
+                            GunShot(attackPoint, player);
                             player.GetComponent<Player>().SendWeaponInfo();
                         }
 
@@ -91,7 +91,7 @@ public class Gun : Weapon
                                 BurstCurrent++;
                                 AttackTimer = 0;
                                 //Debug.Log("RadaTada");
-                                GunShot(attackPoint, ac, player);
+                                GunShot(attackPoint, player);
                                 player.GetComponent<Player>().SendWeaponInfo();
                             }
                         }
@@ -109,7 +109,7 @@ public class Gun : Weapon
                         {
                             AttackTimer = 0;
                             //Debug.Log("Bagoom");
-                            GunShot_Scatter(attackPoint, ac, player);
+                            GunShot_Scatter(attackPoint, player);
                             player.GetComponent<Player>().SendWeaponInfo();
                         }
                     }
@@ -118,13 +118,13 @@ public class Gun : Weapon
         }
         else
         {
-            if (Input.GetButtonDown("Fire1")) ac.PlaySoundClient(audio_click);
+            if (Input.GetButtonDown("Fire1")) PlayerAudio.localInstance.PlaySoundClient(audio_click);
         }
 
         AttackTimer += Time.deltaTime;
         return 0;
     }
-    public void GunShot(UnityEngine.Transform attackPoint, PlayerAudio ac, GameObject player)
+    public void GunShot(UnityEngine.Transform attackPoint, GameObject player)
     {
         if (CurrentAmmo > 0)
         {
@@ -167,7 +167,7 @@ public class Gun : Weapon
         }
     }
 
-    public void GunShot_Scatter(UnityEngine.Transform attackPoint, PlayerAudio ac, GameObject player)
+    public void GunShot_Scatter(UnityEngine.Transform attackPoint, GameObject player)
     {
         if (CurrentAmmo > 0)
         {
