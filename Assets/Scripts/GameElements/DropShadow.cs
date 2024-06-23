@@ -37,7 +37,8 @@ public class DropShadow : MonoBehaviour
         // Update the position and rotation of the sprite's shadow with moving sprite
         shadowGameObject.transform.localPosition = transform.position + (Vector3)ShadowOffset;
         shadowGameObject.transform.localRotation = transform.localRotation;
-        
+        shadowSpriteRenderer.sortingOrder = spriteRenderer.sortingOrder - 1;
+
 
         if (spriteRenderer != null && spriteRenderer.enabled)
         {

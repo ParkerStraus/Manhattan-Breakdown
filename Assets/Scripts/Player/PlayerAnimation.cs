@@ -160,8 +160,9 @@ public class PlayerAnimation : MonoBehaviourPunCallbacks
         int spriteIndex = (int)Random.Range(0, deathSprites.Length);
 
         _sprite.sprite = deathSprites[spriteIndex];
+        _sprite.sortingOrder = 2;
 
-        PV.RPC("OnDeathRPC", RpcTarget.All, spriteIndex);
+        PV.RPC("OnDeathRPC", RpcTarget.Others, spriteIndex);
     }
 
     [PunRPC]
@@ -169,6 +170,7 @@ public class PlayerAnimation : MonoBehaviourPunCallbacks
     {
         animator.enabled = false;
         Dead = true;
+        _sprite.sortingOrder = 2;
         _sprite.sprite = deathSprites[spr];
     }
 }

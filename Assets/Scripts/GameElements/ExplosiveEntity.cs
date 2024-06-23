@@ -85,4 +85,9 @@ public class ExplosiveEntity : GameElement, IDamageable
     {
         return impactEffect;
     }
+
+    public bool GetTangible()
+    {
+        return true;
+    }
 }

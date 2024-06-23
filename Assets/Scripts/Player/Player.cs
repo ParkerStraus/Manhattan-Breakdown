@@ -28,7 +28,7 @@ public class Player : IForceObject, IDamageable
     [SerializeField] private PlayerAudio pAud;
     [SerializeField] private PlayerAnimation anim;
     [SerializeField] private PhotonView PV;
-    [SerializeField] private bool offline = false;
+
 
     [Header("Movement")]
     [SerializeField] private NetworkVariable<Vector2> Position;
@@ -59,6 +59,10 @@ public class Player : IForceObject, IDamageable
     [SerializeField] private GameObject impactEffect;
 
 
+    [Header("Debug Stuff")]
+    [SerializeField] public bool BypassOffline;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -70,9 +74,9 @@ public class Player : IForceObject, IDamageable
         pAud = GetComponent<PlayerAudio>();
         anim = GetComponent<PlayerAnimation>();
         PV = GetComponent<PhotonView>();
-        SendWeaponInfo();
         if(PV.IsMine)
         {
+            print("Setting local instance of char");
             localInstance = this;
             FieldOfView.Instance.SetEnabledFOV(true);
         }
@@ -84,7 +88,7 @@ public class Player : IForceObject, IDamageable
 
     public void SetOffline()
     {
-        offline = true;
+        BypassOffline = true;
         _playerData.offline = true;
     }
 
@@ -97,7 +101,7 @@ public class Player : IForceObject, IDamageable
     // Update is called once per frame
     void Update()
     {
-        if (!PV.IsMine && !offline) 
+        if (!PV.IsMine) 
         {
             return;
         }
@@ -209,17 +213,7 @@ public class Player : IForceObject, IDamageable
 
                 if (weapon != null)
                 {
-                    try { 
-                        GameObject wpn = PhotonNetwork.Instantiate("PhotonPrefabs/"+pickupPrefab.name, transform.position, Quaternion.identity);
-                        wpn.GetComponent<WeaponPickup>().SetupPickup(weapon);
-                        wpn.transform.parent = null;
-                    }
-                    catch
-                    {
-                        GameObject wpn = Instantiate(pickupPrefab, transform);
-                        wpn.GetComponent<WeaponPickup>().SetupPickup(weapon);
-                        wpn.transform.parent = null;
-                    }
+                    DropGun();
                 }
 
                 if (newWep != null)
@@ -235,6 +229,28 @@ public class Player : IForceObject, IDamageable
             SendWeaponInfo();
         }
         //Change Pose based on gun
+    }
+
+    private void DropGun()
+    {
+
+        try
+        {
+            GameObject wpn = PhotonNetwork.Instantiate("PhotonPrefabs/" + pickupPrefab.name, transform.position, Quaternion.identity);
+            wpn.GetComponent<WeaponPickup>().SetupPickup(weapon);
+            wpn.transform.parent = null;
+        }
+        catch
+        {
+            GameObject wpn = Instantiate(pickupPrefab, transform);
+            wpn.GetComponent<WeaponPickup>().SetupPickup(weapon);
+            wpn.transform.parent = null;
+        }
+    }
+
+    public void DeleteGun()
+    {
+        weapon = null;
     }
 
     [PunRPC] public void SetWeaponSpriteRPC(int weapon)
@@ -279,6 +295,12 @@ public class Player : IForceObject, IDamageable
         return false;
     }
 
+
+    public bool GetTangible()
+    {
+        return !Dead;
+    }
+
     [PunRPC]
     public void SetHealth(float Health)
     {
@@ -293,6 +315,7 @@ public class Player : IForceObject, IDamageable
 
         if (PV.IsMine)
         {
+            if(weapon != null)DropGun();
             Debug.Log("dead now");
             gh.OnKill(0);
         }

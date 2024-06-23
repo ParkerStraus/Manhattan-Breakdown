@@ -143,7 +143,7 @@ public class Gun : Weapon
 
                 Instantiate(Impact, hit.point, Quaternion.LookRotation(hit.normal, Vector3.left));
                 IDamageable obj = hit.collider.gameObject.GetComponent<IDamageable>();
-                if (obj != null)
+                if (obj != null && obj.GetTangible())
                 {
                     if (obj.Damage(damage))
                     {

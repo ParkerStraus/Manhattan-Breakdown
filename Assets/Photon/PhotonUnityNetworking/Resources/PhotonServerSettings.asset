@@ -88,6 +88,7 @@ MonoBehaviour:
   - PlaySound_DisconnectedRPC
   - DisconnectToLobbyRPC
   - DestroyObjectRPC
+  - InjectBurningRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

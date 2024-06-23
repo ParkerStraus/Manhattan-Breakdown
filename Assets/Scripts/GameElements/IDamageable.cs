@@ -21,6 +21,11 @@ public interface IDamageable
         return;
     }
 
+    bool GetTangible()
+    {
+        return true;
+    }
+
 }
 
 
