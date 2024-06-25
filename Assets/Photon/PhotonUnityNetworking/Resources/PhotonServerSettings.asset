@@ -89,6 +89,7 @@ MonoBehaviour:
   - DisconnectToLobbyRPC
   - DestroyObjectRPC
   - InjectBurningRPC
+  - SetBurnEnabled
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

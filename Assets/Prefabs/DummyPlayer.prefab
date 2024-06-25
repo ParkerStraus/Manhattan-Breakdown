@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 647319380409035431}
   - component: {fileID: -3305735741596666255}
   - component: {fileID: 1556402670665577477}
+  - component: {fileID: 2425496674499103324}
+  - component: {fileID: 5037364810802254051}
   m_Layer: 6
   m_Name: DummyPlayer
   m_TagString: Player
@@ -163,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8c788915ef595c4aa6a9005505a2342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 100
+  Health: 20000
   PID: 0
   ImpactEffect: {fileID: 2085389234366473006, guid: c1f4380d80f237c4bb581a54ca90b5ef, type: 3}
 --- !u!114 &1556402670665577477
@@ -179,8 +181,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShadowOffset: {x: 0.0675, y: -0.125}
-  StartOffset: {x: 0, y: 0}
   ShadowMaterial: {fileID: 2100000, guid: 9763b5aa29ef070459fabe65c717791c, type: 2}
+--- !u!114 &2425496674499103324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960366418344800116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f09c8e67adde7c145a39e3ed90d898a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBurning: 0
+  Burnable: 1
+  timeBlinded: 0
+  Blindable: 1
+--- !u!114 &5037364810802254051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960366418344800116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &3303841168001822170
 GameObject:
   m_ObjectHideFlags: 0

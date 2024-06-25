@@ -9,6 +9,8 @@ public class EffectableObject : MonoBehaviourPunCallbacks, IInGameEffects
     public float Time_Burning { get { return timeBurning; } set { timeBurning = value; } }
     [SerializeField] private float timeBurning;
     public bool Burnable;
+    public GameObject BurnParticles;
+    public GameObject BurnParticlesOBJ;
     private float timeToDamage_Burning;
     public float Time_Blinded { get { return timeBlinded; } set { timeBlinded = value; } }
     [SerializeField] private float timeBlinded;
@@ -25,6 +27,10 @@ public class EffectableObject : MonoBehaviourPunCallbacks, IInGameEffects
         {
             Time_Burning -= Time.deltaTime;
             Time_Blinded -= Time.deltaTime;
+            if(BurnParticlesOBJ != null)
+            {
+                photonView.RPC("SetBurnEnabled", RpcTarget.All, false);
+            }
             if (Time_Burning > 0)
             {
                 timeToDamage_Burning += Time.deltaTime;
@@ -39,6 +45,10 @@ public class EffectableObject : MonoBehaviourPunCallbacks, IInGameEffects
 
     public void InjectBurning(float time)
     {
+        if (PhotonNetwork.OfflineMode)
+        {
+            InjectBurningRPC(time);
+        }
         if(Burnable) photonView.RPC("InjectBurning", RpcTarget.All, time);
     }
 
@@ -47,11 +57,25 @@ public class EffectableObject : MonoBehaviourPunCallbacks, IInGameEffects
     {
         if (Time_Burning < time && photonView.IsMine)
         {
+            photonView.RPC("SetBurnEnabled", RpcTarget.All, true);
             Time_Burning = time;
-            if (Time_Burning < 0)
+            if (Time_Burning <= 0)
             {
                 timeToDamage_Burning = 0;
             }
+        }
+    }
+
+    [PunRPC]
+    public void SetBurnEnabled(bool enabled)
+    {
+        if (enabled)
+        {
+            if(BurnParticlesOBJ == null)BurnParticlesOBJ = Instantiate(BurnParticles, this.transform);
+        }
+        else
+        {
+            Destroy(BurnParticlesOBJ);
         }
     }
 }
