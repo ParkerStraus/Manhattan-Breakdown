@@ -51,7 +51,7 @@ public class CountingGun : Gun
             GunShot(attackPoint, player);
         }
         TargetAmt = 4 - CurrentAmmo;
-        PlaySound(SoundCounting[4- CurrentAmmo]);
+        PlayerAudio.localInstance.PlaySound_Disconnected(SoundCounting[4 - CurrentAmmo]);
         GunShot(attackPoint, player);
         CountBurstTime = 0;
         Lock = true;

@@ -23,7 +23,7 @@ MonoBehaviour:
   floorImage: {fileID: 21300000, guid: 60cc22118a7df3f428d86f0b7effe89d, type: 3}
   HeldImages:
   - {fileID: 21300000, guid: f6476c00fe0404442bcf30cb0482c607, type: 3}
-  audio_gunshot: 7
+  audio_gunshot: 20
   audio_click: 4
   audio_impact: 0
   audio_equip: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
       m_Calls: []
   SoundCounting: 1a0000001b0000001c0000001d0000001e000000
   Lock: 0
-  CountBurstInterval: 0.125
+  CountBurstInterval: 0.08
   CountBurstTime: 0
   TargetAmt: 0
   TargetCount: 0
