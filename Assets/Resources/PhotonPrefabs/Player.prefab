@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 6133642070357881072}
   - component: {fileID: 3537109571706422909}
   - component: {fileID: 1896197471962708110}
+  - component: {fileID: 6803071660103407578}
   - component: {fileID: 647319380409035431}
   - component: {fileID: 6739432593623325757}
   - component: {fileID: 3535896171002120506}
@@ -117,7 +118,6 @@ MonoBehaviour:
   pAud: {fileID: 3537109571706422909}
   anim: {fileID: -442989624983559690}
   PV: {fileID: 0}
-  offline: 0
   Position:
     m_InternalValue: {x: 0, y: 0}
   Rotation:
@@ -142,6 +142,7 @@ MonoBehaviour:
   pickupRadius: 1
   pickupPrefab: {fileID: 1726320929415071596, guid: c32e38efab784d44d9c352d94aac5409, type: 3}
   impactEffect: {fileID: 2085389234366473006, guid: c1f4380d80f237c4bb581a54ca90b5ef, type: 3}
+  BypassOffline: 0
 --- !u!114 &-442989624983559690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +211,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBurning: 0
   Burnable: 1
+  BurnParticles: {fileID: 0}
+  BurnParticlesOBJ: {fileID: 0}
   timeBlinded: 0
   Blindable: 1
 --- !u!114 &3920029272071983716
@@ -261,6 +264,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 56786597d809e864c8dcf72664dca0b6, type: 3}
   KillConfirm_snd: {fileID: 8300000, guid: e1044a30b3a88804c970f05afb3b6396, type: 3}
   Sounds: {fileID: 0}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!82 &1896197471962708110
 AudioSource:
   m_ObjectHideFlags: 0
@@ -285,7 +291,7 @@ AudioSource:
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
-  BypassEffects: 1
+  BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
   rolloffCustomCurve:
@@ -343,6 +349,31 @@ AudioSource:
     m_PostInfinity: 2
     m_RotationOrder: 4
   reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!169 &6803071660103407578
+AudioLowPassFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960366418344800116}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_LowpassResonanceQ: 1
+  lowpassLevelCustomCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3

@@ -13,6 +13,8 @@ public class PlayerAudio : MonoBehaviourPunCallbacks
     public Dictionary<string, AudioClip> GunShots;
     public AudioClip KillConfirm_snd;
     public AssetDictionary Sounds;
+    private AudioLowPassFilter lowPassFilter;
+    public LayerMask wallLayer;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +22,48 @@ public class PlayerAudio : MonoBehaviourPunCallbacks
         ac = GetComponent<AudioSource>();
         Sounds = Resources.Load<AssetDictionary>("PlayerSounds");
         PV = GetComponent<PhotonView>();
+
+        lowPassFilter = GetComponent<AudioLowPassFilter>();
+        if (lowPassFilter == null)
+        {
+            lowPassFilter = gameObject.AddComponent<AudioLowPassFilter>();
+        }
+        lowPassFilter.cutoffFrequency = 22000;
+    }
+
+    private void Update()
+    {
+        if (!photonView.IsMine)
+        {
+            print("Now trying to be blocked");
+            // Perform the raycast
+            Vector2 direction = (localInstance.gameObject.transform.position - this.transform.position).normalized;
+            float distance = Vector2.Distance(this.transform.position, localInstance.gameObject.transform.position);
+
+            RaycastHit2D[] hits = Physics2D.RaycastAll(this.transform.position, direction, distance, wallLayer);
+
+            // Check if any of the hits are a wall
+            bool isBlockedByWall = false;
+            foreach (RaycastHit2D hit in hits)
+            {
+                if (hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("NonPermeable"))
+                {
+                    isBlockedByWall = true;
+                    print("Blocked by a wall");
+                    break;
+                }
+            }
+
+            // Set the low pass filter based on whether the path is blocked by a wall
+            if (isBlockedByWall)
+            {
+                lowPassFilter.cutoffFrequency = 2200; // Apply low-pass filter
+            }
+            else
+            {
+                lowPassFilter.cutoffFrequency = 22000; // Remove low-pass filter
+            }
+        }
     }
 
 
