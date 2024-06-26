@@ -153,10 +153,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IGameHandler
     {
         PV = GetComponent<PhotonView>();
         if (!PV.IsMine) return;
-        MusicHandler.Instance.PlayRandomSong();
+        GeneralScript.instance.InUI = false;
         StartScreen.GetComponent<StartScreen>().anim.SetTrigger("Start");
         //Start Animation of players
         MusicHandler.Instance.TriggerSnapshot(1, 0.01f);
+        MusicHandler.Instance.PlayRandomSong();
         Debug.Log("Now starting game");
         //Load Level
         CanThePlayerDoStuff = false;
